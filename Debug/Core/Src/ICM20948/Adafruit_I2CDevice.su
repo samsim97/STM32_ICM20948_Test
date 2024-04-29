@@ -1,0 +1,11 @@
+../Core/Inc/ICM20948\Adafruit_I2CDevice.h:34:10:size_t Adafruit_I2CDevice::maxBufferSize()	16	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:22:1:Adafruit_I2CDevice::Adafruit_I2CDevice(uint8_t)	16	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:52:6:bool Adafruit_I2CDevice::begin(bool)	16	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:65:6:void Adafruit_I2CDevice::end()	16	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:84:6:bool Adafruit_I2CDevice::detected()	16	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:121:6:bool Adafruit_I2CDevice::write(const uint8_t*, size_t, bool, const uint8_t*, size_t)	32	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:202:6:bool Adafruit_I2CDevice::read(uint8_t*, size_t, bool)	48	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:215:6:bool Adafruit_I2CDevice::_read(uint8_t*, size_t, bool)	24	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:266:6:bool Adafruit_I2CDevice::write_then_read(const uint8_t*, size_t, uint8_t*, size_t, bool)	32	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:280:9:uint8_t Adafruit_I2CDevice::address()	16	static
+../Core/Src/ICM20948/Adafruit_I2CDevice.cpp:289:6:bool Adafruit_I2CDevice::setSpeed(uint32_t)	16	static
