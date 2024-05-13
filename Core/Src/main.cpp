@@ -18,7 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "usb_host.h"
+//#include "usb_host.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -72,9 +72,7 @@ void MX_USB_HOST_Process(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-//#include "ICM20948\Adafruit_ICM20948.h"
-
-#include "Maincpp.h"
+#include "ICM20948\Adafruit_ICM20948.h"
 
 Adafruit_ICM20948 icm;
 uint16_t measurement_delay_us = 65535; // Delay between measurements for testing
@@ -153,7 +151,7 @@ int main(void)
   MX_I2S2_Init();
   MX_I2S3_Init();
   MX_SPI1_Init();
-  MX_USB_HOST_Init();
+  //MX_USB_HOST_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
@@ -180,7 +178,7 @@ int main(void)
 	  //HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
 	  //HAL_Delay(1000);
     /* USER CODE END WHILE */
-    MX_USB_HOST_Process();
+    //MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
 
