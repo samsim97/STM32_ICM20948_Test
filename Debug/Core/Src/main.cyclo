@@ -1,14 +1,15 @@
 Adafruit_ICM20948.h:79:3:Adafruit_ICM20948::~Adafruit_ICM20948()	1
-main.cpp:121:5:int main()	1
-main.cpp:214:6:void SystemClock_Config()	3
-main.cpp:259:6:void PeriphCommonClock_Config()	2
-main.cpp:280:13:void MX_I2C1_Init()	2
-main.cpp:314:13:void MX_I2S2_Init()	2
-main.cpp:348:13:void MX_I2S3_Init()	2
-main.cpp:382:13:void MX_SPI1_Init()	2
-main.cpp:419:13:void MX_USART2_UART_Init()	2
-main.cpp:452:13:void MX_GPIO_Init()	1
-main.cpp:529:6:void Error_Handler()	1
-main.cpp:538:1:void __static_initialization_and_destruction_0(int, int)	5
-main.cpp:538:1:cpp)	1
-main.cpp:538:1:cpp)	1
+main.cpp:123:5:int main()	3
+main.cpp:260:6:void SystemClock_Config()	3
+main.cpp:305:6:void PeriphCommonClock_Config()	2
+main.cpp:326:13:void MX_I2C1_Init()	2
+main.cpp:355:13:void MX_I2C3_Init()	2
+main.cpp:389:13:void MX_I2S2_Init()	2
+main.cpp:423:13:void MX_I2S3_Init()	2
+main.cpp:457:13:void MX_SPI1_Init()	2
+main.cpp:494:13:void MX_USART2_UART_Init()	2
+main.cpp:527:13:void MX_GPIO_Init()	1
+main.cpp:604:6:void Error_Handler()	1
+main.cpp:613:1:void __static_initialization_and_destruction_0(int, int)	5
+main.cpp:613:1:cpp)	1
+main.cpp:613:1:cpp)	1

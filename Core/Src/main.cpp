@@ -42,6 +42,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 I2C_HandleTypeDef hi2c1;
+I2C_HandleTypeDef hi2c3;
 
 I2S_HandleTypeDef hi2s2;
 I2S_HandleTypeDef hi2s3;
@@ -63,6 +64,7 @@ static void MX_I2S2_Init(void);
 static void MX_I2S3_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_I2C3_Init(void);
 void MX_USB_HOST_Process(void);
 
 /* USER CODE BEGIN PFP */
@@ -130,8 +132,33 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+  uint8_t rcvBufferSize = 23U;
+  uint8_t txBufferSize = 23U;
 
+  uint8_t rcvBuffer[rcvBufferSize] = {0};
+  uint8_t txBuffer[txBufferSize] = {0};
 
+  float temperature, ///< Last reading's temperature (C)
+        accX,          ///< Last reading's accelerometer X axis m/s^2
+        accY,          ///< Last reading's accelerometer Y axis m/s^2
+        accZ,          ///< Last reading's accelerometer Z axis m/s^2
+        gyroX,         ///< Last reading's gyro X axis in rad/s
+        gyroY,         ///< Last reading's gyro Y axis in rad/s
+        gyroZ,         ///< Last reading's gyro Z axis in rad/s
+        magX,          ///< Last reading's mag X axis in rad/s
+        magY,          ///< Last reading's mag Y axis in rad/s
+        magZ;          ///< Last reading's mag Z axis in rad/s
+
+  int16_t rawAccX, ///< temp variables
+        rawAccY,     ///< temp variables
+        rawAccZ,     ///< temp variables
+        rawTemp,     ///< temp variables
+        rawGyroX,    ///< temp variables
+        rawGyroY,    ///< temp variables
+        rawGyroZ,    ///< temp variables
+        rawMagX,     ///< temp variables
+        rawMagY,     ///< temp variables
+        rawMagZ;     ///< temp variables
 
   /* USER CODE END Init */
 
@@ -153,6 +180,7 @@ int main(void)
   MX_SPI1_Init();
   //MX_USB_HOST_Init();
   MX_USART2_UART_Init();
+  MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
 
   // BMP3_INTF_RET_TYPE bmp3_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr);
@@ -182,7 +210,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    int accelRange = icm.getAccelRange();
+    /*int accelRange = icm.getAccelRange();
     int gyroRange = icm.getGyroRange();
     uint16_t accel_divisor = icm.getAccelRateDivisor();
     float accel_rate = 1125 / (1.0 + accel_divisor);
@@ -197,7 +225,25 @@ int main(void)
     icm.getEvent(&accel, &gyro, &temp, &mag);
     int x = accel.acceleration.x;
     int y = accel.acceleration.y;
-    int z = accel.acceleration.z;
+    int z = accel.acceleration.z;*/
+	HAL_I2C_Master_Transmit(&hi2c3, 0x69, txBuffer, txBufferSize, 200);
+    HAL_I2C_Master_Receive(&hi2c3, 0x69, rcvBuffer, rcvBufferSize, 200);
+
+    rawAccX = rcvBuffer[0] << 8 | rcvBuffer[1];
+    rawAccY = rcvBuffer[2] << 8 | rcvBuffer[3];
+    rawAccZ = rcvBuffer[4] << 8 | rcvBuffer[5];
+
+    rawGyroX = rcvBuffer[6] << 8 | rcvBuffer[7];
+    rawGyroY = rcvBuffer[8] << 8 | rcvBuffer[9];
+    rawGyroZ = rcvBuffer[10] << 8 | rcvBuffer[11];
+
+    temperature = rcvBuffer[12] << 8 | rcvBuffer[13];
+
+    rawMagX = ((rcvBuffer[16] << 8) |
+                 (rcvBuffer[15] & 0xFF)); // Mag data is read little endian
+    rawMagY = ((rcvBuffer[18] << 8) | (rcvBuffer[17] & 0xFF));
+    rawMagZ = ((rcvBuffer[20] << 8) | (rcvBuffer[19] & 0xFF));
+
     HAL_Delay(100);
 
     // HAL_SPI_Receive(&hspi1, RX_Data, sizeof(RX_Data), 5000);
@@ -303,6 +349,35 @@ static void MX_I2C1_Init(void)
   /* USER CODE BEGIN I2C1_Init 2 */
 
   /* USER CODE END I2C1_Init 2 */
+
+}
+
+static void MX_I2C3_Init(void)
+{
+
+  /* USER CODE BEGIN I2C3_Init 0 */
+
+  /* USER CODE END I2C3_Init 0 */
+
+  /* USER CODE BEGIN I2C3_Init 1 */
+
+  /* USER CODE END I2C3_Init 1 */
+  hi2c3.Instance = I2C3;
+  hi2c3.Init.ClockSpeed = 100000;
+  hi2c3.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c3.Init.OwnAddress1 = 0;
+  hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c3.Init.OwnAddress2 = 0;
+  hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN I2C3_Init 2 */
+
+  /* USER CODE END I2C3_Init 2 */
 
 }
 
