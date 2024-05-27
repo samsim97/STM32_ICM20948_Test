@@ -74,9 +74,6 @@ void MX_USB_HOST_Process(void);
 
 //#include "ICM20948\Adafruit_ICM20948.h"
 
-#include "Maincpp.h"
-
-Adafruit_ICM20948 icm;
 uint16_t measurement_delay_us = 65535; // Delay between measurements for testing
 // For SPI mode, we need a CS pin
 #define ICM_CS 10
@@ -168,7 +165,6 @@ int main(void)
   uint8_t config_settings[] = {0x10, 0x20, 0x30}; // Example settings
   SensorAPI_I2Cx_Write(0x1E, config_settings, sizeof(config_settings), &bmp388_address);*/
 
-  icm.begin_I2C();
   //icm.writeAccelRange(1);
 
   /* USER CODE END 2 */
@@ -184,22 +180,6 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-    int accelRange = icm.getAccelRange();
-    int gyroRange = icm.getGyroRange();
-    uint16_t accel_divisor = icm.getAccelRateDivisor();
-    float accel_rate = 1125 / (1.0 + accel_divisor);
-    uint8_t gyro_divisor = icm.getGyroRateDivisor();
-    float gyro_rate = 1100 / (1.0 + gyro_divisor);
-    int magDataRate = icm.getMagDataRate();
-
-    sensors_event_t accel;
-    sensors_event_t gyro;
-    sensors_event_t mag;
-    sensors_event_t temp;
-    icm.getEvent(&accel, &gyro, &temp, &mag);
-    int x = accel.acceleration.x;
-    int y = accel.acceleration.y;
-    int z = accel.acceleration.z;
     HAL_Delay(100);
 
     // HAL_SPI_Receive(&hspi1, RX_Data, sizeof(RX_Data), 5000);

@@ -1,14 +1,14 @@
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:13:1:Adafruit_ICM20948::Adafruit_ICM20948()	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:48:6:virtual bool Adafruit_ICM20948::begin_I2C(uint8_t, int32_t)	5
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:73:6:bool Adafruit_ICM20948::auxI2CBusSetupFailed()	3
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:87:9:uint8_t Adafruit_ICM20948::getMagId()	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:92:6:bool Adafruit_ICM20948::setupMag()	6
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:144:9:uint8_t Adafruit_ICM20948::readMagRegister(uint8_t)	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:148:6:bool Adafruit_ICM20948::writeMagRegister(uint8_t, uint8_t)	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:152:6:virtual void Adafruit_ICM20948::scaleValues()	9
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:197:24:icm20948_accel_range_t Adafruit_ICM20948::getAccelRange()	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:209:6:void Adafruit_ICM20948::setAccelRange(icm20948_accel_range_t)	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:218:23:icm20948_gyro_range_t Adafruit_ICM20948::getGyroRange()	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:230:6:void Adafruit_ICM20948::setGyroRange(icm20948_gyro_range_t)	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:239:21:ak09916_data_rate_t Adafruit_ICM20948::getMagDataRate()	1
-../Core/Src/ICM20948/Adafruit_ICM20948.cpp:251:6:bool Adafruit_ICM20948::setMagDataRate(ak09916_data_rate_t)	3
+Adafruit_ICM20948.cpp:13:1:Adafruit_ICM20948::Adafruit_ICM20948()	1
+Adafruit_ICM20948.cpp:48:6:virtual bool Adafruit_ICM20948::begin_I2C(uint8_t, int32_t)	5
+Adafruit_ICM20948.cpp:73:6:bool Adafruit_ICM20948::auxI2CBusSetupFailed()	3
+Adafruit_ICM20948.cpp:87:9:uint8_t Adafruit_ICM20948::getMagId()	1
+Adafruit_ICM20948.cpp:92:6:bool Adafruit_ICM20948::setupMag()	6
+Adafruit_ICM20948.cpp:144:9:uint8_t Adafruit_ICM20948::readMagRegister(uint8_t)	1
+Adafruit_ICM20948.cpp:148:6:bool Adafruit_ICM20948::writeMagRegister(uint8_t, uint8_t)	1
+Adafruit_ICM20948.cpp:152:6:virtual void Adafruit_ICM20948::scaleValues()	9
+Adafruit_ICM20948.cpp:197:24:icm20948_accel_range_t Adafruit_ICM20948::getAccelRange()	1
+Adafruit_ICM20948.cpp:209:6:void Adafruit_ICM20948::setAccelRange(icm20948_accel_range_t)	1
+Adafruit_ICM20948.cpp:218:23:icm20948_gyro_range_t Adafruit_ICM20948::getGyroRange()	1
+Adafruit_ICM20948.cpp:230:6:void Adafruit_ICM20948::setGyroRange(icm20948_gyro_range_t)	1
+Adafruit_ICM20948.cpp:239:21:ak09916_data_rate_t Adafruit_ICM20948::getMagDataRate()	1
+Adafruit_ICM20948.cpp:251:6:bool Adafruit_ICM20948::setMagDataRate(ak09916_data_rate_t)	3
