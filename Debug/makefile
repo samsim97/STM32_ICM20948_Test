@@ -15,7 +15,6 @@ RM := rm -rf
 -include Middlewares/ST/STM32_USB_Host_Library/Class/CDC/Src/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
 -include Core/Startup/subdir.mk
--include Core/Src/ICM20948/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk
 
@@ -80,8 +79,8 @@ all: main-build
 main-build: Sirius_Test_Slave.elf secondary-outputs
 
 # Tool invocations
-Sirius_Test_Slave.elf Sirius_Test_Slave.map: $(OBJS) $(USER_OBJS) C:\Users\Samuel\Documents\GitHub\COM_Slave\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "Sirius_Test_Slave.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Samuel\Documents\GitHub\COM_Slave\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sirius_Test_Slave.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Sirius_Test_Slave.elf Sirius_Test_Slave.map: $(OBJS) $(USER_OBJS) C:\Users\Samuel\Documents\GitHub\STM32_ICM20948_Test\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "Sirius_Test_Slave.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Samuel\Documents\GitHub\STM32_ICM20948_Test\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sirius_Test_Slave.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
