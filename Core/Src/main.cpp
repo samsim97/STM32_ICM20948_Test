@@ -20,6 +20,8 @@
 #include "main.h"
 #include "usb_host.h"
 
+#include <cstring>
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -72,48 +74,21 @@ void MX_USB_HOST_Process(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-//#include "ICM20948\Adafruit_ICM20948.h"
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+/* USER CODE BEGIN 4 */
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @PAram  None
+  * @retval None
+  */
+PUTCHAR_PROTOTYPE
+{
+  /* Place your implementation of fputc here */
+  /* e.g. write a character to the USART1 and Loop until the end of transmission */
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
 
-#include "Maincpp.h"
-
-Adafruit_ICM20948 icm;
-uint16_t measurement_delay_us = 65535; // Delay between measurements for testing
-// For SPI mode, we need a CS pin
-#define ICM_CS 10
-// For software-SPI mode we need SCK/MOSI/MISO pins
-#define ICM_SCK 13
-#define ICM_MISO 12
-#define ICM_MOSI 11
-
-uint8_t RX_Data[50] = {0};
-
-uint8_t GTXBuffer[512];
-uint8_t GRXBuffer[2048];
-
-uint8_t bmp388_address = 0b1110110;
-
-/*int8_t SensorAPI_I2Cx_Read(uint8_t subaddress, uint8_t *pBuffer, uint32_t ReadNumbr, void *intf_ptr) {
-	uint8_t dev_addr = *(uint8_t*)intf_ptr;
-	uint16_t DevAddress = dev_addr << 1;
-
-	// send register address
-	HAL_I2C_Master_Transmit(&hi2c1, DevAddress, &subaddress, 1, HAL_TIMEOUT);
-	HAL_I2C_Master_Receive(&hi2c1, DevAddress, pBuffer, ReadNumbr, HAL_TIMEOUT);
-	return 0;
-}*/
-
-/*int8_t SensorAPI_I2Cx_Write(uint8_t subaddress, uint8_t *pBuffer, uint32_t WriteNumbr, void *intf_ptr) {
-	uint8_t dev_addr = *(uint8_t*)intf_ptr;
-	uint16_t DevAddress = dev_addr << 1;
-
-	GTXBuffer[0] = subaddress;
-	memcpy(&GTXBuffer[1], pBuffer, WriteNumbr);
-
-	// send register address
-	HAL_I2C_Master_Transmit(&hi2c1, DevAddress, GTXBuffer, WriteNumbr + 1, HAL_TIMEOUT);
-	return 0;
-}*/
-
+  return ch;
+}
 /* USER CODE END 0 */
 
 /**
@@ -156,51 +131,30 @@ int main(void)
   MX_USB_HOST_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
-  // BMP3_INTF_RET_TYPE bmp3_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr);
-  // BMP3_INTF_RET_TYPE bmp3_i2c_write(uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr);
-  // int8_t SensorAPI_I2Cx_Read(uint8_t subaddress, uint8_t *pBuffer, uint32_t ReadNumbr, void *intf_ptr);
-  // int8_t SensorAPI_I2Cx_Write(uint8_t subaddress, uint8_t *pBuffer, uint32_t WriteNumbr, void *intf_ptr);
-
-  /*uint8_t pressure_data[3];
-  SensorAPI_I2Cx_Read(0x1F, pressure_data, 3, &bmp388_address);
-
-  uint8_t config_settings[] = {0x10, 0x20, 0x30}; // Example settings
-  SensorAPI_I2Cx_Write(0x1E, config_settings, sizeof(config_settings), &bmp388_address);*/
-
-  icm.begin_I2C();
-  //icm.writeAccelRange(1);
-
+  //char command[] = "$PMTK314,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n";
+  //char command[] = "$GPGSA,A,3,23,29,07,08,09,18,26,28,,,,,1.94,1.18,1.54,1*0D";
+  char command[] = "$GPGGA";
+  char buffer[1024];
+  uint8_t rxBuffer[256];
+  memset(buffer, 0, sizeof(buffer));
+  memset(rxBuffer, 0, sizeof(rxBuffer));
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
-	  //HAL_Delay(1000);
+	int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, strlen(command), 5000);
+	int returnCode = HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 5000);
+	if (HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 10000) == HAL_OK) {
+	  __NOP();
+	}
     /* USER CODE END WHILE */
-    MX_USB_HOST_Process();
+	MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
 
-    int accelRange = icm.getAccelRange();
-    int gyroRange = icm.getGyroRange();
-    uint16_t accel_divisor = icm.getAccelRateDivisor();
-    float accel_rate = 1125 / (1.0 + accel_divisor);
-    uint8_t gyro_divisor = icm.getGyroRateDivisor();
-    float gyro_rate = 1100 / (1.0 + gyro_divisor);
-    int magDataRate = icm.getMagDataRate();
-
-    sensors_event_t accel;
-    sensors_event_t gyro;
-    sensors_event_t mag;
-    sensors_event_t temp;
-    icm.getEvent(&accel, &gyro, &temp, &mag);
-    int x = accel.acceleration.x;
-    int y = accel.acceleration.y;
-    int z = accel.acceleration.z;
-    HAL_Delay(100);
+	HAL_Delay(5000);
 
     // HAL_SPI_Receive(&hspi1, RX_Data, sizeof(RX_Data), 5000);
     // HAL_UART_Receive(&huart2, RX_Data, sizeof(RX_Data), 1000);
@@ -429,7 +383,7 @@ static void MX_USART2_UART_Init(void)
 
   /* USER CODE END USART2_Init 1 */
   huart2.Instance = USART2;
-  huart2.Init.BaudRate = 115200;
+  huart2.Init.BaudRate = 9600;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
   huart2.Init.StopBits = UART_STOPBITS_1;
   huart2.Init.Parity = UART_PARITY_NONE;
