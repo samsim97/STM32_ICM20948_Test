@@ -131,9 +131,9 @@ int main(void)
   MX_USB_HOST_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-  //char command[] = "$PMTK314,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n";
-  //char command[] = "$GPGSA,A,3,23,29,07,08,09,18,26,28,,,,,1.94,1.18,1.54,1*0D";
-  char command[] = "$GPGGA";
+  // For how to setup the command, see: https://www.sparkfun.com/datasheets/GPS/NMEA%20Reference%20Manual-Rev2.1-Dec07.pdf
+//										http://files.banggood.com/2016/11/BN-220%20GPS+Antenna%20datasheet.pdf
+  char command[] = "$PSRF103,01,00,05,00*25";
   char buffer[1024];
   uint8_t rxBuffer[256];
   memset(buffer, 0, sizeof(buffer));
