@@ -24,6 +24,7 @@
 #include "BMP3\bmp3.h"
 
 #include <cstring>
+#include <cmath>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -193,6 +194,7 @@ int main(void)
   settings.press_en = BMP3_ENABLE;
   settings.temp_en = BMP3_ENABLE;
 
+
   settings.odr_filter.press_os = BMP3_OVERSAMPLING_2X;
   settings.odr_filter.temp_os = BMP3_OVERSAMPLING_2X;
   settings.odr_filter.odr = BMP3_ODR_100_HZ;
@@ -232,6 +234,11 @@ int main(void)
          * BMP3_PRESS      : To read only pressure data
          */
         rslt = bmp3_get_sensor_data(BMP3_PRESS_TEMP, &data, &dev);
+        double sealevelpressure_hpa = 1013.25;
+        double altitude = 0.0;
+        float atmospheric = data.pressure / 100.0F;
+	    altitude = 44330.0 * (1.0 - std::pow(atmospheric / sealevelpressure_hpa, 0.1903));
+
         //bmp3_check_rslt("bmp3_get_sensor_data", rslt);
 
         /* NOTE : Read status register again to clear data ready interrupt status */
