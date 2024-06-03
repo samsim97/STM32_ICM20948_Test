@@ -20,6 +20,9 @@
 #include "main.h"
 #include "usb_host.h"
 
+#include "BMP3\bmp3_defs.h"
+#include "BMP3\bmp3.h"
+
 #include <cstring>
 
 /* Private includes ----------------------------------------------------------*/
@@ -34,7 +37,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define ITERATION  UINT8_C(100)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -60,11 +63,11 @@ UART_HandleTypeDef huart2;
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_I2C1_Init(void);
 static void MX_I2S2_Init(void);
 static void MX_I2S3_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_I2C1_Init(void);
 void MX_USB_HOST_Process(void);
 
 /* USER CODE BEGIN PFP */
@@ -73,6 +76,51 @@ void MX_USB_HOST_Process(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+#define I2C_HANDLE	(hi2c1)
+uint8_t GTXBuffer[512], GRXBuffer[2048];
+static uint8_t dev_addr = 0;
+
+int8_t SensorAPI_I2Cx_Read(uint8_t subaddress, uint8_t *pBuffer, uint16_t ReadNumbr, void *intf_ptr);
+int8_t SensorAPI_I2Cx_Write(uint8_t subaddress, uint8_t *pBuffer, uint16_t WriteNumbr, void *intf_ptr);
+void bmp3_delay_us(uint32_t period, void *intf_ptr);
+
+int8_t SensorAPI_I2Cx_Read(uint8_t subaddress, uint8_t *pBuffer, uint16_t ReadNumbr, void *intf_ptr)
+{
+	uint8_t dev_addr = *(uint8_t*)intf_ptr;
+	uint16_t DevAddress = dev_addr << 1;
+
+	// send register address
+	HAL_I2C_Master_Transmit(&I2C_HANDLE, DevAddress, &subaddress, 1, 1000);
+	HAL_I2C_Master_Receive(&I2C_HANDLE, DevAddress, pBuffer, ReadNumbr, 1000);
+	return 0;
+}
+
+int8_t SensorAPI_I2Cx_Write(uint8_t subaddress, uint8_t *pBuffer, uint16_t WriteNumbr, void *intf_ptr)
+{
+	uint8_t dev_addr = *(uint8_t*)intf_ptr;
+	uint16_t DevAddress = dev_addr << 1;
+
+	GTXBuffer[0] = subaddress;
+	memcpy(&GTXBuffer[1], pBuffer, WriteNumbr);
+
+	// send register address
+	HAL_I2C_Master_Transmit(&I2C_HANDLE, DevAddress, GTXBuffer, WriteNumbr+1, 1000);
+	return 0;
+}
+
+void bmp3_delay_us(uint32_t period, void *intf_ptr)
+{
+	uint32_t i;
+
+	while(period--)
+	{
+		for(i = 0; i < 84; i++)
+		{
+			;
+		}
+	}
+}
 
 /* USER CODE BEGIN 4 */
 
@@ -111,35 +159,94 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_I2C1_Init();
   MX_I2S2_Init();
   MX_I2S3_Init();
   MX_SPI1_Init();
   MX_USB_HOST_Init();
   MX_USART2_UART_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
-  //char command[] = "$PMTK314,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*29\r\n";
-  //char command[] = "$GPGSA,A,3,23,29,07,08,09,18,26,28,,,,,1.94,1.18,1.54,1*0D";
-  char command[] = "$GPGGA";
-  char buffer[1024];
-  uint8_t rxBuffer[256];
-  memset(buffer, 0, sizeof(buffer));
-  memset(rxBuffer, 0, sizeof(rxBuffer));
+
+  int8_t rslt;
+  uint8_t loop = 0;
+  uint16_t settings_sel;
+  struct bmp3_dev dev;
+  struct bmp3_data data = { 0 };
+  struct bmp3_settings settings = { 0 };
+  struct bmp3_status status = { { 0 } };
+
+  //rslt = bmp3_interface_init(&dev, BMP3_I2C_INTF);
+	//dev_addr = BMP3_ADDR_I2C_SEC;
+  	dev_addr = BMP3_ADDR_I2C_SEC;
+	dev.read = (bmp3_read_fptr_t)SensorAPI_I2Cx_Read;
+	dev.write = (bmp3_write_fptr_t)SensorAPI_I2Cx_Write;
+	dev.intf = BMP3_I2C_INTF;
+	dev.delay_us = bmp3_delay_us;
+	dev.intf_ptr = &dev_addr;
+	dev.dummy_byte = 0x0;
+  //bmp3_check_rslt("bmp3_interface_init", rslt);
+
+  rslt = bmp3_init(&dev);
+  //bmp3_check_rslt("bmp3_init", rslt);
+
+  settings.int_settings.drdy_en = BMP3_ENABLE;
+  settings.press_en = BMP3_ENABLE;
+  settings.temp_en = BMP3_ENABLE;
+
+  settings.odr_filter.press_os = BMP3_OVERSAMPLING_2X;
+  settings.odr_filter.temp_os = BMP3_OVERSAMPLING_2X;
+  settings.odr_filter.odr = BMP3_ODR_100_HZ;
+
+  settings_sel = BMP3_SEL_PRESS_EN | BMP3_SEL_TEMP_EN | BMP3_SEL_PRESS_OS | BMP3_SEL_TEMP_OS | BMP3_SEL_ODR |
+                 BMP3_SEL_DRDY_EN;
+
+  rslt = bmp3_set_sensor_settings(settings_sel, &settings, &dev);
+  //bmp3_check_rslt("bmp3_set_sensor_settings", rslt);
+
+  settings.op_mode = BMP3_MODE_NORMAL;
+  rslt = bmp3_set_op_mode(&settings, &dev);
+  //bmp3_check_rslt("bmp3_set_op_mode", rslt);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, strlen(command), 5000);
-	int returnCode = HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 5000);
-	if (HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 10000) == HAL_OK) {
-	  __NOP();
-	}
+
     /* USER CODE END WHILE */
 	MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
+
+    rslt = bmp3_get_status(&status, &dev);
+    //bmp3_check_rslt("bmp3_get_status", rslt);
+
+    /* Read temperature and pressure data iteratively based on data ready interrupt */
+    if ((rslt == BMP3_OK) && (status.intr.drdy == BMP3_ENABLE))
+    {
+        /*
+         * First parameter indicates the type of data to be read
+         * BMP3_PRESS_TEMP : To read pressure and temperature data
+         * BMP3_TEMP       : To read only temperature data
+         * BMP3_PRESS      : To read only pressure data
+         */
+        rslt = bmp3_get_sensor_data(BMP3_PRESS_TEMP, &data, &dev);
+        //bmp3_check_rslt("bmp3_get_sensor_data", rslt);
+
+        /* NOTE : Read status register again to clear data ready interrupt status */
+        rslt = bmp3_get_status(&status, &dev);
+        //bmp3_check_rslt("bmp3_get_status", rslt);
+
+        /*#ifdef BMP3_FLOAT_COMPENSATION
+        printf("Data[%d]  T: %.2f deg C, P: %.2f Pa\n", loop, (data.temperature), (data.pressure));
+        #else
+        printf("Data[%d]  T: %ld deg C, P: %lu Pa\n", loop, (long int)(int32_t)(data.temperature / 100),
+               (long unsigned int)(uint32_t)(data.pressure / 100));
+        #endif*/
+
+        loop = loop + 1;
+    }
 
 	HAL_Delay(5000);
 
