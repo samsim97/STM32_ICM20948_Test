@@ -1,7 +1,7 @@
 ../Core/Src/main.cpp:89:8:int8_t SensorAPI_I2Cx_Read(uint8_t, uint8_t*, uint16_t, void*)	40	static
 ../Core/Src/main.cpp:100:8:int8_t SensorAPI_I2Cx_Write(uint8_t, uint8_t*, uint16_t, void*)	40	static
 ../Core/Src/main.cpp:113:6:void bmp3_delay_us(uint32_t, void*)	24	static
-../Core/Src/main.cpp:134:5:int main()	272	static
+../Core/Src/main.cpp:134:5:int main()	264	static
 ../Core/Src/main.cpp:271:6:void SystemClock_Config()	88	static
 ../Core/Src/main.cpp:316:6:void PeriphCommonClock_Config()	32	static
 ../Core/Src/main.cpp:337:13:void MX_I2C1_Init()	8	static
