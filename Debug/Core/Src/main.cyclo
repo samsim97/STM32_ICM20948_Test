@@ -8,4 +8,4 @@
 ../Core/Src/main.cpp:338:13:void MX_SPI1_Init()	2
 ../Core/Src/main.cpp:375:13:void MX_USART2_UART_Init()	2
 ../Core/Src/main.cpp:408:13:void MX_GPIO_Init()	1
-../Core/Src/main.cpp:485:6:void Error_Handler()	1
+../Core/Src/main.cpp:492:6:void Error_Handler()	1
