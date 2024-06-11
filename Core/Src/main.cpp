@@ -21,6 +21,7 @@
 #include "usb_host.h"
 
 #include <cstring>
+#include "stdio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -39,6 +40,7 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+#define ITM_Port32(n) (*((volatile unsigned long *)(0xE0000000+4*n)))
 
 /* USER CODE END PM */
 
@@ -119,6 +121,7 @@ int main(void)
   PeriphCommonClock_Config();
 
   /* USER CODE BEGIN SysInit */
+  //ITM_Port32(31) = 1;
 
   /* USER CODE END SysInit */
 
@@ -131,30 +134,52 @@ int main(void)
   MX_USB_HOST_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+  //printf("GPIO init done. \r\n");
+  //ITM_Port32(31) = 2;
   // For how to setup the command, see: https://www.sparkfun.com/datasheets/GPS/NMEA%20Reference%20Manual-Rev2.1-Dec07.pdf
 //										http://files.banggood.com/2016/11/BN-220%20GPS+Antenna%20datasheet.pdf
-  char command[] = "$PSRF103,01,00,05,00*25";
+  //char command[] = "$PSRF103,01,00,01,01*24";
+  //char command[] = "$PMTK104*37";
+  char command[] = "$PMTK000*32\r\n";
   char buffer[1024];
-  uint8_t rxBuffer[256];
+  //uint8_t rxBuffer[256];
   memset(buffer, 0, sizeof(buffer));
-  memset(rxBuffer, 0, sizeof(rxBuffer));
+  //memset(rxBuffer, 0, sizeof(rxBuffer));
+
+  int transmitOKCount = 0;
+  int receiveOKCount = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, strlen(command), 5000);
+	//printf("In ze loop"
+	//int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, strlen(command), 5000);
+	int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, sizeof(command) - 1, 5000);
 	int returnCode = HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 5000);
-	if (HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 10000) == HAL_OK) {
-	  __NOP();
+
+	if (transmitCode == HAL_OK) {
+		transmitOKCount++;
 	}
+	if (returnCode == HAL_OK) {
+		receiveOKCount++;
+	}
+	/*for (int i = 0; i < 1024; i++) {
+		if (buffer[i] == 'G' &&) {
+
+		}
+	}*/
+	/*if (HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 10000) == HAL_OK) {
+	  //printf("Received data from GPS.");
+	  __NOP();
+	}*/
     /* USER CODE END WHILE */
 	MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
 
-	HAL_Delay(5000);
+	HAL_Delay(500);
 
     // HAL_SPI_Receive(&hspi1, RX_Data, sizeof(RX_Data), 5000);
     // HAL_UART_Receive(&huart2, RX_Data, sizeof(RX_Data), 1000);
@@ -426,6 +451,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(OTG_FS_PowerSwitchOn_GPIO_Port, OTG_FS_PowerSwitchOn_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
                           |Audio_RST_Pin, GPIO_PIN_RESET);
 
@@ -482,6 +510,13 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+int _write(int file, char* ptr, int len) {
+	int dataIndex;
+	for (dataIndex = 0; dataIndex < len; dataIndex++) {
+		ITM_SendChar(*ptr++);
+	}
+	return len;
+}
 
 /* USER CODE END 4 */
 
