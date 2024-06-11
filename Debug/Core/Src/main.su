@@ -1,15 +1,11 @@
-../Core/Inc/ICM20948\Adafruit_ICM20948.h:79:3:Adafruit_ICM20948::~Adafruit_ICM20948()	16	static
-../Core/Src/main.cpp:123:5:int main()	96	dynamic
-../Core/Src/main.cpp:260:6:void SystemClock_Config()	88	static
-../Core/Src/main.cpp:305:6:void PeriphCommonClock_Config()	32	static
-../Core/Src/main.cpp:326:13:void MX_I2C1_Init()	8	static
-../Core/Src/main.cpp:355:13:void MX_I2C3_Init()	8	static
-../Core/Src/main.cpp:389:13:void MX_I2S2_Init()	8	static
-../Core/Src/main.cpp:423:13:void MX_I2S3_Init()	8	static
-../Core/Src/main.cpp:457:13:void MX_SPI1_Init()	8	static
-../Core/Src/main.cpp:494:13:void MX_USART2_UART_Init()	8	static
-../Core/Src/main.cpp:527:13:void MX_GPIO_Init()	56	static
-../Core/Src/main.cpp:604:6:void Error_Handler()	4	static,ignoring_inline_asm
-../Core/Src/main.cpp:613:1:void __static_initialization_and_destruction_0(int, int)	16	static
-../Core/Src/main.cpp:613:1:cpp)	8	static
-../Core/Src/main.cpp:613:1:cpp)	8	static
+../Core/Src/main.c:80:5:main	16	static
+../Core/Src/main.c:145:6:SystemClock_Config	88	static
+../Core/Src/main.c:190:6:PeriphCommonClock_Config	32	static
+../Core/Src/main.c:211:13:MX_I2C1_Init	8	static
+../Core/Src/main.c:245:13:MX_I2C3_Init	8	static
+../Core/Src/main.c:279:13:MX_I2S2_Init	8	static
+../Core/Src/main.c:313:13:MX_I2S3_Init	8	static
+../Core/Src/main.c:347:13:MX_SPI1_Init	8	static
+../Core/Src/main.c:384:13:MX_USART2_UART_Init	8	static
+../Core/Src/main.c:417:13:MX_GPIO_Init	56	static
+../Core/Src/main.c:518:6:Error_Handler	4	static,ignoring_inline_asm

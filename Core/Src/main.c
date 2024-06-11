@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-//#include "usb_host.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -52,7 +51,7 @@ SPI_HandleTypeDef hspi1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
+uint8_t TX_Buffer [] = "A" ; // DATA to send
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -65,54 +64,12 @@ static void MX_I2S3_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_I2C3_Init(void);
-void MX_USB_HOST_Process(void);
-
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
-#include "ICM20948\Adafruit_ICM20948.h"
-
-Adafruit_ICM20948 icm;
-uint16_t measurement_delay_us = 65535; // Delay between measurements for testing
-// For SPI mode, we need a CS pin
-#define ICM_CS 10
-// For software-SPI mode we need SCK/MOSI/MISO pins
-#define ICM_SCK 13
-#define ICM_MISO 12
-#define ICM_MOSI 11
-
-uint8_t RX_Data[50] = {0};
-
-uint8_t GTXBuffer[512];
-uint8_t GRXBuffer[2048];
-
-uint8_t bmp388_address = 0b1110110;
-
-/*int8_t SensorAPI_I2Cx_Read(uint8_t subaddress, uint8_t *pBuffer, uint32_t ReadNumbr, void *intf_ptr) {
-	uint8_t dev_addr = *(uint8_t*)intf_ptr;
-	uint16_t DevAddress = dev_addr << 1;
-
-	// send register address
-	HAL_I2C_Master_Transmit(&hi2c1, DevAddress, &subaddress, 1, HAL_TIMEOUT);
-	HAL_I2C_Master_Receive(&hi2c1, DevAddress, pBuffer, ReadNumbr, HAL_TIMEOUT);
-	return 0;
-}*/
-
-/*int8_t SensorAPI_I2Cx_Write(uint8_t subaddress, uint8_t *pBuffer, uint32_t WriteNumbr, void *intf_ptr) {
-	uint8_t dev_addr = *(uint8_t*)intf_ptr;
-	uint16_t DevAddress = dev_addr << 1;
-
-	GTXBuffer[0] = subaddress;
-	memcpy(&GTXBuffer[1], pBuffer, WriteNumbr);
-
-	// send register address
-	HAL_I2C_Master_Transmit(&hi2c1, DevAddress, GTXBuffer, WriteNumbr + 1, HAL_TIMEOUT);
-	return 0;
-}*/
 
 /* USER CODE END 0 */
 
@@ -132,33 +89,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  uint8_t rcvBufferSize = 23U;
-  uint8_t txBufferSize = 23U;
-
-  uint8_t rcvBuffer[rcvBufferSize] = {0};
-  uint8_t txBuffer[txBufferSize] = {0};
-
-  float temperature, ///< Last reading's temperature (C)
-        accX,          ///< Last reading's accelerometer X axis m/s^2
-        accY,          ///< Last reading's accelerometer Y axis m/s^2
-        accZ,          ///< Last reading's accelerometer Z axis m/s^2
-        gyroX,         ///< Last reading's gyro X axis in rad/s
-        gyroY,         ///< Last reading's gyro Y axis in rad/s
-        gyroZ,         ///< Last reading's gyro Z axis in rad/s
-        magX,          ///< Last reading's mag X axis in rad/s
-        magY,          ///< Last reading's mag Y axis in rad/s
-        magZ;          ///< Last reading's mag Z axis in rad/s
-
-  int16_t rawAccX, ///< temp variables
-        rawAccY,     ///< temp variables
-        rawAccZ,     ///< temp variables
-        rawTemp,     ///< temp variables
-        rawGyroX,    ///< temp variables
-        rawGyroY,    ///< temp variables
-        rawGyroZ,    ///< temp variables
-        rawMagX,     ///< temp variables
-        rawMagY,     ///< temp variables
-        rawMagZ;     ///< temp variables
 
   /* USER CODE END Init */
 
@@ -178,77 +108,32 @@ int main(void)
   MX_I2S2_Init();
   MX_I2S3_Init();
   MX_SPI1_Init();
-  //MX_USB_HOST_Init();
   MX_USART2_UART_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
 
-  // BMP3_INTF_RET_TYPE bmp3_i2c_read(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr);
-  // BMP3_INTF_RET_TYPE bmp3_i2c_write(uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr);
-  // int8_t SensorAPI_I2Cx_Read(uint8_t subaddress, uint8_t *pBuffer, uint32_t ReadNumbr, void *intf_ptr);
-  // int8_t SensorAPI_I2Cx_Write(uint8_t subaddress, uint8_t *pBuffer, uint32_t WriteNumbr, void *intf_ptr);
-
-  /*uint8_t pressure_data[3];
-  SensorAPI_I2Cx_Read(0x1F, pressure_data, 3, &bmp388_address);
-
-  uint8_t config_settings[] = {0x10, 0x20, 0x30}; // Example settings
-  SensorAPI_I2Cx_Write(0x1E, config_settings, sizeof(config_settings), &bmp388_address);*/
-
-  icm.begin_I2C();
-  //icm.writeAccelRange(1);
-
+  ICM_Constructor(&hi2c1);
+  //ICM_Initialize();
+  ICM_PowerOn();
+  uint8_t testSleep2 = 0x00;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  //HAL_GPIO_TogglePin(GPIOD, LD4_Pin);
-	  //HAL_Delay(1000);
     /* USER CODE END WHILE */
-    //MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
+	  //ICM_GetAccelRange();
+	  ICM_ReadAccelGyro();
+	  HAL_Delay(10);
 
-    /*int accelRange = icm.getAccelRange();
-    int gyroRange = icm.getGyroRange();
-    uint16_t accel_divisor = icm.getAccelRateDivisor();
-    float accel_rate = 1125 / (1.0 + accel_divisor);
-    uint8_t gyro_divisor = icm.getGyroRateDivisor();
-    float gyro_rate = 1100 / (1.0 + gyro_divisor);
-    int magDataRate = icm.getMagDataRate();
+	  //ICM_WriteOneByte(0x06, 0x01);
+	  //HAL_Delay(10);
+	  //ICM_ReadOneByte(0x06, &testSleep2);
+	  //HAL_Delay(10);
 
-    sensors_event_t accel;
-    sensors_event_t gyro;
-    sensors_event_t mag;
-    sensors_event_t temp;
-    icm.getEvent(&accel, &gyro, &temp, &mag);
-    int x = accel.acceleration.x;
-    int y = accel.acceleration.y;
-    int z = accel.acceleration.z;*/
-	HAL_I2C_Master_Transmit(&hi2c3, 0x69, txBuffer, txBufferSize, 200);
-    HAL_I2C_Master_Receive(&hi2c3, 0x69, rcvBuffer, rcvBufferSize, 200);
-
-    rawAccX = rcvBuffer[0] << 8 | rcvBuffer[1];
-    rawAccY = rcvBuffer[2] << 8 | rcvBuffer[3];
-    rawAccZ = rcvBuffer[4] << 8 | rcvBuffer[5];
-
-    rawGyroX = rcvBuffer[6] << 8 | rcvBuffer[7];
-    rawGyroY = rcvBuffer[8] << 8 | rcvBuffer[9];
-    rawGyroZ = rcvBuffer[10] << 8 | rcvBuffer[11];
-
-    temperature = rcvBuffer[12] << 8 | rcvBuffer[13];
-
-    rawMagX = ((rcvBuffer[16] << 8) |
-                 (rcvBuffer[15] & 0xFF)); // Mag data is read little endian
-    rawMagY = ((rcvBuffer[18] << 8) | (rcvBuffer[17] & 0xFF));
-    rawMagZ = ((rcvBuffer[20] << 8) | (rcvBuffer[19] & 0xFF));
-
-    HAL_Delay(100);
-
-    // HAL_SPI_Receive(&hspi1, RX_Data, sizeof(RX_Data), 5000);
-    // HAL_UART_Receive(&huart2, RX_Data, sizeof(RX_Data), 1000);
-    // HAL_Delay(2000);
   }
   /* USER CODE END 3 */
 }
@@ -336,7 +221,7 @@ static void MX_I2C1_Init(void)
   hi2c1.Instance = I2C1;
   hi2c1.Init.ClockSpeed = 100000;
   hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c1.Init.OwnAddress1 = 0;
+  hi2c1.Init.OwnAddress1 = 208;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
   hi2c1.Init.OwnAddress2 = 0;
@@ -352,6 +237,11 @@ static void MX_I2C1_Init(void)
 
 }
 
+/**
+  * @brief I2C3 Initialization Function
+  * @param None
+  * @retval None
+  */
 static void MX_I2C3_Init(void)
 {
 
@@ -545,6 +435,9 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(OTG_FS_PowerSwitchOn_GPIO_Port, OTG_FS_PowerSwitchOn_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
                           |Audio_RST_Pin, GPIO_PIN_RESET);
 
@@ -580,6 +473,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PA3 */
+  GPIO_InitStruct.Pin = GPIO_PIN_3;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
   /*Configure GPIO pins : LD4_Pin LD3_Pin LD5_Pin LD6_Pin
                            Audio_RST_Pin */
   GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
@@ -588,6 +488,20 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : VBUS_FS_Pin */
+  GPIO_InitStruct.Pin = VBUS_FS_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(VBUS_FS_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : OTG_FS_ID_Pin OTG_FS_DM_Pin OTG_FS_DP_Pin */
+  GPIO_InitStruct.Pin = OTG_FS_ID_Pin|OTG_FS_DM_Pin|OTG_FS_DP_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
