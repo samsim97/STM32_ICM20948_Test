@@ -16,6 +16,7 @@
 
 
 #define DEV_ADDRESS 0x69 << 1
+#define SENSORS_GRAVITY_EARTH (9.80665F)
 
 I2C_HandleTypeDef* i2cHandle;
 
@@ -45,7 +46,7 @@ void ICM_readBytes(uint8_t reg, uint8_t *pData, uint16_t Size) // ***
 
 void ICM_WriteBytes(uint8_t reg, uint8_t *pData, uint16_t Size) // ***
 {
-	reg = reg & 0x7F;
+	//reg = reg & 0x7F;
 	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
 	HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, &reg, 1, HAL_TIMEOUT);
 	HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, pData, Size, HAL_TIMEOUT);
@@ -258,7 +259,7 @@ void ICM_ReadAccelGyro(void) {
 	ICM_SelectBank(USER_BANK_0);
 	uint8_t whoAmI = 0;
 	ICM_ReadOneByte(0x00,&whoAmI);
-	uint8_t raw_data[12];
+	uint8_t raw_data[12] = {0};
 	ICM_readBytes(0x2D, raw_data, 12);
 
 	accel_data[0] = (raw_data[0] << 8) | raw_data[1];
@@ -280,6 +281,11 @@ void ICM_ReadAccelGyro(void) {
 	float ax = accel_data[0] / 4096.0;
 	float ay = accel_data[1] / 4096.0;
 	float az = accel_data[2] / 4096.0;
+
+	float ax2 = ax * SENSORS_GRAVITY_EARTH;
+	float ay2 = ay * SENSORS_GRAVITY_EARTH;
+	float az2 = az * SENSORS_GRAVITY_EARTH;
+
 
 	gyro_data[0] = gyro_data[0] / 250;
 	gyro_data[1] = gyro_data[1] / 250;
