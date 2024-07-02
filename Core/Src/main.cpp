@@ -140,12 +140,24 @@ int main(void)
 //										http://files.banggood.com/2016/11/BN-220%20GPS+Antenna%20datasheet.pdf
   //char command[] = "$PSRF103,01,00,01,01*24";
   //char command[] = "$PMTK104*37";
-  char command[] = "$PMTK000*32\r\n";
+  //char command[] = "$PMTK000*32\r\n";
+  //char command [] = "Hello World!";
+  //char command[] = "$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28<CR><LF>";
+  char coldRestartCommand[] = "$PMTK104*37<CR><LF>";
+  // Sets the mode (Avionic), See (Page 23): https://cdn.sparkfun.com/assets/parts/1/2/2/8/0/PMTK_Packet_User_Manual.pdf
+  //char command[] = "$PMTK886,2*2A<CR><LF>";
+  // Query status command:
+  //char command[] = "$PMTK183*38<CR><LF>";
+  //char command[] = "$PSRF103,00,01,00,01*25<CR><LF>";
+  char command[] = "$PMTK220,5000*1B<CR><LF>";
   char buffer[1024];
   //uint8_t rxBuffer[256];
   memset(buffer, 0, sizeof(buffer));
   //memset(rxBuffer, 0, sizeof(rxBuffer));
 
+  int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, sizeof(command) - 1, 5000);
+  //int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)coldRestartCommand, sizeof(coldRestartCommand) - 1, 5000);
+  HAL_Delay(5000);
   int transmitOKCount = 0;
   int receiveOKCount = 0;
   /* USER CODE END 2 */
@@ -156,7 +168,7 @@ int main(void)
   {
 	//printf("In ze loop"
 	//int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, strlen(command), 5000);
-	int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, sizeof(command) - 1, 5000);
+	//int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, sizeof(command) - 1, 5000);
 	int returnCode = HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 5000);
 
 	if (transmitCode == HAL_OK) {
@@ -179,7 +191,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	HAL_Delay(500);
+	HAL_Delay(50);
 
     // HAL_SPI_Receive(&hspi1, RX_Data, sizeof(RX_Data), 5000);
     // HAL_UART_Receive(&huart2, RX_Data, sizeof(RX_Data), 1000);
