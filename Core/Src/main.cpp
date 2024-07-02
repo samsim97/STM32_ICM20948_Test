@@ -234,7 +234,8 @@ int main(void)
          * BMP3_PRESS      : To read only pressure data
          */
         rslt = bmp3_get_sensor_data(BMP3_PRESS_TEMP, &data, &dev);
-        double sealevelpressure_hpa = 1013.25;
+        //double sealevelpressure_hpa = 1013.25;
+        double sealevelpressure_hpa = 1022.25;
         double altitude = 0.0;
         float atmospheric = data.pressure / 100.0F;
 	    altitude = 44330.0 * (1.0 - std::pow(atmospheric / sealevelpressure_hpa, 0.1903));

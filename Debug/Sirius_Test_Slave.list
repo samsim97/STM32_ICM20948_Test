@@ -5505,7 +5505,8 @@ int main(void)
  800299e:	f7fe fcf8 	bl	8001392 <bmp3_get_sensor_data>
  80029a2:	4603      	mov	r3, r0
  80029a4:	f887 30fe 	strb.w	r3, [r7, #254]	; 0xfe
-        double sealevelpressure_hpa = 1013.25;
+        //double sealevelpressure_hpa = 1013.25;
+        double sealevelpressure_hpa = 1022.25;
  80029a8:	a32b      	add	r3, pc, #172	; (adr r3, 8002a58 <main+0x1c8>)
  80029aa:	e9d3 2300 	ldrd	r2, r3, [r3]
  80029ae:	e9c7 233c 	strd	r2, r3, [r7, #240]	; 0xf0
@@ -5585,7 +5586,7 @@ int main(void)
  8002a54:	e78a      	b.n	800296c <main+0xdc>
  8002a56:	bf00      	nop
  8002a58:	00000000 	.word	0x00000000
- 8002a5c:	408faa00 	.word	0x408faa00
+ 8002a5c:	408ff200 	.word	0x408ff200
  8002a60:	1a36e2eb 	.word	0x1a36e2eb
  8002a64:	3fc85bc0 	.word	0x3fc85bc0
  8002a68:	00000000 	.word	0x00000000
@@ -7363,11 +7364,11 @@ void SystemInit(void)
  8003418:	e000ed00 	.word	0xe000ed00
 
 0800341c <Reset_Handler>:
-
     .section  .text.Reset_Handler
   .weak  Reset_Handler
   .type  Reset_Handler, %function
 Reset_Handler:  
+
   ldr   sp, =_estack    		 /* set stack pointer */
  800341c:	f8df d034 	ldr.w	sp, [pc, #52]	; 8003454 <LoopFillZerobss+0x12>
 
