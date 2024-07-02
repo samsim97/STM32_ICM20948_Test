@@ -6,12 +6,12 @@
  */
 
 // *** Three asterisks to the side of a line means this may change based on platform
+#include <Hardware/ICM20948/ICM20948.h>
 #include "main.h" // ***
 // #include "stm32f4xx_hal_gpio.h" // ***
 //#include "stm32f4xx_hal_i2c.h"  // ***
 //#include "usart.h"// ***
 //#include "stm32f4xx_hal_dma.h"  // ***
-#include "ICM20948.h"
 //#include <string.h>
 
 
@@ -208,7 +208,9 @@ uint16_t ICM_Initialize(void) {
 		HAL_Delay(10);
 
 		// Set accelerometer low pass filter to 136hz (0x11) and the rate to 8G (0x04) in register ACCEL_CONFIG (0x14)
-		ICM_WriteOneByte(0x14, (0x04 | 0x11));
+		//ICM_WriteOneByte(0x14, (0x04 | 0x11));
+		ICM_WriteOneByte(0x14, 0x04);
+		HAL_Delay(10);
 
 		// Set accelerometer sample rate to 225hz (0x00) in ACCEL_SMPLRT_DIV_1 register (0x10)
 		ICM_WriteOneByte(0x10, 0x00);
@@ -236,20 +238,20 @@ uint16_t ICM_Initialize(void) {
 		//i2c_Mag_write(0x31, 0x02); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
 		ICM_SelectBank(USER_BANK_0);
 		HAL_Delay(20);
-		uint8_t testSleep = 0x00;
+		/*uint8_t testSleep = 0x00;
 		uint8_t testSleep2 = 0x00;
 		uint8_t testconfig = 0x00;
 		ICM_ReadOneByte(0x06, &testSleep);
 		HAL_Delay(10);
 		ICM_ReadOneByte(0x03, &testconfig);
-		HAL_Delay(10);
+		HAL_Delay(10);*/
 		// Remove sleep
 		ICM_SelectBank(USER_BANK_0);
 		HAL_Delay(20);
 		ICM_WriteOneByte(0x06, 0x01);
 		HAL_Delay(10);
-		ICM_ReadOneByte(0x06, &testSleep2);
-		HAL_Delay(10);
+		/*ICM_ReadOneByte(0x06, &testSleep2);
+		HAL_Delay(10);*/
 		ICM_SelectBank(USER_BANK_2);
 
 		return 1337;
@@ -257,10 +259,11 @@ uint16_t ICM_Initialize(void) {
 
 void ICM_ReadAccelGyro(void) {
 	ICM_SelectBank(USER_BANK_0);
-	uint8_t whoAmI = 0;
-	ICM_ReadOneByte(0x00,&whoAmI);
+	HAL_Delay(20);
+	//uint8_t whoAmI = 0;
+	//ICM_ReadOneByte(0x00,&whoAmI);
 	uint8_t raw_data[12] = {0};
-	ICM_readBytes(0x2D, raw_data, 12);
+	ICM_readBytes(0x2D, raw_data, 12); // 0x2D est le registre
 
 	accel_data[0] = (raw_data[0] << 8) | raw_data[1];
 	accel_data[1] = (raw_data[2] << 8) | raw_data[3];
@@ -278,16 +281,16 @@ void ICM_ReadAccelGyro(void) {
 	//accel_data[1] = accel_data[1] / 4096;
 	//accel_data[2] = accel_data[2] / 4096;
 
-	float ax = accel_data[0] / 4096.0;
-	float ay = accel_data[1] / 4096.0;
-	float az = accel_data[2] / 4096.0;
+	float ax = accel_data[0] / 4096;
+	float ay = accel_data[1] / 4096;
+	float az = accel_data[2] / 4096;
 
 	float ax2 = ax * SENSORS_GRAVITY_EARTH;
 	float ay2 = ay * SENSORS_GRAVITY_EARTH;
 	float az2 = az * SENSORS_GRAVITY_EARTH;
 
 
-	gyro_data[0] = gyro_data[0] / 250;
+ 	gyro_data[0] = gyro_data[0] / 250;
 	gyro_data[1] = gyro_data[1] / 250;
 	gyro_data[2] = gyro_data[2] / 250;
 }
@@ -309,9 +312,11 @@ void ICM_SetClock(uint8_t clk) {
 void ICM_AccelGyroOff(void) {
 	ICM_WriteOneByte(PWR_MGMT_2, (0x38 | 0x07));
 }
+
 void ICM_AccelGyroOn(void) {
 	ICM_WriteOneByte(0x07, (0x00 | 0x00));
 }
+
 uint8_t ICM_WHOAMI(void) {
 	uint8_t spiData = 0x01;
 	ICM_ReadOneByte(0x00, &spiData);

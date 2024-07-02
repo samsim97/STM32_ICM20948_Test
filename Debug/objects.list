@@ -1,4 +1,6 @@
-"./Core/Src/ICM20948.o"
+"./Core/Src/Devices/SmokeBomb.o"
+"./Core/Src/Rocket/Rocket.o"
+"./Core/Src/Sensors/ICM20948/ICM20948.o"
 "./Core/Src/main.o"
 "./Core/Src/stm32f4xx_hal_msp.o"
 "./Core/Src/stm32f4xx_it.o"

@@ -1,23 +1,9 @@
 #pragma once
-/*
- * ICM20948.h
- *
- *  Created on: Oct 26, 2018
- *      Author: cory
- */
 
-#ifndef ICM20948_H_
-#define ICM20948_H_
+#include <Hardware/ICM20948/ICM20948Registers.hpp>
 
-//#define SPI_BUS			(&hspi1) // ***
 #define UART_BUS		(&huart3) // ***
 #define I2C_BUS 		(i2cHandle)
-
-#define USER_BANK_SEL	(0x7F)
-#define USER_BANK_0		(0x00)
-#define USER_BANK_1		(0x10)
-#define USER_BANK_2		(0x20)
-#define USER_BANK_3		(0x30)
 
 #define PWR_MGMT_1 		(0x06)
 #define PWR_MGMT_2		(0x07)
@@ -45,5 +31,3 @@ void ICM_AccelGyroOn(void);
 void ICM_SetGyroRateLPF(uint8_t rate, uint8_t lpf);
 void ICM_SetGyroLPF(uint8_t lpf);
 uint8_t ICM_GetAccelRange(void);
-
-#endif /* ICM20948_H_ */

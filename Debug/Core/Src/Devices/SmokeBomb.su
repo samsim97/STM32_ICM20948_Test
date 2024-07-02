@@ -1,0 +1,2 @@
+../Core/Src/Devices/SmokeBomb.cpp:5:1:SmokeBomb::SmokeBomb(uint8_t)	16	static
+../Core/Src/Devices/SmokeBomb.cpp:12:6:void SmokeBomb::ignite()	16	static
