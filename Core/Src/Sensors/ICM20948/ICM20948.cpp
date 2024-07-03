@@ -6,8 +6,8 @@
  */
 
 // *** Three asterisks to the side of a line means this may change based on platform
-#include <Hardware/ICM20948/ICM20948.h>
-#include "main.h" // ***
+#include <Hardware/ICM20948/ICM20948.hpp>
+
 // #include "stm32f4xx_hal_gpio.h" // ***
 //#include "stm32f4xx_hal_i2c.h"  // ***
 //#include "usart.h"// ***
@@ -18,16 +18,52 @@
 #define DEV_ADDRESS 0x69 << 1
 #define SENSORS_GRAVITY_EARTH (9.80665F)
 
-I2C_HandleTypeDef* i2cHandle;
+ICM20948::ICM20948(I2C_HandleTypeDef* i2cHandle)
+{
+	this->i2cHandle = i2cHandle;
+}
+
+/*************************************/
+/***       BOARD MANAGEMENT        ***/
+/*************************************/
+
+void ICM20948::setPower(bool isOn)
+{
+	ICM_SelectBank(USER_BANK_0);
+	HAL_Delay(10);
+	ICM_SetClock((uint8_t)CLK_BEST_AVAIL);
+	HAL_Delay(10);
+	ICM_AccelGyroOff();
+	HAL_Delay(20);
+	ICM_AccelGyroOn();
+	HAL_Delay(10);
+	ICM_Initialize();
+}
+
+	uint16_t init();
+	bool checkCommunication();
+	void selectUserBank(uint8_t bankNumber);
+
+	// Accelerometer
+	void readAccelerometer();
+	AccelerometerValues getAccelerometerValues();
+
+	// Gyroscope
+	void readGyroscope();
+	GyroscopeValues getGyroscopeValues();
+
+	// Magnetometer
+	void readMagnetometer();
+	MagnetometerValues getMagnetometerValues();
+
+	// Thermometer
+	void readThermometer();
+	float getThermometerValue();
 
 uint16_t accel_data[3];
 uint16_t gyro_data[3];
 int16_t mag_data[3];
-/*
- *
- * SPI abstraction
- *
- */
+
 void ICM_Constructor(I2C_HandleTypeDef* i2chandle)
 {
 	i2cHandle = i2chandle;
@@ -300,12 +336,7 @@ void ICM_SelectBank(uint8_t bank) {
 void ICM_Disable_I2C(void) {
 	ICM_WriteOneByte(0x03, 0x78);
 }
-/*void ICM_CSHigh(void) {
-	HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, SET);
-}
-void ICM_CSLow(void) {
-	HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, RESET);
-}*/
+
 void ICM_SetClock(uint8_t clk) {
 	ICM_WriteOneByte(PWR_MGMT_1, clk);
 }
@@ -334,10 +365,3 @@ uint8_t ICM_GetAccelRange(void)
 	ICM_SelectBank(USER_BANK_0);
 	return rawData;
 }
-
-
-/*
- *
- * Read Accelerometer and Gyro data
- *
- */

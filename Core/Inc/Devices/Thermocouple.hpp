@@ -1,0 +1,14 @@
+#pragma once
+
+#include <stdint.h>
+
+class Thermocouple
+{
+public:
+	Thermocouple(uint8_t inputPinNumber);
+	~Thermocouple() {};
+
+	float getTemperature();
+private:
+	uint8_t inputPin;
+};
