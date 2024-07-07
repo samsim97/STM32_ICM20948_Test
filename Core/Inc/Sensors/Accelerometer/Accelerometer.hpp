@@ -6,7 +6,11 @@
 class Accelerometer
 {
 public:
+	Accelerometer
+
 	AccelerometerValues getValues();
 	void fillData();
 	SensorState getState();
+private:
+
 };

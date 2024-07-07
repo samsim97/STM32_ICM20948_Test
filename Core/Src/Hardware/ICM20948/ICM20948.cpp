@@ -133,9 +133,9 @@ void ICM20948::readAccelerometer()
 
 	readRegisters(0x2D, raw_data, BUFFER_SIZE);
 
-	accelerometerValues.x_g = ((raw_data[0] << 8) | raw_data[1]) / accelerometerScaleDivider;
-	accelerometerValues.y_g = ((raw_data[2] << 8) | raw_data[3]) / accelerometerScaleDivider;
-	accelerometerValues.z_g = ((raw_data[4] << 8) | raw_data[5]) / accelerometerScaleDivider;
+	accelerometerValues.x_g = static_cast<int16_t>((raw_data[0] << 8) | raw_data[1]) / accelerometerScaleDivider;
+	accelerometerValues.y_g = static_cast<int16_t>((raw_data[2] << 8) | raw_data[3]) / accelerometerScaleDivider;
+	accelerometerValues.z_g = static_cast<int16_t>((raw_data[4] << 8) | raw_data[5]) / accelerometerScaleDivider;
 }
 
 AccelerometerValues ICM20948::getAccelerometerValues()
