@@ -1,0 +1,15 @@
+#pragma once
+
+#define I2C_ADDRESS 0x69 << 1
+/********************************/
+/***       SENSOR SCALES      ***/
+/********************************/
+
+#define ACCELEROMETER_DEFAULT_SCALE_DIVIDER 2.0f
+#define ACCELEROMETER_2G_SCALE_DIVIDER 16384.0f
+#define ACCELEROMETER_4G_SCALE_DIVIDER 8192.0f
+#define ACCELEROMETER_8G_SCALE_DIVIDER 4096.0f
+#define ACCELEROMETER_16G_SCALE_DIVIDER 2048.0f
+
+// MAY NEED TO BE REVISED
+#define GYROSCOPE_250DPS_SCALE_DIVIDER 250.0f

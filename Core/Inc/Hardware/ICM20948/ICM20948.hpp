@@ -4,6 +4,8 @@
 #include "stm32f4xx_hal.h"
 
 #include <Hardware/ICM20948/ICM20948Registers.hpp>
+#include <Hardware/ICM20948/ICM20948Defines.hpp>
+
 #include <Sensors/Accelerometer/AccelerometerValues.hpp>
 #include <Sensors/Gyroscope/GyroscopeValues.hpp>
 #include <Sensors/Magnetometer/MagnetometerValues.hpp>
@@ -24,10 +26,11 @@ public:
 	~ICM20948();
 
 	// Board management
-	void setPower(bool isOn);
 	uint16_t init();
 	bool checkCommunication();
 	void selectUserBank(uint8_t bankNumber);
+	void setClock(uint8_t rate);
+
 
 	// Accelerometer
 	void readAccelerometer();
@@ -45,8 +48,22 @@ public:
 	void readThermometer();
 	float getThermometerValue();
 
+	// Communication
+	void writeRegister(uint8_t registerAddress, uint8_t value);
+	void readRegister(uint8_t registerAddress, uint8_t* value);
+	void readRegisters(uint8_t registerAddress, uint8_t* buffer, uint8_t bufferSize);
+
 private:
 	I2C_HandleTypeDef* i2cHandle;
+
+	AccelerometerValues accelerometerValues;
+	float accelerometerScaleDivider;
+
+	GyroscopeValues gyroscopeValues;
+	float gyroscopeScaleDivider;
+
+	MagnetometerValues magnetometerValues;
+	float thermometerValue;
 };
 
 /*void ICM_ReadAccelGyro(void);

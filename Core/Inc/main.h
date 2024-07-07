@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-//#include <Hardware/ICM20948/ICM20948.hpp>
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

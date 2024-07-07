@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <Hardware/ICM20948/ICM20948.hpp>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -112,10 +112,9 @@ int main(void)
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
 
-  ICM_Constructor(&hi2c1);
+  ICM20948 icm20948 = ICM20948(&hi2c1);
   //ICM_Initialize();
-  ICM_PowerOn();
-  uint8_t testSleep2 = 0x00;
+  icm20948.init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -126,7 +125,9 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  //ICM_GetAccelRange();
-	  ICM_ReadAccelGyro();
+	  //icm20948.checkCommunication();
+	  icm20948.readAccelerometer();
+	  AccelerometerValues accelValues = icm20948.getAccelerometerValues();
 	  HAL_Delay(10);
 
 	  //ICM_WriteOneByte(0x06, 0x01);

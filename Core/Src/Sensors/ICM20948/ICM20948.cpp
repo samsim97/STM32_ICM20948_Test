@@ -21,110 +21,200 @@
 ICM20948::ICM20948(I2C_HandleTypeDef* i2cHandle)
 {
 	this->i2cHandle = i2cHandle;
+	//accelerometerScaleDivider = ACCELEROMETER_DEFAULT_SCALE_DIVIDER;
+	accelerometerScaleDivider = ACCELEROMETER_8G_SCALE_DIVIDER;
 }
 
 /*************************************/
 /***       BOARD MANAGEMENT        ***/
 /*************************************/
 
-void ICM20948::setPower(bool isOn)
+uint16_t ICM20948::init()
 {
-	ICM_SelectBank(USER_BANK_0);
+	// POWER ON
+	selectUserBank(USER_BANK_0);
 	HAL_Delay(10);
-	ICM_SetClock((uint8_t)CLK_BEST_AVAIL);
+	setClock((uint8_t)CLK_BEST_AVAIL);
 	HAL_Delay(10);
-	ICM_AccelGyroOff();
+	writeRegister(PWR_MGMT_2, (0x38 | 0x07)); // TURN ACCEL AND GYRO OFF
 	HAL_Delay(20);
-	ICM_AccelGyroOn();
+	writeRegister(0x07, (0x00 | 0x00)); // TURN ACCEL AND GYRO ON
 	HAL_Delay(10);
-	ICM_Initialize();
+
+	// INIT
+	selectUserBank(USER_BANK_2);
+	HAL_Delay(20);
+	//ICM_SetGyroRateLPF(GYRO_RATE_250, GYRO_LPF_17HZ);
+	writeRegister(GYRO_CONFIG_1, (GYRO_RATE_250|GYRO_LPF_17HZ));
+	HAL_Delay(10);
+
+	// Set gyroscope sample rate to 100hz (0x0A) in GYRO_SMPLRT_DIV register (0x00)
+	writeRegister(0x00, 0x0A);
+	HAL_Delay(10);
+
+	// Set accelerometer low pass filter to 136hz (0x11) and the rate to 8G (0x04) in register ACCEL_CONFIG (0x14)
+	//ICM_WriteOneByte(0x14, (0x04 | 0x11));
+	writeRegister(0x14, 0x04);
+	HAL_Delay(10);
+
+	// Set accelerometer sample rate to 225hz (0x00) in ACCEL_SMPLRT_DIV_1 register (0x10)
+	writeRegister(0x10, 0x00);
+	HAL_Delay(10);
+
+	// Set accelerometer sample rate to 100 hz (0x0A) in ACCEL_SMPLRT_DIV_2 register (0x11)
+	writeRegister(0x11, 0x0A);
+	HAL_Delay(10);
+
+	selectUserBank(USER_BANK_2);
+	HAL_Delay(20);
+
+	// Configure AUX_I2C Magnetometer (onboard ICM-20948)
+	//ICM_WriteOneByte(0x7F, 0x00); // Select user bank 0
+	//ICM_WriteOneByte(0x0F, 0x30); // INT Pin / Bypass Enable Configuration
+	//ICM_WriteOneByte(0x03, 0x20); // I2C_MST_EN
+	//ICM_WriteOneByte(0x7F, 0x30); // Select user bank 3
+	//ICM_WriteOneByte(0x01, 0x4D); // I2C Master mode and Speed 400 kHz
+	//ICM_WriteOneByte(0x02, 0x01); // I2C_SLV0 _DLY_ enable
+	//ICM_WriteOneByte(0x05, 0x81); // enable IIC	and EXT_SENS_DATA==1 Byte
+
+	// Initialize magnetometer
+	//i2c_Mag_write(0x32, 0x01); // Reset AK8963
+	//HAL_Delay(1000);
+	//i2c_Mag_write(0x31, 0x02); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
+	selectUserBank(USER_BANK_0);
+	HAL_Delay(20);
+	/*uint8_t testSleep = 0x00;
+	uint8_t testSleep2 = 0x00;
+	uint8_t testconfig = 0x00;
+	ICM_ReadOneByte(0x06, &testSleep);
+	HAL_Delay(10);
+	ICM_ReadOneByte(0x03, &testconfig);
+	HAL_Delay(10);*/
+	// Remove sleep
+	selectUserBank(USER_BANK_0);
+	HAL_Delay(20);
+	writeRegister(0x06, 0x01);
+	HAL_Delay(10);
+	/*ICM_ReadOneByte(0x06, &testSleep2);
+	HAL_Delay(10);*/
+	selectUserBank(USER_BANK_2);
+
+	return 1337;
 }
 
-	uint16_t init();
-	bool checkCommunication();
-	void selectUserBank(uint8_t bankNumber);
-
-	// Accelerometer
-	void readAccelerometer();
-	AccelerometerValues getAccelerometerValues();
-
-	// Gyroscope
-	void readGyroscope();
-	GyroscopeValues getGyroscopeValues();
-
-	// Magnetometer
-	void readMagnetometer();
-	MagnetometerValues getMagnetometerValues();
-
-	// Thermometer
-	void readThermometer();
-	float getThermometerValue();
-
-uint16_t accel_data[3];
-uint16_t gyro_data[3];
-int16_t mag_data[3];
-
-void ICM_Constructor(I2C_HandleTypeDef* i2chandle)
+bool ICM20948::checkCommunication()
 {
-	i2cHandle = i2chandle;
+	uint8_t value = 0x01;
+	readRegister(0x00, &value);
+	return true; // CHECK IF VALUE IS GOOD
 }
 
-void ICM_readBytes(uint8_t reg, uint8_t *pData, uint16_t Size) // ***
+void ICM20948::selectUserBank(uint8_t bankNumber)
 {
-	//reg = reg | 0x80;
-	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
-	HAL_StatusTypeDef testTx = HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, &reg, 1, HAL_TIMEOUT);
-	HAL_StatusTypeDef testRx = HAL_I2C_Master_Receive(I2C_BUS, DEV_ADDRESS, pData, Size, HAL_TIMEOUT);
-	//HAL_SPI_Transmit_DMA(SPI_BUS, &reg, 1);
-	//HAL_SPI_Receive_DMA(SPI_BUS, pData, Size);
-	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_SET);
+	writeRegister(USER_BANK_SEL, bankNumber);
 }
 
-void ICM_WriteBytes(uint8_t reg, uint8_t *pData, uint16_t Size) // ***
+void ICM20948::setClock(uint8_t rate)
 {
-	//reg = reg & 0x7F;
-	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
-	HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, &reg, 1, HAL_TIMEOUT);
-	HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, pData, Size, HAL_TIMEOUT);
-	//HAL_SPI_Transmit_DMA(SPI_BUS, &reg, 1);
-	//HAL_SPI_Transmit_DMA(SPI_BUS, pData, Size);
-	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_SET);
+	writeRegister(PWR_MGMT_1, rate);
+}
+
+/*************************************/
+/***         Accelerometer         ***/
+/*************************************/
+
+void ICM20948::readAccelerometer()
+{
+	const int BUFFER_SIZE = 6; // 3 uint16_t stored in 6 registers
+	uint8_t raw_data[BUFFER_SIZE] = {0};
+
+	selectUserBank(USER_BANK_0);
+	HAL_Delay(20);
+
+	readRegisters(0x2D, raw_data, BUFFER_SIZE);
+
+	accelerometerValues.x_g = ((raw_data[0] << 8) | raw_data[1]) / accelerometerScaleDivider;
+	accelerometerValues.y_g = ((raw_data[2] << 8) | raw_data[3]) / accelerometerScaleDivider;
+	accelerometerValues.z_g = ((raw_data[4] << 8) | raw_data[5]) / accelerometerScaleDivider;
+}
+
+AccelerometerValues ICM20948::getAccelerometerValues()
+{
+	return accelerometerValues;
+}
+
+/*************************************/
+/***           Gyroscope           ***/
+/*************************************/
+
+void ICM20948::readGyroscope()
+{
+	const int BUFFER_SIZE = 6; // 3 uint16_t stored in 6 registers
+	uint8_t raw_data[BUFFER_SIZE] = {0};
+
+	selectUserBank(USER_BANK_0);
+	HAL_Delay(20);
+
+	readRegisters(0x33, raw_data, BUFFER_SIZE);
+
+	gyroscopeValues.x_degPerSec = ((raw_data[6] << 8) | raw_data[7]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
+	gyroscopeValues.y_degPerSec = ((raw_data[8] << 8) | raw_data[9]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
+	gyroscopeValues.z_degPerSec = ((raw_data[10] << 8) | raw_data[11]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
+}
+
+GyroscopeValues ICM20948::getGyroscopeValues()
+{
+	return gyroscopeValues;
+}
+
+/*************************************/
+/***          Magnetometer         ***/
+/*************************************/
+
+void ICM20948::readMagnetometer()
+{
 
 }
 
-void ICM_ReadOneByte(uint8_t reg, uint8_t* pData) // ***
+MagnetometerValues ICM20948::getMagnetometerValues()
 {
-	//reg = reg | 0x80;
-	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
-	HAL_StatusTypeDef testTx = HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, &reg, 1, HAL_TIMEOUT);
-	/*while (HAL_I2C_GetState(I2C_BUS) != HAL_I2C_STATE_READY)
-		;*/
-	HAL_StatusTypeDef testRx = HAL_I2C_Master_Receive(I2C_BUS, DEV_ADDRESS, pData, 1, HAL_TIMEOUT);
-	/*while (HAL_I2C_GetState(I2C_BUS) != HAL_I2C_STATE_READY)
-			;*/
-	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_SET);
-	/*while (HAL_SPI_GetState(SPI_BUS) != HAL_I2C_STATE_READY)
-		;
-	HAL_SPI_Receive_DMA(SPI_BUS, pData, 1);
-	while (HAL_SPI_GetState(SPI_BUS) != HAL_I2C_STATE_READY)
-		;
-	HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_SET);*/
+	return magnetometerValues;
 }
 
-void ICM_WriteOneByte(uint8_t reg, uint8_t Data) // ***
+/*************************************/
+/***          Thermometer          ***/
+/*************************************/
+
+void ICM20948::readThermometer()
 {
-	//reg = reg & 0x7F;
-	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
-	/*HAL_StatusTypeDef testTx = HAL_BUSY;
-	while (testTx != HAL_OK)
-	{
-		testTx = HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, &reg, 1, HAL_TIMEOUT);
-		HAL_Delay(50);
-	}*/
-	uint8_t data[2] = {reg, Data};
-	HAL_StatusTypeDef testTx = HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, &data, 2, HAL_TIMEOUT);
-	//HAL_StatusTypeDef testTx2 = HAL_I2C_Master_Transmit(I2C_BUS, DEV_ADDRESS, &Data, 1, HAL_TIMEOUT);
-	//HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_SET);
+
+}
+
+float ICM20948::getThermometerValue()
+{
+	return thermometerValue;
+}
+
+/*************************************/
+/***         Communication         ***/
+/*************************************/
+
+void ICM20948::writeRegister(uint8_t registerAddress, uint8_t value)
+{
+	uint8_t data[2] = {registerAddress, value};
+	HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, data, 2, HAL_TIMEOUT);
+}
+
+void ICM20948::readRegister(uint8_t registerAddress, uint8_t* value)
+{
+	HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, &registerAddress, 1, HAL_TIMEOUT);
+	HAL_I2C_Master_Receive(i2cHandle, I2C_ADDRESS, value, 1, HAL_TIMEOUT);
+}
+
+void ICM20948::readRegisters(uint8_t registerAddress, uint8_t* dataBuffer, uint8_t bufferSize)
+{
+	HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, &registerAddress, 1, HAL_TIMEOUT);
+	HAL_I2C_Master_Receive(i2cHandle, I2C_ADDRESS, dataBuffer, bufferSize, HAL_TIMEOUT);
 }
 
 /*
@@ -132,18 +222,18 @@ void ICM_WriteOneByte(uint8_t reg, uint8_t Data) // ***
  * AUX I2C abstraction for magnetometer
  *
  */
-void i2c_Mag_write(uint8_t reg,uint8_t value)
+/*void i2c_Mag_write(uint8_t reg,uint8_t value)
   {
-  	ICM_WriteOneByte(0x7F, 0x30);
+	writeRegister(0x7F, 0x30);
 
   	HAL_Delay(1);
-  	ICM_WriteOneByte(0x03 ,0x0C);//mode: write
+  	writeRegister(0x03 ,0x0C);//mode: write
 
   	HAL_Delay(1);
-  	ICM_WriteOneByte(0x04 ,reg);//set reg addr
+  	writeRegister(0x04 ,reg);//set reg addr
 
   	HAL_Delay(1);
-  	ICM_WriteOneByte(0x06 ,value);//send value
+  	writeRegister(0x06 ,value);//send value
 
   	HAL_Delay(1);
   }
@@ -151,16 +241,16 @@ void i2c_Mag_write(uint8_t reg,uint8_t value)
   static uint8_t ICM_Mag_Read(uint8_t reg)
   {
   	uint8_t  Data;
-  	ICM_WriteOneByte(0x7F, 0x30);
+  	writeRegister(0x7F, 0x30);
     HAL_Delay(1);
-  	ICM_WriteOneByte(0x03 ,0x0C|0x80);
+    writeRegister(0x03 ,0x0C|0x80);
     HAL_Delay(1);
-  	ICM_WriteOneByte(0x04 ,reg);// set reg addr
+    writeRegister(0x04 ,reg);// set reg addr
     HAL_Delay(1);
-  	ICM_WriteOneByte(0x06 ,0xff);//read
+    writeRegister(0x06 ,0xff);//read
   	HAL_Delay(1);
-  	ICM_WriteOneByte(0x7F, 0x00);
-  	ICM_ReadOneByte(0x3B,&Data);
+  	writeRegister(0x7F, 0x00);
+  	readRegister(0x3B,&Data);
     HAL_Delay(1);
   	return Data;
   }
@@ -184,21 +274,17 @@ void i2c_Mag_write(uint8_t reg,uint8_t value)
      	i2c_Mag_write(0x31,0x01);
   }
 
-/*
- *
- * Read magnetometer
- *
- */
+
 void ICM_ReadMag(int16_t magn[3]) {
 	uint8_t mag_buffer[10];
 
-	      mag_buffer[0] =ICM_Mag_Read(0x01);
+	      mag_buffer[0] = ICM_Mag_Read(0x01);
 
-	      mag_buffer[1] =ICM_Mag_Read(0x11);
-	  	  mag_buffer[2] =ICM_Mag_Read(0x12);
-	  	  magn[0]=mag_buffer[1]|mag_buffer[2]<<8;
-	    	mag_buffer[3] =ICM_Mag_Read(0x13);
-	      mag_buffer[4] =ICM_Mag_Read(0x14);
+	      mag_buffer[1] = ICM_Mag_Read(0x11);
+	  	  mag_buffer[2] = ICM_Mag_Read(0x12);
+	  	  magn[0] = mag_buffer[1]|mag_buffer[2]<<8;
+	    	mag_buffer[3] = ICM_Mag_Read(0x13);
+	      mag_buffer[4] = ICM_Mag_Read(0x14);
 	    	magn[1]=mag_buffer[3]|mag_buffer[4]<<8;
 	  	 	mag_buffer[5] =ICM_Mag_Read(0x15);
 	      mag_buffer[6] =ICM_Mag_Read(0x16);
@@ -206,92 +292,6 @@ void ICM_ReadMag(int16_t magn[3]) {
 
 	     	i2c_Mag_write(0x31,0x01);
 }
-
-/*
- *
- * Sequence to setup ICM290948 as early as possible after power on
- *
- */
-void ICM_PowerOn(void) {
-		//ICM_CSHigh();
-		//HAL_Delay(10);
-		ICM_SelectBank(USER_BANK_0);
-		//HAL_Delay(10);
-		//ICM_Disable_I2C();
-		HAL_Delay(10);
-		ICM_SetClock((uint8_t)CLK_BEST_AVAIL);
-		HAL_Delay(10);
-		ICM_AccelGyroOff();
-		HAL_Delay(20);
-		ICM_AccelGyroOn();
-		HAL_Delay(10);
-		ICM_Initialize();
-		//uint8_t test = ICM_WHOAMI();
-	//} else {
-		//sprintf(uart_buffer, "Failed WHO_AM_I.  %i is not 0xEA\r\n", test);
-		//HAL_UART_Transmit_DMA(UART_BUS, (uint8_t*) uart_buffer, strlen(uart_buffer));
-		//HAL_Delay(100);
-	//}
-}
-uint16_t ICM_Initialize(void) {
-		ICM_SelectBank(USER_BANK_2);
-		HAL_Delay(20);
-		ICM_SetGyroRateLPF(GYRO_RATE_250, GYRO_LPF_17HZ);
-		HAL_Delay(10);
-
-		// Set gyroscope sample rate to 100hz (0x0A) in GYRO_SMPLRT_DIV register (0x00)
-		ICM_WriteOneByte(0x00, 0x0A);
-		HAL_Delay(10);
-
-		// Set accelerometer low pass filter to 136hz (0x11) and the rate to 8G (0x04) in register ACCEL_CONFIG (0x14)
-		//ICM_WriteOneByte(0x14, (0x04 | 0x11));
-		ICM_WriteOneByte(0x14, 0x04);
-		HAL_Delay(10);
-
-		// Set accelerometer sample rate to 225hz (0x00) in ACCEL_SMPLRT_DIV_1 register (0x10)
-		ICM_WriteOneByte(0x10, 0x00);
-		HAL_Delay(10);
-
-		// Set accelerometer sample rate to 100 hz (0x0A) in ACCEL_SMPLRT_DIV_2 register (0x11)
-		ICM_WriteOneByte(0x11, 0x0A);
-		HAL_Delay(10);
-
-		ICM_SelectBank(USER_BANK_2);
-		HAL_Delay(20);
-
-		// Configure AUX_I2C Magnetometer (onboard ICM-20948)
-		//ICM_WriteOneByte(0x7F, 0x00); // Select user bank 0
-		//ICM_WriteOneByte(0x0F, 0x30); // INT Pin / Bypass Enable Configuration
-		//ICM_WriteOneByte(0x03, 0x20); // I2C_MST_EN
-		//ICM_WriteOneByte(0x7F, 0x30); // Select user bank 3
-		//ICM_WriteOneByte(0x01, 0x4D); // I2C Master mode and Speed 400 kHz
-		//ICM_WriteOneByte(0x02, 0x01); // I2C_SLV0 _DLY_ enable
-		//ICM_WriteOneByte(0x05, 0x81); // enable IIC	and EXT_SENS_DATA==1 Byte
-
-		// Initialize magnetometer
-		//i2c_Mag_write(0x32, 0x01); // Reset AK8963
-		//HAL_Delay(1000);
-		//i2c_Mag_write(0x31, 0x02); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
-		ICM_SelectBank(USER_BANK_0);
-		HAL_Delay(20);
-		/*uint8_t testSleep = 0x00;
-		uint8_t testSleep2 = 0x00;
-		uint8_t testconfig = 0x00;
-		ICM_ReadOneByte(0x06, &testSleep);
-		HAL_Delay(10);
-		ICM_ReadOneByte(0x03, &testconfig);
-		HAL_Delay(10);*/
-		// Remove sleep
-		ICM_SelectBank(USER_BANK_0);
-		HAL_Delay(20);
-		ICM_WriteOneByte(0x06, 0x01);
-		HAL_Delay(10);
-		/*ICM_ReadOneByte(0x06, &testSleep2);
-		HAL_Delay(10);*/
-		ICM_SelectBank(USER_BANK_2);
-
-		return 1337;
-	}
 
 void ICM_ReadAccelGyro(void) {
 	ICM_SelectBank(USER_BANK_0);
@@ -330,9 +330,7 @@ void ICM_ReadAccelGyro(void) {
 	gyro_data[1] = gyro_data[1] / 250;
 	gyro_data[2] = gyro_data[2] / 250;
 }
-void ICM_SelectBank(uint8_t bank) {
-	ICM_WriteOneByte(USER_BANK_SEL, bank);
-}
+
 void ICM_Disable_I2C(void) {
 	ICM_WriteOneByte(0x03, 0x78);
 }
@@ -364,4 +362,4 @@ uint8_t ICM_GetAccelRange(void)
 	ICM_ReadOneByte(0x14, &rawData);
 	ICM_SelectBank(USER_BANK_0);
 	return rawData;
-}
+}*/
