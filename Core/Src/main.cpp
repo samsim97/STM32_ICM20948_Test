@@ -114,9 +114,6 @@ int main(void)
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
   Rocket* rocket = new Rocket(&hi2c1);
-  ICM20948 icm20948 = ICM20948(&hi2c1);
-  //ICM_Initialize();
-  icm20948.init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -126,10 +123,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  //ICM_GetAccelRange();
-	  //icm20948.checkCommunication();
-	  icm20948.readAccelerometer();
-	  AccelerometerValues accelValues = icm20948.getAccelerometerValues();
+	  rocket->execute();
 	  HAL_Delay(10);
 
 	  //ICM_WriteOneByte(0x06, 0x01);

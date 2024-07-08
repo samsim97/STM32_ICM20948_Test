@@ -13,12 +13,18 @@
 
 #include <HardwareDriver/ICM20948/ICM20948.hpp>
 
+#include <Rocket/FlightStage.hpp>
+
 class Rocket
 {
 public:
 	Rocket(I2C_HandleTypeDef* i2chandle);
 	~Rocket() {};
 
+	void execute();
+
+	void getCurrentFlightStage();
+	void setCurrentFlightStage(FlightStage flightStage);
 private:
 	// Sensors
 	Accelerometer* accelerometer;
@@ -34,4 +40,10 @@ private:
 
 	// Drivers -- Boards
 	ICM20948* icm20948Driver;
+
+	// State Machine
+	FlightStage currentFlightStage;
+
+	void executeIntializing();
+	void executeAscending();
 };
