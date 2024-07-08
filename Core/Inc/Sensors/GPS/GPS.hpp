@@ -13,4 +13,7 @@ public:
 	GPSValues getValues();
 	void fillData();
 	SensorState getState();
+private:
+	IGPSDriver* driver;
+	SensorState sensorState;
 };

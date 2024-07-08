@@ -9,21 +9,26 @@
 #include <Sensors/Thermometer/Thermometer.hpp>
 
 #include <Devices/SmokeBomb.hpp>
-#include <Devices/Thermocouple.hpp>
+#include <Devices/Thermocouple/Thermocouple.hpp>
+
+#include <Telecommunication/Telecommunication.hpp>
 
 #include <HardwareDriver/ICM20948/ICM20948.hpp>
+#include <HardwareDriver/BMP388/BMP388.hpp>
+#include <HardwareDriver/BN220/BN220.hpp>
 
 #include <Rocket/FlightStage.hpp>
 
 class Rocket
 {
 public:
-	Rocket(I2C_HandleTypeDef* i2chandle);
+	Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandle);
 	~Rocket() {};
 
+	void initDrivers();
 	void execute();
 
-	void getCurrentFlightStage();
+	FlightStage getCurrentFlightStage();
 	void setCurrentFlightStage(FlightStage flightStage);
 private:
 	// Sensors
@@ -38,8 +43,13 @@ private:
 	SmokeBomb* smokeBomb;
 	Thermocouple* thermocouple;
 
+	// Telecommunication
+	Telecommunication* telecommunication;
+
 	// Drivers -- Boards
 	ICM20948* icm20948Driver;
+	//BMP388* bmp388Driver;
+	//BN220* bn220Driver;
 
 	// State Machine
 	FlightStage currentFlightStage;

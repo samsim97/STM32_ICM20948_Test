@@ -24,7 +24,7 @@
 class ICM20948 : public IAccelerometerDriver, public IGyroscopeDriver
 {
 public:
-	ICM20948(I2C_HandleTypeDef* i2chandle);
+	ICM20948(I2C_HandleTypeDef* i2cHandle);
 	~ICM20948();
 
 	// Board management

@@ -1,0 +1,4 @@
+../Core/Src/Sensors/Altimeter/Altimeter.cpp:3:1:Altimeter::Altimeter(IAltimeterDriver*)	1
+../Core/Src/Sensors/Altimeter/Altimeter.cpp:9:17:AltimeterValues Altimeter::getValues()	1
+../Core/Src/Sensors/Altimeter/Altimeter.cpp:14:6:void Altimeter::fillData()	1
+../Core/Src/Sensors/Altimeter/Altimeter.cpp:19:13:SensorState Altimeter::getState()	1

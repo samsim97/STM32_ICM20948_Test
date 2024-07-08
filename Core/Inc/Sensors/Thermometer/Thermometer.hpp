@@ -1,11 +1,12 @@
 #pragma once
 
+#include <Sensors/Thermometer/ThermometerValues.hpp>
 #include <Sensors/SensorState.hpp>
 
 class Thermometer
 {
 public:
-	float getValue_C();
+	ThermometerValues getValue_C();
 	void fillData();
 	SensorState getState();
 };

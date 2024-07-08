@@ -2,7 +2,8 @@
 
 #include <stdint.h>
 
-#define VALUES_LENGTH 6
+#define GPS_VALUES_LENGTH 6
+
 // SEE FORMAT ?
 struct CoordinateAxis
 {
@@ -20,5 +21,5 @@ struct GPSPosition
 union GPSValues
 {
 	GPSPosition gpsPosition;
-	uint16_t values[VALUES_LENGTH];
+	uint16_t values[GPS_VALUES_LENGTH];
 };

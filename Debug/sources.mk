@@ -39,10 +39,15 @@ CPP_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Core/Src/Devices \
+Core/Src/HardwareDriver/BMP388 \
+Core/Src/HardwareDriver/BN220 \
 Core/Src/HardwareDriver/ICM20948 \
 Core/Src/Rocket \
 Core/Src/Sensors/Accelerometer \
+Core/Src/Sensors/Altimeter \
+Core/Src/Sensors/GPS \
 Core/Src/Sensors/Gyroscope \
+Core/Src/Telecommunication \
 Core/Src \
 Core/Startup \
 Drivers/STM32F4xx_HAL_Driver/Src \

@@ -13,4 +13,7 @@ public:
 	AltimeterValues getValues();
 	void fillData();
 	SensorState getState();
+private:
+	IAltimeterDriver* driver;
+	SensorState sensorState;
 };

@@ -14,5 +14,5 @@
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:188:6:void ICM20948::readThermometer()	16	static
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:193:7:float ICM20948::getThermometerValue()	16	static
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:202:6:void ICM20948::writeRegister(uint8_t, uint8_t)	32	static
-../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:208:6:void ICM20948::readRegister(uint8_t, uint8_t*)	32	static
-../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:214:6:void ICM20948::readRegisters(uint8_t, uint8_t*, uint8_t)	32	static
+../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:209:6:void ICM20948::readRegister(uint8_t, uint8_t*)	40	static
+../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:215:6:void ICM20948::readRegisters(uint8_t, uint8_t*, uint8_t)	40	static

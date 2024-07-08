@@ -157,9 +157,9 @@ void ICM20948::readGyroscope()
 
 	readRegisters(0x33, raw_data, BUFFER_SIZE);
 
-	gyroscopeValues.x_degPerSec = ((raw_data[6] << 8) | raw_data[7]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
-	gyroscopeValues.y_degPerSec = ((raw_data[8] << 8) | raw_data[9]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
-	gyroscopeValues.z_degPerSec = ((raw_data[10] << 8) | raw_data[11]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
+	gyroscopeValues.x_degPerSec = static_cast<int16_t>((raw_data[0] << 8) | raw_data[1]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
+	gyroscopeValues.y_degPerSec = static_cast<int16_t>((raw_data[2] << 8) | raw_data[3]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
+	gyroscopeValues.z_degPerSec = static_cast<int16_t>((raw_data[4] << 8) | raw_data[5]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
 }
 
 GyroscopeValues ICM20948::getGyroscopeValues()
@@ -202,19 +202,21 @@ float ICM20948::getThermometerValue()
 void ICM20948::writeRegister(uint8_t registerAddress, uint8_t value)
 {
 	uint8_t data[2] = {registerAddress, value};
-	HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, data, 2, HAL_TIMEOUT);
+	HAL_StatusTypeDef txCode = HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, data, 2, HAL_TIMEOUT);
+ 	uint8_t test = 0;
 }
 
 void ICM20948::readRegister(uint8_t registerAddress, uint8_t* value)
 {
-	HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, &registerAddress, 1, HAL_TIMEOUT);
-	HAL_I2C_Master_Receive(i2cHandle, I2C_ADDRESS, value, 1, HAL_TIMEOUT);
+	HAL_StatusTypeDef txCode = HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, &registerAddress, 1, HAL_TIMEOUT);
+	HAL_StatusTypeDef rxCode = HAL_I2C_Master_Receive(i2cHandle, I2C_ADDRESS, value, 1, HAL_TIMEOUT);
 }
 
 void ICM20948::readRegisters(uint8_t registerAddress, uint8_t* dataBuffer, uint8_t bufferSize)
 {
-	HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, &registerAddress, 1, HAL_TIMEOUT);
-	HAL_I2C_Master_Receive(i2cHandle, I2C_ADDRESS, dataBuffer, bufferSize, HAL_TIMEOUT);
+	HAL_StatusTypeDef txCode =  HAL_I2C_Master_Transmit(i2cHandle, I2C_ADDRESS, &registerAddress, 1, HAL_TIMEOUT);
+	HAL_StatusTypeDef rxCode = HAL_I2C_Master_Receive(i2cHandle, I2C_ADDRESS, dataBuffer, bufferSize, HAL_TIMEOUT);
+	uint8_t test = 0;
 }
 
 /*

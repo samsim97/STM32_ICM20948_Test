@@ -113,7 +113,8 @@ int main(void)
   MX_USART2_UART_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
-  Rocket* rocket = new Rocket(&hi2c1);
+  Rocket* rocket = new Rocket(&hi2c1, &huart2);
+  rocket->initDrivers();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -125,12 +126,6 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	  rocket->execute();
 	  HAL_Delay(10);
-
-	  //ICM_WriteOneByte(0x06, 0x01);
-	  //HAL_Delay(10);
-	  //ICM_ReadOneByte(0x06, &testSleep2);
-	  //HAL_Delay(10);
-
   }
   /* USER CODE END 3 */
 }
