@@ -11,25 +11,27 @@
 #include <Devices/SmokeBomb.hpp>
 #include <Devices/Thermocouple.hpp>
 
+#include <HardwareDriver/ICM20948/ICM20948.hpp>
+
 class Rocket
 {
 public:
-	Rocket();
+	Rocket(I2C_HandleTypeDef* i2chandle);
 	~Rocket() {};
 
 private:
 	// Sensors
-	Accelerometer accelerometer;
-	Altimeter altimeter;
-	GPS gps;
-	Gyroscope gyroscope;
-	Magnetometer magnetometer;
-	Thermometer thermometer;
+	Accelerometer* accelerometer;
+	Altimeter* altimeter;
+	GPS* gps;
+	Gyroscope* gyroscope;
+	Magnetometer* magnetometer;
+	Thermometer* thermometer;
 
 	// Devices
-	SmokeBomb smokeBomb;
-	Thermocouple thermocouple;
+	SmokeBomb* smokeBomb;
+	Thermocouple* thermocouple;
 
 	// Drivers -- Boards
-
+	ICM20948* icm20948Driver;
 };

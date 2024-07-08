@@ -1,0 +1,4 @@
+../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:5:1:Gyroscope::Gyroscope(IGyroscopeDriver*)	1
+../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:11:17:GyroscopeValues Gyroscope::getValues()	1
+../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:16:6:void Gyroscope::fillData()	1
+../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:21:13:SensorState Gyroscope::getState()	1

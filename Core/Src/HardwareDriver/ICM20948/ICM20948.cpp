@@ -6,7 +6,7 @@
  */
 
 // *** Three asterisks to the side of a line means this may change based on platform
-#include <Hardware/ICM20948/ICM20948.hpp>
+#include <HardwareDriver/ICM20948/ICM20948.hpp>
 
 // #include "stm32f4xx_hal_gpio.h" // ***
 //#include "stm32f4xx_hal_i2c.h"  // ***

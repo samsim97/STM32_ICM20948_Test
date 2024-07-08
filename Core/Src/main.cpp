@@ -17,11 +17,13 @@
   */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
+
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <Hardware/ICM20948/ICM20948.hpp>
+#include <HardwareDriver/ICM20948/ICM20948.hpp>
+#include <Rocket/Rocket.hpp>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -111,7 +113,7 @@ int main(void)
   MX_USART2_UART_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
-
+  Rocket* rocket = new Rocket(&hi2c1);
   ICM20948 icm20948 = ICM20948(&hi2c1);
   //ICM_Initialize();
   icm20948.init();

@@ -1,12 +1,14 @@
 #pragma once
 
+#include <HardwareDriver/ICM20948/ICM20948Defines.hpp>
+#include <HardwareDriver/ICM20948/ICM20948Registers.hpp>
 #include <stdint.h>
 #include "stm32f4xx_hal.h"
 
-#include <Hardware/ICM20948/ICM20948Registers.hpp>
-#include <Hardware/ICM20948/ICM20948Defines.hpp>
-
+#include <Sensors/Accelerometer/IAccelerometerDriver.hpp>
 #include <Sensors/Accelerometer/AccelerometerValues.hpp>
+
+#include <Sensors/Gyroscope/IGyroscopeDriver.hpp>
 #include <Sensors/Gyroscope/GyroscopeValues.hpp>
 #include <Sensors/Magnetometer/MagnetometerValues.hpp>
 
@@ -19,7 +21,7 @@
 #define GYRO_RATE_250	(0x00)
 #define GYRO_LPF_17HZ 	(0x29)
 
-class ICM20948
+class ICM20948 : public IAccelerometerDriver, public IGyroscopeDriver
 {
 public:
 	ICM20948(I2C_HandleTypeDef* i2chandle);
