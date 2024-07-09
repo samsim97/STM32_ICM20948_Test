@@ -4,6 +4,7 @@ Rocket::Rocket(I2C_HandleTypeDef* i2chandle)
 {
 	// Drivers -- Boards
 	icm20948Driver = new ICM20948(i2chandle);
+	icm20948Driver->init();
 
 	// Sensors
 	accelerometer = new Accelerometer(icm20948Driver);
