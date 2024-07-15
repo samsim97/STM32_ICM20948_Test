@@ -128,6 +128,7 @@ void ICM20948::readAccelerometer()
 	const int BUFFER_SIZE = 6; // 3 uint16_t stored in 6 registers
 	uint8_t raw_data[BUFFER_SIZE] = {0};
 
+	HAL_Delay(20);
 	selectUserBank(USER_BANK_0);
 	HAL_Delay(20);
 
@@ -152,6 +153,7 @@ void ICM20948::readGyroscope()
 	const int BUFFER_SIZE = 6; // 3 uint16_t stored in 6 registers
 	uint8_t raw_data[BUFFER_SIZE] = {0};
 
+	HAL_Delay(20);
 	selectUserBank(USER_BANK_0);
 	HAL_Delay(20);
 

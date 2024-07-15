@@ -10,8 +10,7 @@ public:
 	Telecommunication(ITelecommunicationDriver* driver);
 	~Telecommunication() {};
 
-	void sendData(AvionicsValues data);
-	void readCommand();
+	void sendData(uint8_t* data, uint8_t size);
 	GCSCommand getCommand();
 private:
 	ITelecommunicationDriver* driver;

@@ -1,4 +1,4 @@
-../Core/Src/main.cpp:82:5:int main()	1
+../Core/Src/main.cpp:81:5:int main()	1
 ../Core/Src/main.cpp:137:6:void SystemClock_Config()	3
 ../Core/Src/main.cpp:182:6:void PeriphCommonClock_Config()	2
 ../Core/Src/main.cpp:203:13:void MX_I2C1_Init()	2

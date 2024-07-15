@@ -8,12 +8,12 @@ Telecommunication::Telecommunication(ITelecommunicationDriver* driver)
 
 void Telecommunication::sendData(AvionicsValues data)
 {
-
+	driver->sendData(data.values, sizeof(data));
 }
 
 GCSCommand Telecommunication::getCommand()
 {
-	driver->getCommand();
+	return driver->getCommand();
 }
 
 
