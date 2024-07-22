@@ -13,7 +13,8 @@ void Telecommunication::sendData(AvionicsValues data)
 
 GCSCommand Telecommunication::getCommand()
 {
-	return driver->getCommand();
+	driver->fetchData(currentCommand.values, sizeof(currentCommand));
+	return currentCommand;
 }
 
 

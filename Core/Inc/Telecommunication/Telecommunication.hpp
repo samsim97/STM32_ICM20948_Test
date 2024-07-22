@@ -14,4 +14,5 @@ public:
 	GCSCommand getCommand();
 private:
 	ITelecommunicationDriver* driver;
+	GCSCommand currentCommand;
 };
