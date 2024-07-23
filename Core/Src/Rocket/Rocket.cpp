@@ -11,7 +11,7 @@ Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandle)
 	accelerometer = new Accelerometer(icm20948Driver);
 	//altimeter = new Altimeter(bmp388Driver); // BMP388
 	//gps = new GPS(bn220Driver); // GPS Driver
-	//gyroscope = new Gyroscope(icm20948Driver);
+	gyroscope = new Gyroscope(icm20948Driver);
 
 	// FOR TEST ONLY
 	currentFlightStage = FlightStage::ASCENDING;
@@ -43,12 +43,12 @@ void Rocket::executeIntializing()
 void Rocket::executeAscending()
 {
 	accelerometer->fillData();
-	//gyroscope->fillData();
+	gyroscope->fillData();
 
 	uint16_t test= 0;
 
 	AccelerometerValues accelValues = accelerometer->getValues();
-	//GyroscopeValues gyroValues = gyroscope->getValues();
+	GyroscopeValues gyroValues = gyroscope->getValues();
 	test = 1;
 }
 

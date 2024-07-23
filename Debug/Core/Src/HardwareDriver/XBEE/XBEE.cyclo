@@ -1,0 +1,4 @@
+ITelecommunicationDriver.hpp:6:7:constexpr ITelecommunicationDriver::ITelecommunicationDriver()	1
+XBEE.cpp:3:1:XBEE::XBEE(UART_HandleTypeDef*)	1
+XBEE.cpp:8:6:virtual void XBEE::sendData(uint8_t*, uint8_t)	1
+XBEE.cpp:13:6:virtual void XBEE::fetchData(uint8_t*, uint8_t)	1

@@ -1,5 +1,3 @@
-#pragma once
-
 #include <HardwareDriver/XBEE/XBEE.hpp>
 
 XBEE::XBEE(UART_HandleTypeDef* uartHandle)

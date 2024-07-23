@@ -1,4 +1,4 @@
-../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:5:1:Accelerometer::Accelerometer(IAccelerometerDriver*)	1
-../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:11:21:AccelerometerValues Accelerometer::getValues()	1
-../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:16:6:void Accelerometer::fillData()	1
-../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:21:13:SensorState Accelerometer::getState()	1
+Accelerometer.cpp:5:1:Accelerometer::Accelerometer(IAccelerometerDriver*)	1
+Accelerometer.cpp:11:21:AccelerometerValues Accelerometer::getValues()	1
+Accelerometer.cpp:16:6:void Accelerometer::fillData()	1
+Accelerometer.cpp:21:13:SensorState Accelerometer::getState()	1

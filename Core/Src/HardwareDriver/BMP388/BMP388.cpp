@@ -14,7 +14,3 @@ AltimeterValues BMP388::getAltimeterValues()
 {
 	return altimeterValues;
 }
-
-
-
-

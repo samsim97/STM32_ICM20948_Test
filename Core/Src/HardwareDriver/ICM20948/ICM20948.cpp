@@ -1,18 +1,8 @@
-/*
- * ICM20948.c
- *
- *  Created on: Oct 26, 2018
- *      Author: cory
- */
-
-// *** Three asterisks to the side of a line means this may change based on platform
 #include <HardwareDriver/ICM20948/ICM20948.hpp>
 
 // #include "stm32f4xx_hal_gpio.h" // ***
 //#include "stm32f4xx_hal_i2c.h"  // ***
-//#include "usart.h"// ***
 //#include "stm32f4xx_hal_dma.h"  // ***
-//#include <string.h>
 
 
 #define DEV_ADDRESS 0x69 << 1

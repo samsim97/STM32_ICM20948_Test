@@ -15,5 +15,5 @@ public:
 
 private:
 	UART_HandleTypeDef* uartHandle;
-	const uint16_t UART_COMMUNICATION_TIMOUT_MS = 200;
+	const uint16_t UART_COMMUNICATION_TIMOUT_MS = 200U;
 };

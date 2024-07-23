@@ -2,13 +2,13 @@
 
 Telecommunication::Telecommunication(ITelecommunicationDriver* driver)
 {
-
+	this->driver = driver;
 }
 
 
-void Telecommunication::sendData(AvionicsValues data)
+void Telecommunication::sendData(uint8_t* data, uint8_t size)
 {
-	driver->sendData(data.values, sizeof(data));
+	driver->sendData(data, size);
 }
 
 GCSCommand Telecommunication::getCommand()
@@ -16,7 +16,3 @@ GCSCommand Telecommunication::getCommand()
 	driver->fetchData(currentCommand.values, sizeof(currentCommand));
 	return currentCommand;
 }
-
-
-
-
