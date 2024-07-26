@@ -113,8 +113,8 @@ int main(void)
   MX_USART2_UART_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
-  Rocket* rocket = new Rocket(&hi2c1, &huart2);
-  rocket->initDrivers();
+  //Rocket* rocket = new Rocket(&hi2c1, &huart2);
+  //rocket->initDrivers();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -124,8 +124,22 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  rocket->execute();
-	  HAL_Delay(10);
+	  //rocket->execute();
+	  //HAL_Delay(10);
+
+	  // TEST RESIST
+	  HAL_Delay(10000);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+	  HAL_Delay(500);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
+	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+	  while (1)
+	  {
+
+	  }
   }
   /* USER CODE END 3 */
 }

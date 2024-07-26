@@ -16,13 +16,14 @@
 #include <HardwareDriver/ICM20948/ICM20948.hpp>
 #include <HardwareDriver/BMP388/BMP388.hpp>
 #include <HardwareDriver/BN220/BN220.hpp>
+#include <HardwareDriver/XBEE/XBEE.hpp>
 
 #include <Rocket/FlightStage.hpp>
 
 class Rocket
 {
 public:
-	Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandle);
+	Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleGPS, UART_HandleTypeDef* uartHandleXBEE);
 	~Rocket() {};
 
 	void initDrivers();
@@ -50,6 +51,7 @@ private:
 	ICM20948* icm20948Driver;
 	//BMP388* bmp388Driver;
 	//BN220* bn220Driver;
+	XBEE* xbeeDriver;
 
 	// State Machine
 	FlightStage currentFlightStage;

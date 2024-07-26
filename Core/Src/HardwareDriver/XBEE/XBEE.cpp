@@ -14,7 +14,3 @@ void XBEE::fetchData(uint8_t* buffer, uint8_t size)
 {
 	HAL_UART_Receive(uartHandle, buffer, size, UART_COMMUNICATION_TIMOUT_MS);
 }
-
-
-
-

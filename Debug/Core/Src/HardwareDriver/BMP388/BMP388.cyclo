@@ -1,4 +1,4 @@
-IAltimeterDriver.hpp:6:7:constexpr IAltimeterDriver::IAltimeterDriver()	1
-BMP388.cpp:3:1:BMP388::BMP388(I2C_HandleTypeDef*)	1
-BMP388.cpp:8:6:virtual void BMP388::readAltimeter()	1
-BMP388.cpp:13:17:virtual AltimeterValues BMP388::getAltimeterValues()	1
+../Core/Inc/Sensors/Altimeter/IAltimeterDriver.hpp:6:7:constexpr IAltimeterDriver::IAltimeterDriver()	1
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:3:1:BMP388::BMP388(I2C_HandleTypeDef*)	1
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:8:6:virtual void BMP388::readAltimeter()	1
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:13:17:virtual AltimeterValues BMP388::getAltimeterValues()	1

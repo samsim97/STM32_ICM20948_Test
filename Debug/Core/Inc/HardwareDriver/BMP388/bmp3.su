@@ -1,6 +1,6 @@
 ../Core/Inc/HardwareDriver/BMP388/bmp3.c:738:8:bmp3_init	24	static
 ../Core/Inc/HardwareDriver/BMP388/bmp3.c:794:8:bmp3_get_regs	72	dynamic
-../Core/Inc/HardwareDriver/BMP388/bmp3.c:844:8:bmp3_set_regs	64	dynamic
+../Core/Inc/HardwareDriver/BMP388/bmp3.c:844:8:bmp3_set_regs	72	dynamic
 ../Core/Inc/HardwareDriver/BMP388/bmp3.c:909:8:bmp3_set_sensor_settings	32	static
 ../Core/Inc/HardwareDriver/BMP388/bmp3.c:953:8:bmp3_get_sensor_settings	24	static
 ../Core/Inc/HardwareDriver/BMP388/bmp3.c:982:8:bmp3_set_fifo_settings	32	static
