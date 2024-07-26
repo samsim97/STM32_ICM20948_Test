@@ -40,18 +40,16 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define ITM_Port32(n) (*((volatile unsigned long *)(0xE0000000+4*n)))
 
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-I2C_HandleTypeDef hi2c1;
-
 I2S_HandleTypeDef hi2s2;
 I2S_HandleTypeDef hi2s3;
 
 SPI_HandleTypeDef hspi1;
 
+UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
@@ -62,11 +60,11 @@ UART_HandleTypeDef huart2;
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_I2C1_Init(void);
 static void MX_I2S2_Init(void);
 static void MX_I2S3_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
+static void MX_USART1_UART_Init(void);
 void MX_USB_HOST_Process(void);
 
 /* USER CODE BEGIN PFP */
@@ -76,21 +74,6 @@ void MX_USB_HOST_Process(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-/* USER CODE BEGIN 4 */
-/**
-  * @brief  Retargets the C library printf function to the USART.
-  * @PAram  None
-  * @retval None
-  */
-PUTCHAR_PROTOTYPE
-{
-  /* Place your implementation of fputc here */
-  /* e.g. write a character to the USART1 and Loop until the end of transmission */
-  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, 0xFFFF);
-
-  return ch;
-}
 /* USER CODE END 0 */
 
 /**
@@ -110,8 +93,6 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
-
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -121,28 +102,19 @@ int main(void)
   PeriphCommonClock_Config();
 
   /* USER CODE BEGIN SysInit */
-  //ITM_Port32(31) = 1;
 
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_I2C1_Init();
   MX_I2S2_Init();
   MX_I2S3_Init();
   MX_SPI1_Init();
   MX_USB_HOST_Init();
   MX_USART2_UART_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  //printf("GPIO init done. \r\n");
-  //ITM_Port32(31) = 2;
-  // For how to setup the command, see: https://www.sparkfun.com/datasheets/GPS/NMEA%20Reference%20Manual-Rev2.1-Dec07.pdf
-//										http://files.banggood.com/2016/11/BN-220%20GPS+Antenna%20datasheet.pdf
-  //char command[] = "$PSRF103,01,00,01,01*24";
-  //char command[] = "$PMTK104*37";
-  //char command[] = "$PMTK000*32\r\n";
-  //char command [] = "Hello World!";
-  //char command[] = "$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28<CR><LF>";
+
   char coldRestartCommand[] = "$PMTK104*37<CR><LF>";
   // Sets the mode (Avionic), See (Page 23): https://cdn.sparkfun.com/assets/parts/1/2/2/8/0/PMTK_Packet_User_Manual.pdf
   //char command[] = "$PMTK886,2*2A<CR><LF>";
@@ -155,21 +127,22 @@ int main(void)
   memset(buffer, 0, sizeof(buffer));
   //memset(rxBuffer, 0, sizeof(rxBuffer));
 
-  int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, sizeof(command) - 1, 5000);
+  int transmitCode = HAL_UART_Transmit(&huart1, (uint8_t*)command, sizeof(command) - 1, 5000);
   //int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)coldRestartCommand, sizeof(coldRestartCommand) - 1, 5000);
   HAL_Delay(5000);
   int transmitOKCount = 0;
   int receiveOKCount = 0;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	//printf("In ze loop"
-	//int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, strlen(command), 5000);
-	//int transmitCode = HAL_UART_Transmit(&huart2, (uint8_t*)command, sizeof(command) - 1, 5000);
-	int returnCode = HAL_UART_Receive(&huart2, (uint8_t*)buffer, sizeof(buffer) - 1, 5000);
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+	int returnCode = HAL_UART_Receive(&huart1, (uint8_t*)buffer, sizeof(buffer) - 1, 5000);
 
 	if (transmitCode == HAL_OK) {
 		transmitOKCount++;
@@ -192,10 +165,6 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 	HAL_Delay(50);
-
-    // HAL_SPI_Receive(&hspi1, RX_Data, sizeof(RX_Data), 5000);
-    // HAL_UART_Receive(&huart2, RX_Data, sizeof(RX_Data), 1000);
-    // HAL_Delay(2000);
   }
   /* USER CODE END 3 */
 }
@@ -263,40 +232,6 @@ void PeriphCommonClock_Config(void)
   {
     Error_Handler();
   }
-}
-
-/**
-  * @brief I2C1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_I2C1_Init(void)
-{
-
-  /* USER CODE BEGIN I2C1_Init 0 */
-
-  /* USER CODE END I2C1_Init 0 */
-
-  /* USER CODE BEGIN I2C1_Init 1 */
-
-  /* USER CODE END I2C1_Init 1 */
-  hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
-  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c1.Init.OwnAddress1 = 0;
-  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c1.Init.OwnAddress2 = 0;
-  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN I2C1_Init 2 */
-
-  /* USER CODE END I2C1_Init 2 */
-
 }
 
 /**
@@ -401,6 +336,39 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
 
 }
 
@@ -517,18 +485,19 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : Audio_SDA_Pin */
+  GPIO_InitStruct.Pin = Audio_SDA_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+  HAL_GPIO_Init(Audio_SDA_GPIO_Port, &GPIO_InitStruct);
+
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
-int _write(int file, char* ptr, int len) {
-	int dataIndex;
-	for (dataIndex = 0; dataIndex < len; dataIndex++) {
-		ITM_SendChar(*ptr++);
-	}
-	return len;
-}
 
 /* USER CODE END 4 */
 
