@@ -23,7 +23,7 @@
 class Rocket
 {
 public:
-	Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleGPS, UART_HandleTypeDef* uartHandleXBEE);
+	Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE, UART_HandleTypeDef* uartHandleGPS);
 	~Rocket() {};
 
 	void initDrivers();
@@ -55,7 +55,7 @@ private:
 
 	// State Machine
 	FlightStage currentFlightStage;
-
+	GCSCommand currentCommand;
 	void executeIntializing();
 	void executeAscending();
 };

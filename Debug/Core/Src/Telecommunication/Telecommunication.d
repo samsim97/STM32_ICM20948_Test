@@ -5,6 +5,7 @@ Core/Src/Telecommunication/Telecommunication.o: \
  ../Core/Inc/Sensors/Accelerometer/AccelerometerValues.hpp \
  ../Core/Inc/Sensors/Altimeter/AltimeterValues.hpp \
  ../Core/Inc/Sensors/GPS/GPSValues.hpp \
+ ../Core/Inc/Sensors/GPS/Direction.hpp \
  ../Core/Inc/Sensors/Gyroscope/GyroscopeValues.hpp \
  ../Core/Inc/Sensors/Magnetometer/MagnetometerValues.hpp \
  ../Core/Inc/Sensors/Thermometer/ThermometerValues.hpp \
@@ -16,6 +17,7 @@ Core/Src/Telecommunication/Telecommunication.o: \
 ../Core/Inc/Sensors/Accelerometer/AccelerometerValues.hpp:
 ../Core/Inc/Sensors/Altimeter/AltimeterValues.hpp:
 ../Core/Inc/Sensors/GPS/GPSValues.hpp:
+../Core/Inc/Sensors/GPS/Direction.hpp:
 ../Core/Inc/Sensors/Gyroscope/GyroscopeValues.hpp:
 ../Core/Inc/Sensors/Magnetometer/MagnetometerValues.hpp:
 ../Core/Inc/Sensors/Thermometer/ThermometerValues.hpp:

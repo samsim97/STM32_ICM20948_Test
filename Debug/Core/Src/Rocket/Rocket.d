@@ -8,6 +8,7 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/Sensors/Altimeter/AltimeterValues.hpp \
  ../Core/Inc/Sensors/Altimeter/IAltimeterDriver.hpp \
  ../Core/Inc/Sensors/GPS/GPS.hpp ../Core/Inc/Sensors/GPS/GPSValues.hpp \
+ ../Core/Inc/Sensors/GPS/Direction.hpp \
  ../Core/Inc/Sensors/GPS/IGPSDriver.hpp \
  ../Core/Inc/Sensors/Gyroscope/Gyroscope.hpp \
  ../Core/Inc/Sensors/Gyroscope/GyroscopeValues.hpp \
@@ -17,15 +18,6 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/Sensors/Thermometer/Thermometer.hpp \
  ../Core/Inc/Sensors/Thermometer/ThermometerValues.hpp \
  ../Core/Inc/Devices/SmokeBomb.hpp \
- ../Core/Inc/Devices/Thermocouple/Thermocouple.hpp \
- ../Core/Inc/Telecommunication/Telecommunication.hpp \
- ../Core/Inc/Rocket/AvionicsValues.hpp \
- ../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp \
- ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp \
- ../Core/Inc/Telecommunication/GCSCommand.hpp \
- ../Core/Inc/HardwareDriver/ICM20948/ICM20948.hpp \
- ../Core/Inc/HardwareDriver/ICM20948/ICM20948Defines.hpp \
- ../Core/Inc/HardwareDriver/ICM20948/ICM20948Registers.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -57,6 +49,15 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
+ ../Core/Inc/Devices/Thermocouple/Thermocouple.hpp \
+ ../Core/Inc/Telecommunication/Telecommunication.hpp \
+ ../Core/Inc/Rocket/AvionicsValues.hpp \
+ ../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp \
+ ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp \
+ ../Core/Inc/Telecommunication/GCSCommand.hpp \
+ ../Core/Inc/HardwareDriver/ICM20948/ICM20948.hpp \
+ ../Core/Inc/HardwareDriver/ICM20948/ICM20948Defines.hpp \
+ ../Core/Inc/HardwareDriver/ICM20948/ICM20948Registers.hpp \
  ../Core/Inc/HardwareDriver/BMP388/BMP388.hpp \
  ../Core/Inc/HardwareDriver/BN220/BN220.hpp \
  ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp \
@@ -71,6 +72,7 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/Sensors/Altimeter/IAltimeterDriver.hpp:
 ../Core/Inc/Sensors/GPS/GPS.hpp:
 ../Core/Inc/Sensors/GPS/GPSValues.hpp:
+../Core/Inc/Sensors/GPS/Direction.hpp:
 ../Core/Inc/Sensors/GPS/IGPSDriver.hpp:
 ../Core/Inc/Sensors/Gyroscope/Gyroscope.hpp:
 ../Core/Inc/Sensors/Gyroscope/GyroscopeValues.hpp:
@@ -80,15 +82,6 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/Sensors/Thermometer/Thermometer.hpp:
 ../Core/Inc/Sensors/Thermometer/ThermometerValues.hpp:
 ../Core/Inc/Devices/SmokeBomb.hpp:
-../Core/Inc/Devices/Thermocouple/Thermocouple.hpp:
-../Core/Inc/Telecommunication/Telecommunication.hpp:
-../Core/Inc/Rocket/AvionicsValues.hpp:
-../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp:
-../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp:
-../Core/Inc/Telecommunication/GCSCommand.hpp:
-../Core/Inc/HardwareDriver/ICM20948/ICM20948.hpp:
-../Core/Inc/HardwareDriver/ICM20948/ICM20948Defines.hpp:
-../Core/Inc/HardwareDriver/ICM20948/ICM20948Registers.hpp:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -120,6 +113,15 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
+../Core/Inc/Devices/Thermocouple/Thermocouple.hpp:
+../Core/Inc/Telecommunication/Telecommunication.hpp:
+../Core/Inc/Rocket/AvionicsValues.hpp:
+../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp:
+../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp:
+../Core/Inc/Telecommunication/GCSCommand.hpp:
+../Core/Inc/HardwareDriver/ICM20948/ICM20948.hpp:
+../Core/Inc/HardwareDriver/ICM20948/ICM20948Defines.hpp:
+../Core/Inc/HardwareDriver/ICM20948/ICM20948Registers.hpp:
 ../Core/Inc/HardwareDriver/BMP388/BMP388.hpp:
 ../Core/Inc/HardwareDriver/BN220/BN220.hpp:
 ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp:

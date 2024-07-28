@@ -11,6 +11,7 @@ public:
 	~Telecommunication() {};
 
 	void sendData(uint8_t* data, uint8_t size);
+	void fetchData(uint8_t* data, uint8_t size);
 	GCSCommand getCommand();
 private:
 	ITelecommunicationDriver* driver;

@@ -1,2 +1,2 @@
-../Core/Src/Devices/SmokeBomb.cpp:5:1:SmokeBomb::SmokeBomb(uint8_t)	1
-../Core/Src/Devices/SmokeBomb.cpp:12:6:void SmokeBomb::ignite()	1
+../Core/Src/Devices/SmokeBomb.cpp:5:1:SmokeBomb::SmokeBomb()	1
+../Core/Src/Devices/SmokeBomb.cpp:11:6:void SmokeBomb::ignite()	1

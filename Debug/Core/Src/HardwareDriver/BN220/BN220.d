@@ -2,6 +2,7 @@ Core/Src/HardwareDriver/BN220/BN220.o: \
  ../Core/Src/HardwareDriver/BN220/BN220.cpp \
  ../Core/Inc/HardwareDriver/BN220/BN220.hpp \
  ../Core/Inc/Sensors/GPS/GPSValues.hpp \
+ ../Core/Inc/Sensors/GPS/Direction.hpp \
  ../Core/Inc/Sensors/GPS/IGPSDriver.hpp \
  ../Core/Inc/Sensors/SensorState.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
@@ -37,6 +38,7 @@ Core/Src/HardwareDriver/BN220/BN220.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 ../Core/Inc/HardwareDriver/BN220/BN220.hpp:
 ../Core/Inc/Sensors/GPS/GPSValues.hpp:
+../Core/Inc/Sensors/GPS/Direction.hpp:
 ../Core/Inc/Sensors/GPS/IGPSDriver.hpp:
 ../Core/Inc/Sensors/SensorState.hpp:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:

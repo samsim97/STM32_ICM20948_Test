@@ -1,4 +1,5 @@
 ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp:6:7:constexpr ITelecommunicationDriver::ITelecommunicationDriver()	16	static
 ../Core/Src/HardwareDriver/XBEE/XBEE.cpp:3:1:XBEE::XBEE(UART_HandleTypeDef*)	16	static
-../Core/Src/HardwareDriver/XBEE/XBEE.cpp:8:6:virtual void XBEE::sendData(uint8_t*, uint8_t)	24	static
-../Core/Src/HardwareDriver/XBEE/XBEE.cpp:13:6:virtual void XBEE::fetchData(uint8_t*, uint8_t)	24	static
+../Core/Src/HardwareDriver/XBEE/XBEE.cpp:9:6:virtual void XBEE::sendData(uint8_t*, uint8_t)	24	static
+../Core/Src/HardwareDriver/XBEE/XBEE.cpp:14:6:virtual void XBEE::fetchData(uint8_t*, uint8_t)	24	static
+../Core/Src/HardwareDriver/XBEE/XBEE.cpp:19:6:void XBEE::enableXBEE()	24	static

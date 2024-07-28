@@ -1,3 +1,4 @@
 ../Core/Src/Telecommunication/Telecommunication.cpp:3:1:Telecommunication::Telecommunication(ITelecommunicationDriver*)	16	static
 ../Core/Src/Telecommunication/Telecommunication.cpp:9:6:void Telecommunication::sendData(uint8_t*, uint8_t)	24	static
-../Core/Src/Telecommunication/Telecommunication.cpp:14:12:GCSCommand Telecommunication::getCommand()	24	static
+../Core/Src/Telecommunication/Telecommunication.cpp:14:6:void Telecommunication::fetchData(uint8_t*, uint8_t)	24	static
+../Core/Src/Telecommunication/Telecommunication.cpp:19:12:GCSCommand Telecommunication::getCommand()	24	static

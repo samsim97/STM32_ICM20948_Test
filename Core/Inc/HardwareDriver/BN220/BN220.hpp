@@ -15,4 +15,7 @@ public:
 private:
 	UART_HandleTypeDef* uartHandle;
 	GPSValues gpsValues;
+
+	uint8_t buffer[1024] = {0};
+	int receiveOKCount = 0;
 };

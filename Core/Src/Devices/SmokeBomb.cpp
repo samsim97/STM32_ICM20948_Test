@@ -2,14 +2,19 @@
 
 #include <Devices/SmokeBomb.hpp>
 
-SmokeBomb::SmokeBomb(uint8_t outputPinNumber)
+SmokeBomb::SmokeBomb()
 {
-	outputPin = outputPinNumber;
 
-	// GPIO PIN MODE
 }
 
+// CHANGE LATER
 void SmokeBomb::ignite()
 {
-	// Output to pin during few seconds
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+	HAL_Delay(1000);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_3, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 }

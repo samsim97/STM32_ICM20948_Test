@@ -1,11 +1,12 @@
 #pragma once
 
 #include <stdint.h>
+#include "stm32f4xx_hal.h"
 
 class SmokeBomb
 {
 public:
-	SmokeBomb(uint8_t outputPinNumber);
+	SmokeBomb();
 	~SmokeBomb() {};
 
 	void ignite();

@@ -12,8 +12,9 @@ public:
 
 	void sendData(uint8_t* data, uint8_t size);
 	void fetchData(uint8_t* buffer, uint8_t size);
-
 private:
 	UART_HandleTypeDef* uartHandle;
-	const uint16_t UART_COMMUNICATION_TIMOUT_MS = 200U;
+	const uint16_t UART_COMMUNICATION_TIMOUT_MS = 100U;
+
+	void enableXBEE();
 };
