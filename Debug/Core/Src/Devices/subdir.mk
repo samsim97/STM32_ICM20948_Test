@@ -5,13 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../Core/Src/Devices/SmokeBomb.cpp 
+../Core/Src/Devices/SmokeBomb.cpp \
+../Core/Src/Devices/Thermocouple.cpp 
 
 OBJS += \
-./Core/Src/Devices/SmokeBomb.o 
+./Core/Src/Devices/SmokeBomb.o \
+./Core/Src/Devices/Thermocouple.o 
 
 CPP_DEPS += \
-./Core/Src/Devices/SmokeBomb.d 
+./Core/Src/Devices/SmokeBomb.d \
+./Core/Src/Devices/Thermocouple.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -21,7 +24,7 @@ Core/Src/Devices/%.o Core/Src/Devices/%.su Core/Src/Devices/%.cyclo: ../Core/Src
 clean: clean-Core-2f-Src-2f-Devices
 
 clean-Core-2f-Src-2f-Devices:
-	-$(RM) ./Core/Src/Devices/SmokeBomb.cyclo ./Core/Src/Devices/SmokeBomb.d ./Core/Src/Devices/SmokeBomb.o ./Core/Src/Devices/SmokeBomb.su
+	-$(RM) ./Core/Src/Devices/SmokeBomb.cyclo ./Core/Src/Devices/SmokeBomb.d ./Core/Src/Devices/SmokeBomb.o ./Core/Src/Devices/SmokeBomb.su ./Core/Src/Devices/Thermocouple.cyclo ./Core/Src/Devices/Thermocouple.d ./Core/Src/Devices/Thermocouple.o ./Core/Src/Devices/Thermocouple.su
 
 .PHONY: clean-Core-2f-Src-2f-Devices
 

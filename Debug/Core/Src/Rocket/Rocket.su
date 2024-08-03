@@ -1,4 +1,4 @@
-../Core/Src/Rocket/Rocket.cpp:3:1:Rocket::Rocket(I2C_HandleTypeDef*, UART_HandleTypeDef*, UART_HandleTypeDef*)	32	static
+../Core/Src/Rocket/Rocket.cpp:3:1:Rocket::Rocket(I2C_HandleTypeDef*, UART_HandleTypeDef*, UART_HandleTypeDef*, ADC_HandleTypeDef*)	32	static
 ../Core/Src/Rocket/Rocket.cpp:26:6:void Rocket::initDrivers()	16	static
 ../Core/Src/Rocket/Rocket.cpp:31:6:void Rocket::execute()	16	static
 ../Core/Src/Rocket/Rocket.cpp:44:6:void Rocket::executeIntializing()	16	static

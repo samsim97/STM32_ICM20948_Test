@@ -1,6 +1,6 @@
 #include <Rocket/Rocket.hpp>
 
-Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE, UART_HandleTypeDef* uartHandleGPS)
+Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE, UART_HandleTypeDef* uartHandleGPS, ADC_HandleTypeDef* adcHandle)
 {
 	// Drivers -- Boards
 	icm20948Driver = new ICM20948(i2cHandle);

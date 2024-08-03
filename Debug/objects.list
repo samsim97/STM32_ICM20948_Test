@@ -1,5 +1,6 @@
 "./Core/Inc/HardwareDriver/BMP388/bmp3.o"
 "./Core/Src/Devices/SmokeBomb.o"
+"./Core/Src/Devices/Thermocouple.o"
 "./Core/Src/HardwareDriver/BMP388/BMP388.o"
 "./Core/Src/HardwareDriver/BN220/BN220.o"
 "./Core/Src/HardwareDriver/ICM20948/ICM20948.o"

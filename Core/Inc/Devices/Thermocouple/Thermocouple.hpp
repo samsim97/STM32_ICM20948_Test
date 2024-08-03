@@ -5,10 +5,10 @@
 class Thermocouple
 {
 public:
-	Thermocouple(uint8_t inputPinNumber);
+	Thermocouple(uint8_t channel);
 	~Thermocouple() {};
 
 	float getTemperature();
 private:
-	uint8_t inputPin;
+	uint8_t channel;
 };

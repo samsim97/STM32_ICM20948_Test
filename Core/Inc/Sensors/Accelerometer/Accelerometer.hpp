@@ -4,6 +4,8 @@
 #include <Sensors/Accelerometer/IAccelerometerDriver.hpp>
 #include <Sensors/SensorState.hpp>
 
+#include <stdint.h>
+
 class Accelerometer
 {
 public:
@@ -12,7 +14,9 @@ public:
 
 	AccelerometerValues getValues();
 	void fillData();
+	void calibrate(int16_t sampleSize);
 	SensorState getState();
 private:
 	IAccelerometerDriver* driver;
+	AccelerometerValues calibrationOffsets;
 };

@@ -20,10 +20,12 @@
 
 #include <Rocket/FlightStage.hpp>
 
+#define THERMOCOUPLE_AMOUNT 0x3U
+
 class Rocket
 {
 public:
-	Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE, UART_HandleTypeDef* uartHandleGPS);
+	Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE, UART_HandleTypeDef* uartHandleGPS, ADC_HandleTypeDef* adcHandle);
 	~Rocket() {};
 
 	void initDrivers();
@@ -42,7 +44,7 @@ private:
 
 	// Devices
 	SmokeBomb* smokeBomb;
-	Thermocouple* thermocouple;
+	Thermocouple* thermocouple[THERMOCOUPLE_AMOUNT];
 
 	// Telecommunication
 	Telecommunication* telecommunication;
