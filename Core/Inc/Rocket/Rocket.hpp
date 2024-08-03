@@ -20,7 +20,7 @@
 
 #include <Rocket/FlightStage.hpp>
 
-#define THERMOCOUPLE_AMOUNT 0x3U
+#define THERMOCOUPLE_AMOUNT 0x4U
 
 class Rocket
 {

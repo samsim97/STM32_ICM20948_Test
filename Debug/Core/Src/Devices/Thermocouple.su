@@ -1,1 +1,3 @@
-../Core/Src/Devices/Thermocouple.cpp:3:1:Thermocouple::Thermocouple(uint8_t)	16	static
+../Core/Src/Devices/Thermocouple.cpp:3:1:Thermocouple::Thermocouple(ADC_HandleTypeDef*, uint8_t)	24	static
+../Core/Src/Devices/Thermocouple.cpp:9:7:float Thermocouple::getTemperature()	40	static
+../Core/Src/Devices/Thermocouple.cpp:30:6:void Thermocouple::configChannel()	32	static

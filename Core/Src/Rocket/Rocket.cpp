@@ -19,6 +19,12 @@ Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE,
 
 	// Devices
 	smokeBomb = new SmokeBomb();
+
+	thermocouple[0] = new Thermocouple(adcHandle, 10); // 10 => adc channel, put in const
+	thermocouple[1] = new Thermocouple(adcHandle, 11);
+	thermocouple[2] = new Thermocouple(adcHandle, 12);
+	thermocouple[3] = new Thermocouple(adcHandle, 13);
+
 	// FOR TEST ONLY
 	currentFlightStage = FlightStage::ASCENDING;
 }
@@ -59,7 +65,7 @@ void Rocket::executeAscending()
 
 	telecommunication->sendData(accelValues.values_g, sizeof(AccelerometerValues));*/
 
-	uint8_t testBuffer[] = "Test";
+	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};
 	telecommunication->sendData(testBuffer, sizeof(testBuffer));
 	telecommunication->fetchData(receivedCommand, sizeof(receivedCommand));
@@ -68,7 +74,14 @@ void Rocket::executeAscending()
 	{
 		smokeBomb->ignite();
 	}
-	HAL_Delay(50);
+	HAL_Delay(50);*/
+	ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
+	thermocoupleValues[3].temperature_C = thermocouple[3]->getTemperature();
+	/*for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
+	{
+		thermocoupleValues[i] = thermocouple[i]->getTemperature();
+	}*/
+	uint8_t test = 0;
 }
 
 FlightStage Rocket::getCurrentFlightStage()
