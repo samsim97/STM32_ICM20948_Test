@@ -8,10 +8,10 @@ BMP388::BMP388(I2C_HandleTypeDef* i2cHandle)
 void BMP388::init()
 {
 	dev_addr = BMP3_ADDR_I2C_SEC;
-	//dev.read = (bmp3_read_fptr_t)SensorAPI_I2Cx_Read;
-	//dev.write = (bmp3_write_fptr_t)SensorAPI_I2Cx_Write;
+	dev.read = (bmp3_read_fptr_t)&BMP388::SensorAPI_I2Cx_Read;
+	dev.write = (bmp3_write_fptr_t)&BMP388::SensorAPI_I2Cx_Write;
 	dev.intf = BMP3_I2C_INTF;
-	//dev.delay_us = bmp3_delay_us;
+	dev.delay_us = (bmp3_delay_us_fptr_t)&BMP388::bmp3_delay_us;
 	dev.intf_ptr = &dev_addr;
 	dev.dummy_byte = 0x0;
 
@@ -66,7 +66,7 @@ void BMP388::readAltimeter()
 	    loop = loop + 1;
 	}
 
-	HAL_Delay(5000);
+	HAL_Delay(1000);
 }
 
 AltimeterValues BMP388::getAltimeterValues()
@@ -80,8 +80,8 @@ int8_t BMP388::SensorAPI_I2Cx_Read(uint8_t subaddress, uint8_t *pBuffer, uint16_
 	uint16_t devAddress = dev_addr << 1;
 
 	// send register address
-	HAL_I2C_Master_Transmit(i2cHandle, devAddress, &subaddress, 1, 1000);
-	HAL_I2C_Master_Receive(i2cHandle, devAddress, pBuffer, ReadNumbr, 1000);
+	HAL_StatusTypeDef txStatus = HAL_I2C_Master_Transmit(i2cHandle, devAddress, &subaddress, 1, 1000);
+	HAL_StatusTypeDef rxStatus = HAL_I2C_Master_Receive(i2cHandle, devAddress, pBuffer, ReadNumbr, 1000);
 	return 0;
 }
 

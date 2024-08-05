@@ -4,27 +4,6 @@
 ################################################################################
 
 # Add inputs and outputs from these tool invocations to the build variables 
-CPP_SRCS += \
-../Core/Src/Devices/SmokeBomb.cpp \
-../Core/Src/Devices/Thermocouple.cpp 
-
-OBJS += \
-./Core/Src/Devices/SmokeBomb.o \
-./Core/Src/Devices/Thermocouple.o 
-
-CPP_DEPS += \
-./Core/Src/Devices/SmokeBomb.d \
-./Core/Src/Devices/Thermocouple.d 
-
 
 # Each subdirectory must supply rules for building sources it contributes
-Core/Src/Devices/%.o Core/Src/Devices/%.su Core/Src/Devices/%.cyclo: ../Core/Src/Devices/%.cpp Core/Src/Devices/subdir.mk
-	arm-none-eabi-g++ "$<" -mcpu=cortex-m4 -std=gnu++14 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
-
-clean: clean-Core-2f-Src-2f-Devices
-
-clean-Core-2f-Src-2f-Devices:
-	-$(RM) ./Core/Src/Devices/SmokeBomb.cyclo ./Core/Src/Devices/SmokeBomb.d ./Core/Src/Devices/SmokeBomb.o ./Core/Src/Devices/SmokeBomb.su ./Core/Src/Devices/Thermocouple.cyclo ./Core/Src/Devices/Thermocouple.d ./Core/Src/Devices/Thermocouple.o ./Core/Src/Devices/Thermocouple.su
-
-.PHONY: clean-Core-2f-Src-2f-Devices
 

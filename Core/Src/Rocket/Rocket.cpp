@@ -3,7 +3,7 @@
 Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE, UART_HandleTypeDef* uartHandleGPS, ADC_HandleTypeDef* adcHandle)
 {
 	// Drivers -- Boards
-	icm20948Driver = new ICM20948(i2cHandle);
+	//icm20948Driver = new ICM20948(i2cHandle);
 	bmp388Driver = new BMP388(i2cHandle);
 	//bn220Driver = new BN220(uartHandleGPS);
 	xbeeDriver = new XBEE(uartHandleXBEE);
@@ -31,7 +31,7 @@ Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE,
 
 void Rocket::initDrivers()
 {
-	icm20948Driver->init();
+	//icm20948Driver->init();
 	bmp388Driver->init();
 }
 
@@ -62,9 +62,9 @@ void Rocket::executeAscending()
 
 	AccelerometerValues accelValues = accelerometer->getValues();
 	GyroscopeValues gyroValues = gyroscope->getValues();
-	test = 1;
+	test = 1;*/
 
-	telecommunication->sendData(accelValues.values_g, sizeof(AccelerometerValues));*/
+	//telecommunication->sendData(accelValues.values_g, sizeof(AccelerometerValues));
 
 	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};
@@ -76,13 +76,15 @@ void Rocket::executeAscending()
 		smokeBomb->ignite();
 	}
 	HAL_Delay(50);*/
-	ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
-	thermocoupleValues[3].temperature_C = thermocouple[3]->getTemperature();
+
+	altimeter->fillData();
+	altimeter->getValues();
+	//ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
+	//thermocoupleValues[3].temperature_C = thermocouple[3]->getTemperature();
 	/*for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
 	{
 		thermocoupleValues[i] = thermocouple[i]->getTemperature();
 	}*/
-	uint8_t test = 0;
 }
 
 FlightStage Rocket::getCurrentFlightStage()
