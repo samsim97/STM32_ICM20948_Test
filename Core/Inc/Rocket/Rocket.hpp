@@ -8,7 +8,7 @@
 #include <Sensors/Magnetometer/Magnetometer.hpp>
 #include <Sensors/Thermometer/Thermometer.hpp>
 
-#include <Devices/SmokeBomb.hpp>
+#include <Devices/SmokeBomb/SmokeBomb.hpp>
 #include <Devices/Thermocouple/Thermocouple.hpp>
 
 #include <Telecommunication/Telecommunication.hpp>
@@ -51,7 +51,7 @@ private:
 
 	// Drivers -- Boards
 	ICM20948* icm20948Driver;
-	//BMP388* bmp388Driver;
+	BMP388* bmp388Driver;
 	//BN220* bn220Driver;
 	XBEE* xbeeDriver;
 

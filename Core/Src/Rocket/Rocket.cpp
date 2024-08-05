@@ -4,7 +4,7 @@ Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE,
 {
 	// Drivers -- Boards
 	icm20948Driver = new ICM20948(i2cHandle);
-	//bmp388Driver = new BMP388(i2cHandle);
+	bmp388Driver = new BMP388(i2cHandle);
 	//bn220Driver = new BN220(uartHandleGPS);
 	xbeeDriver = new XBEE(uartHandleXBEE);
 
@@ -32,6 +32,7 @@ Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE,
 void Rocket::initDrivers()
 {
 	icm20948Driver->init();
+	bmp388Driver->init();
 }
 
 void Rocket::execute()

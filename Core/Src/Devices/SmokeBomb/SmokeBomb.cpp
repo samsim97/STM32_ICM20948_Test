@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Devices/SmokeBomb.hpp>
+#include <Devices/SmokeBomb/SmokeBomb.hpp>
 
 SmokeBomb::SmokeBomb()
 {

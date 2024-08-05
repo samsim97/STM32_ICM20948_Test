@@ -17,7 +17,7 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/Sensors/Magnetometer/MagnetometerValues.hpp \
  ../Core/Inc/Sensors/Thermometer/Thermometer.hpp \
  ../Core/Inc/Sensors/Thermometer/ThermometerValues.hpp \
- ../Core/Inc/Devices/SmokeBomb.hpp \
+ ../Core/Inc/Devices/SmokeBomb/SmokeBomb.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -59,6 +59,8 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/HardwareDriver/ICM20948/ICM20948Defines.hpp \
  ../Core/Inc/HardwareDriver/ICM20948/ICM20948Registers.hpp \
  ../Core/Inc/HardwareDriver/BMP388/BMP388.hpp \
+ ../Core/Inc/HardwareDriver/Bmp388/bmp3.h \
+ ../Core/Inc/HardwareDriver/Bmp388/bmp3_defs.h \
  ../Core/Inc/HardwareDriver/BN220/BN220.hpp \
  ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp \
  ../Core/Inc/Rocket/FlightStage.hpp
@@ -81,7 +83,7 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/Sensors/Magnetometer/MagnetometerValues.hpp:
 ../Core/Inc/Sensors/Thermometer/Thermometer.hpp:
 ../Core/Inc/Sensors/Thermometer/ThermometerValues.hpp:
-../Core/Inc/Devices/SmokeBomb.hpp:
+../Core/Inc/Devices/SmokeBomb/SmokeBomb.hpp:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -123,6 +125,8 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/HardwareDriver/ICM20948/ICM20948Defines.hpp:
 ../Core/Inc/HardwareDriver/ICM20948/ICM20948Registers.hpp:
 ../Core/Inc/HardwareDriver/BMP388/BMP388.hpp:
+../Core/Inc/HardwareDriver/Bmp388/bmp3.h:
+../Core/Inc/HardwareDriver/Bmp388/bmp3_defs.h:
 ../Core/Inc/HardwareDriver/BN220/BN220.hpp:
 ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp:
 ../Core/Inc/Rocket/FlightStage.hpp:

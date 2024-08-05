@@ -1,4 +1,8 @@
 ../Core/Inc/Sensors/Altimeter/IAltimeterDriver.hpp:6:7:constexpr IAltimeterDriver::IAltimeterDriver()	16	static
 ../Core/Src/HardwareDriver/BMP388/BMP388.cpp:3:1:BMP388::BMP388(I2C_HandleTypeDef*)	16	static
-../Core/Src/HardwareDriver/BMP388/BMP388.cpp:8:6:virtual void BMP388::readAltimeter()	16	static
-../Core/Src/HardwareDriver/BMP388/BMP388.cpp:13:17:virtual AltimeterValues BMP388::getAltimeterValues()	48	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:8:6:void BMP388::init()	16	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:39:6:virtual void BMP388::readAltimeter()	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:72:17:virtual AltimeterValues BMP388::getAltimeterValues()	48	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:77:8:int8_t BMP388::SensorAPI_I2Cx_Read(uint8_t, uint8_t*, uint16_t, void*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:88:8:int8_t BMP388::SensorAPI_I2Cx_Write(uint8_t, uint8_t*, uint16_t, void*)	48	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:101:6:void BMP388::bmp3_delay_us(uint32_t, void*)	32	static

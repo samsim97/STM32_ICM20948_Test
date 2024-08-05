@@ -38,8 +38,8 @@ CPP_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-Core/Inc/HardwareDriver/BMP388 \
-Core/Src/Devices \
+Core/Src/Devices/SmokeBomb \
+Core/Src/Devices/Thermocouple \
 Core/Src/HardwareDriver/BMP388 \
 Core/Src/HardwareDriver/BN220 \
 Core/Src/HardwareDriver/ICM20948 \

@@ -21,9 +21,9 @@ RM := rm -rf
 -include Core/Src/HardwareDriver/ICM20948/subdir.mk
 -include Core/Src/HardwareDriver/BN220/subdir.mk
 -include Core/Src/HardwareDriver/BMP388/subdir.mk
--include Core/Src/Devices/subdir.mk
+-include Core/Src/Devices/Thermocouple/subdir.mk
+-include Core/Src/Devices/SmokeBomb/subdir.mk
 -include Core/Src/subdir.mk
--include Core/Inc/HardwareDriver/BMP388/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -96,8 +96,8 @@ all: main-build
 main-build: Sirius_Test_Slave.elf secondary-outputs
 
 # Tool invocations
-Sirius_Test_Slave.elf Sirius_Test_Slave.map: $(OBJS) $(USER_OBJS) C:\Users\pitch\Documents\GitHub\STM32_ICM20948_Test\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "Sirius_Test_Slave.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\pitch\Documents\GitHub\STM32_ICM20948_Test\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sirius_Test_Slave.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Sirius_Test_Slave.elf Sirius_Test_Slave.map: $(OBJS) $(USER_OBJS) C:\Users\pitch\OneDrive\Documents\GitHub\STM32_ICM20948_Test\STM32F411VETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-g++ -o "Sirius_Test_Slave.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\pitch\OneDrive\Documents\GitHub\STM32_ICM20948_Test\STM32F411VETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Sirius_Test_Slave.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
