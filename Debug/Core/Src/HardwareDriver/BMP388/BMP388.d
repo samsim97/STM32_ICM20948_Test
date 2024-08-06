@@ -4,6 +4,7 @@ Core/Src/HardwareDriver/BMP388/BMP388.o: \
  ../Core/Inc/Sensors/Altimeter/IAltimeterDriver.hpp \
  ../Core/Inc/Sensors/Altimeter/AltimeterValues.hpp \
  ../Core/Inc/Sensors/SensorState.hpp \
+ ../Core/Inc/HardwareDriver/BMP388/BMP388Defines.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -34,13 +35,12 @@ Core/Src/HardwareDriver/BMP388/BMP388.o: \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2c_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/HardwareDriver/Bmp388/bmp3.h \
- ../Core/Inc/HardwareDriver/Bmp388/bmp3_defs.h
+ ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 ../Core/Inc/HardwareDriver/BMP388/BMP388.hpp:
 ../Core/Inc/Sensors/Altimeter/IAltimeterDriver.hpp:
 ../Core/Inc/Sensors/Altimeter/AltimeterValues.hpp:
 ../Core/Inc/Sensors/SensorState.hpp:
+../Core/Inc/HardwareDriver/BMP388/BMP388Defines.hpp:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:
@@ -72,5 +72,3 @@ Core/Src/HardwareDriver/BMP388/BMP388.o: \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/HardwareDriver/Bmp388/bmp3.h:
-../Core/Inc/HardwareDriver/Bmp388/bmp3_defs.h:

@@ -5,6 +5,7 @@
 #include <Sensors/SensorState.hpp>
 
 #include <stdint.h>
+#include "stm32f4xx_hal.h"
 
 class Accelerometer
 {
@@ -13,7 +14,7 @@ public:
 	~Accelerometer() {};
 
 	AccelerometerValues getValues();
-	void fillData();
+	uint32_t fillData();
 	void calibrate(int16_t sampleSize);
 	SensorState getState();
 private:

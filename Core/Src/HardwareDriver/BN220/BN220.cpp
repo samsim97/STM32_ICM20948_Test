@@ -7,7 +7,14 @@ BN220::BN220(UART_HandleTypeDef* uartHandle)
 
 void BN220::readGPS()
 {
-	int returnCode = HAL_UART_Receive(uartHandle, buffer, sizeof(buffer) - 1, 5000);
+	int returnCode = HAL_UART_Receive(uartHandle, buffer, sizeof(buffer) - 1, 2000);
+	int test0 = 0;
+	for (uint16_t i = 0; i < sizeof(buffer); i++)
+	{
+		uint8_t letter = buffer[i];
+		int test1 = 0;
+	}
+	int test2 = 0;
 }
 
 GPSValues BN220::getGPSValues()

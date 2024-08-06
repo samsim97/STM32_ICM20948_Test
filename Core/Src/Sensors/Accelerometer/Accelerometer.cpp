@@ -14,9 +14,10 @@ AccelerometerValues Accelerometer::getValues()
 	return driver->getAccelerometerValues();
 }
 
-void Accelerometer::fillData()
+uint32_t Accelerometer::fillData()
 {
 	driver->readAccelerometer();
+	return HAL_GetTick();
 }
 
 void Accelerometer::calibrate(int16_t sampleSize)

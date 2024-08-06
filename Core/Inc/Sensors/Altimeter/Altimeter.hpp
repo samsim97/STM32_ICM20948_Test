@@ -4,6 +4,8 @@
 #include <Sensors/Altimeter/IAltimeterDriver.hpp>
 #include <Sensors/SensorState.hpp>
 
+#include "stm32f4xx_hal.h"
+
 class Altimeter
 {
 public:
@@ -11,7 +13,7 @@ public:
 	~Altimeter() {};
 
 	AltimeterValues getValues();
-	void fillData();
+	uint32_t fillData();
 	SensorState getState();
 private:
 	IAltimeterDriver* driver;

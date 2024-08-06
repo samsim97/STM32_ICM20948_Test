@@ -11,9 +11,10 @@ AltimeterValues Altimeter::getValues()
 	return driver->getAltimeterValues();
 }
 
-void Altimeter::fillData()
+uint32_t Altimeter::fillData()
 {
 	driver->readAltimeter();
+	return HAL_GetTick();
 }
 
 SensorState Altimeter::getState()

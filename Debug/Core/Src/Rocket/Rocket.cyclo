@@ -1,7 +1,8 @@
 ../Core/Src/Rocket/Rocket.cpp:3:1:Rocket::Rocket(I2C_HandleTypeDef*, UART_HandleTypeDef*, UART_HandleTypeDef*, ADC_HandleTypeDef*)	2
 ../Core/Src/Rocket/Rocket.cpp:32:6:void Rocket::initDrivers()	1
-../Core/Src/Rocket/Rocket.cpp:38:6:void Rocket::execute()	3
-../Core/Src/Rocket/Rocket.cpp:51:6:void Rocket::executeIntializing()	1
-../Core/Src/Rocket/Rocket.cpp:56:6:void Rocket::executeAscending()	1
-../Core/Src/Rocket/Rocket.cpp:90:13:FlightStage Rocket::getCurrentFlightStage()	1
-../Core/Src/Rocket/Rocket.cpp:95:6:void Rocket::setCurrentFlightStage(FlightStage)	1
+../Core/Src/Rocket/Rocket.cpp:38:6:void Rocket::init()	1
+../Core/Src/Rocket/Rocket.cpp:44:6:void Rocket::execute()	3
+../Core/Src/Rocket/Rocket.cpp:57:6:void Rocket::executeIntializing()	1
+../Core/Src/Rocket/Rocket.cpp:62:6:void Rocket::executeAscending()	1
+../Core/Src/Rocket/Rocket.cpp:100:13:FlightStage Rocket::getCurrentFlightStage()	1
+../Core/Src/Rocket/Rocket.cpp:105:6:void Rocket::setCurrentFlightStage(FlightStage)	1

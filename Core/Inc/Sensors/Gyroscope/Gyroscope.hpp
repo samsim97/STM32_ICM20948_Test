@@ -4,6 +4,9 @@
 #include <Sensors/Gyroscope/IGyroscopeDriver.hpp>
 #include <Sensors/SensorState.hpp>
 
+#include <stdint.h>
+#include "stm32f4xx_hal.h"
+
 class Gyroscope
 {
 public:
@@ -11,7 +14,7 @@ public:
 	~Gyroscope() {};
 
 	GyroscopeValues getValues();
-	void fillData();
+	uint32_t fillData();
 	SensorState getState();
 
 private:

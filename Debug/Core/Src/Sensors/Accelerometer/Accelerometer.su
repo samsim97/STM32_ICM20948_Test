@@ -1,5 +1,5 @@
 ../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:5:1:Accelerometer::Accelerometer(IAccelerometerDriver*)	16	static
 ../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:12:21:AccelerometerValues Accelerometer::getValues()	48	static
-../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:17:6:void Accelerometer::fillData()	16	static
-../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:22:6:void Accelerometer::calibrate(int16_t)	80	static
-../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:38:13:SensorState Accelerometer::getState()	16	static
+../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:17:10:uint32_t Accelerometer::fillData()	16	static
+../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:23:6:void Accelerometer::calibrate(int16_t)	80	static
+../Core/Src/Sensors/Accelerometer/Accelerometer.cpp:39:13:SensorState Accelerometer::getState()	16	static

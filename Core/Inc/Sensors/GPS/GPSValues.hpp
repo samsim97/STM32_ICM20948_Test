@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <Sensors/GPS/Direction.hpp>
 
-#define GPS_VALUES_LENGTH 6
+#define GPS_VALUES_LENGTH sizeof(GPSPosition)
 
 // SEE FORMAT NORD-SUD
 struct CoordinateAxis

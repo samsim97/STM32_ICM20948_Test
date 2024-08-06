@@ -2,7 +2,46 @@
 ../Core/Src/HardwareDriver/BMP388/BMP388.cpp:3:1:BMP388::BMP388(I2C_HandleTypeDef*)	16	static
 ../Core/Src/HardwareDriver/BMP388/BMP388.cpp:8:6:void BMP388::init()	16	static
 ../Core/Src/HardwareDriver/BMP388/BMP388.cpp:39:6:virtual void BMP388::readAltimeter()	40	static
-../Core/Src/HardwareDriver/BMP388/BMP388.cpp:72:17:virtual AltimeterValues BMP388::getAltimeterValues()	48	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:72:17:virtual AltimeterValues BMP388::getAltimeterValues()	16	static
 ../Core/Src/HardwareDriver/BMP388/BMP388.cpp:77:8:int8_t BMP388::SensorAPI_I2Cx_Read(uint8_t, uint8_t*, uint16_t, void*)	40	static
 ../Core/Src/HardwareDriver/BMP388/BMP388.cpp:88:8:int8_t BMP388::SensorAPI_I2Cx_Write(uint8_t, uint8_t*, uint16_t, void*)	48	static
 ../Core/Src/HardwareDriver/BMP388/BMP388.cpp:101:6:void BMP388::bmp3_delay_us(uint32_t, void*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:119:8:int8_t BMP388::bmp3_init(bmp3_dev*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:176:8:int8_t BMP388::null_ptr_check(const bmp3_dev*)	24	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:198:8:int8_t BMP388::bmp3_get_regs(uint8_t, uint8_t*, uint32_t, bmp3_dev*)	80	dynamic
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:248:8:int8_t BMP388::get_calib_data(bmp3_dev*)	48	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:269:6:void BMP388::parse_calib_data(const uint8_t*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:328:8:int8_t BMP388::bmp3_soft_reset(bmp3_dev*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:373:8:int8_t BMP388::bmp3_set_regs(uint8_t*, const uint8_t*, uint32_t, bmp3_dev*)	80	dynamic
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:437:6:void BMP388::interleave_reg_addr(const uint8_t*, uint8_t*, const uint8_t*, uint32_t)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:453:8:int8_t BMP388::bmp3_get_sensor_data(uint8_t, bmp3_data*, bmp3_dev*)	56	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:489:6:void BMP388::parse_sensor_data(const uint8_t*, bmp3_uncomp_data*)	56	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:513:8:int8_t BMP388::compensate_data(uint8_t, const bmp3_uncomp_data*, bmp3_data*, bmp3_calib_data*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:587:8:int8_t BMP388::compensate_temperature(double*, const bmp3_uncomp_data*, bmp3_calib_data*)	56	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:622:8:int8_t BMP388::compensate_pressure(double*, const bmp3_uncomp_data*, const bmp3_calib_data*)	104	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:676:7:float BMP388::pow_bmp3(double, uint8_t)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:694:8:int8_t BMP388::bmp3_get_status(bmp3_status*, bmp3_dev*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:727:8:int8_t BMP388::get_sensor_status(bmp3_status*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:753:8:int8_t BMP388::get_int_status(bmp3_status*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:774:8:int8_t BMP388::get_err_status(bmp3_status*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:796:8:int8_t BMP388::bmp3_set_sensor_settings(uint32_t, bmp3_settings*, bmp3_dev*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:838:8:int8_t BMP388::bmp3_set_op_mode(bmp3_settings*, bmp3_dev*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:892:9:uint8_t BMP388::are_settings_changed(uint32_t, uint32_t)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:914:8:int8_t BMP388::set_pwr_ctrl_settings(uint32_t, const bmp3_settings*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:951:8:int8_t BMP388::set_odr_filter_settings(uint32_t, bmp3_settings*, bmp3_dev*)	48	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1010:8:int8_t BMP388::set_int_ctrl_settings(uint32_t, const bmp3_settings*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1060:8:int8_t BMP388::set_advance_settings(uint32_t, const bmp3_settings*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1094:8:int8_t BMP388::bmp3_get_op_mode(uint8_t*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1117:8:int8_t BMP388::put_device_to_sleep(bmp3_dev*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1142:8:int8_t BMP388::set_normal_mode(bmp3_settings*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1178:8:int8_t BMP388::write_power_mode(const bmp3_settings*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1206:6:void BMP388::fill_osr_data(uint32_t, uint8_t*, uint8_t*, uint8_t*, const bmp3_settings*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1242:6:void BMP388::fill_odr_data(uint8_t*, uint8_t*, uint8_t*, bmp3_settings*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1264:6:void BMP388::fill_filter_data(uint8_t*, uint8_t*, uint8_t*, const bmp3_settings*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1280:8:int8_t BMP388::validate_osr_and_odr_settings(const bmp3_settings*)	104	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1320:8:int8_t BMP388::verify_meas_time_and_odr_duration(uint32_t, uint32_t)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1343:10:uint32_t BMP388::calculate_temp_meas_time(const bmp3_settings*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1361:10:uint32_t BMP388::calculate_press_meas_time(const bmp3_settings*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1378:8:int8_t BMP388::validate_normal_mode_settings(bmp3_settings*, bmp3_dev*)	32	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1396:8:int8_t BMP388::get_odr_filter_settings(bmp3_settings*, bmp3_dev*)	40	static
+../Core/Src/HardwareDriver/BMP388/BMP388.cpp:1410:6:void BMP388::parse_odr_filter_settings(const uint8_t*, bmp3_odr_filter_settings*)	32	static

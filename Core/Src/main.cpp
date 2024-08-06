@@ -103,7 +103,7 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   Rocket* rocket = new Rocket(&hi2c1, &huart2, &huart1, &hadc1);
-  rocket->initDrivers();
+  rocket->init();
   /* USER CODE END 2 */
 
   /* Infinite loop */

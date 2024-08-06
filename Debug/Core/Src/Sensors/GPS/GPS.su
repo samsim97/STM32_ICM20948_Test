@@ -1,4 +1,4 @@
-../Core/Src/Sensors/GPS/GPS.cpp:3:1:GPS::GPS(IGPSDriver*)	16	static
-../Core/Src/Sensors/GPS/GPS.cpp:8:11:GPSValues GPS::getValues()	16	static
-../Core/Src/Sensors/GPS/GPS.cpp:13:6:void GPS::fillData()	16	static
-../Core/Src/Sensors/GPS/GPS.cpp:18:13:SensorState GPS::getState()	16	static
+../Core/Src/Sensors/GPS/GPS.cpp:5:1:GPS::GPS(IGPSDriver*)	16	static
+../Core/Src/Sensors/GPS/GPS.cpp:10:11:GPSValues GPS::getValues()	16	static
+../Core/Src/Sensors/GPS/GPS.cpp:15:10:uint32_t GPS::fillData()	16	static
+../Core/Src/Sensors/GPS/GPS.cpp:21:13:SensorState GPS::getState()	16	static

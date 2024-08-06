@@ -7,5 +7,5 @@ union AltimeterValues
 	{
 		float height_m;
 	};
-	float values[3];
+	float values[1];
 };

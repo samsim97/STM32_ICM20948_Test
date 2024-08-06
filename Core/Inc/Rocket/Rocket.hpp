@@ -28,12 +28,14 @@ public:
 	Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE, UART_HandleTypeDef* uartHandleGPS, ADC_HandleTypeDef* adcHandle);
 	~Rocket() {};
 
-	void initDrivers();
+	void init();
 	void execute();
 
 	FlightStage getCurrentFlightStage();
 	void setCurrentFlightStage(FlightStage flightStage);
 private:
+	// Rocket variables
+	uint32_t timeSinceLaunch_ms = 0;
 	// Sensors
 	Accelerometer* accelerometer;
 	Altimeter* altimeter;
@@ -52,9 +54,10 @@ private:
 	// Drivers -- Boards
 	ICM20948* icm20948Driver;
 	BMP388* bmp388Driver;
-	//BN220* bn220Driver;
+	BN220* bn220Driver;
 	XBEE* xbeeDriver;
 
+	void initDrivers();
 	// State Machine
 	FlightStage currentFlightStage;
 	GCSCommand currentCommand;

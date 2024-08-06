@@ -11,7 +11,7 @@ public:
 	~GPS() {};
 
 	GPSValues getValues();
-	void fillData();
+	uint32_t fillData();
 	SensorState getState();
 private:
 	IGPSDriver* driver;

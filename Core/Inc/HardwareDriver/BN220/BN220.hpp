@@ -19,7 +19,7 @@ private:
 	UART_HandleTypeDef* uartHandle;
 	GPSValues gpsValues;
 
-	uint8_t buffer[1024] = {0};
+	uint8_t buffer[256] = {0};
 	int receiveOKCount = 0;
 
 	const char* HEADER_CODE_GGA = "$GPGGA";

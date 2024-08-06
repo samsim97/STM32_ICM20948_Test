@@ -13,9 +13,10 @@ GyroscopeValues Gyroscope::getValues()
 	return driver->getGyroscopeValues();
 }
 
-void Gyroscope::fillData()
+uint32_t Gyroscope::fillData()
 {
 	driver->readGyroscope();
+	return HAL_GetTick();
 }
 
 SensorState Gyroscope::getState()
