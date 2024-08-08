@@ -19,8 +19,7 @@
 #include <HardwareDriver/XBEE/XBEE.hpp>
 
 #include <Rocket/FlightStage.hpp>
-
-#define THERMOCOUPLE_AMOUNT 0x4U
+#include <Rocket/RocketDefines.hpp>
 
 class Rocket
 {
@@ -57,10 +56,12 @@ private:
 	BN220* bn220Driver;
 	XBEE* xbeeDriver;
 
-	void initDrivers();
+
 	// State Machine
 	FlightStage currentFlightStage;
 	GCSCommand currentCommand;
 	void executeIntializing();
 	void executeAscending();
+
+	void initDrivers();
 };

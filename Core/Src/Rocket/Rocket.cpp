@@ -66,15 +66,21 @@ void Rocket::executeAscending()
 	uint32_t gpsFillTime_ms = gps->fillData();
 	uint32_t altiFillTime_ms = altimeter->fillData();
 
-	uint16_t test= 0;
-
-	AccelerometerValues accelValues = accelerometer->getValues();
-	GyroscopeValues gyroValues = gyroscope->getValues();
+	AccelerometerValues accelerometerValues = accelerometer->getValues();
+	GyroscopeValues gyroscopeValues = gyroscope->getValues();
 	GPSValues gpsValues = gps->getValues();
-	AltimeterValues altiValues = altimeter->getValues();
-	test = 1;
+	AltimeterValues altimeterValues = altimeter->getValues();
 
-	//telecommunication->sendData(accelValues.values_g, sizeof(AccelerometerValues));
+	AccelerometerPacket accelerometerPacket = {accelFillTime_ms, accelerometerValues};
+	AltimeterPacket altimeterPacket = {altiFillTime_ms, altimeterValues};
+	GyroscopePacket gyroscopePacket = {gyroFillTime_ms, gyroscopeValues};
+	GPSPacket gpsPacket = {gpsFillTime_ms, gpsValues};
+
+	// Fragment data sending to reduce error rate
+	telecommunication->sendData(accelerometerPacket.data, sizeof(AccelerometerPacket));
+	telecommunication->sendData(altimeterPacket.data, sizeof(AltimeterPacket));
+	telecommunication->sendData(gyroscopePacket.data, sizeof(GyroscopePacket));
+	telecommunication->sendData(gpsPacket.data, sizeof(GPSPacket));
 
 	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};

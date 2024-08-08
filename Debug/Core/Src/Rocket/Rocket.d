@@ -51,8 +51,10 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/Devices/SmokeBomb/SmokeBomb.hpp \
  ../Core/Inc/Devices/Thermocouple/Thermocouple.hpp \
  ../Core/Inc/Telecommunication/Telecommunication.hpp \
- ../Core/Inc/Rocket/AvionicsValues.hpp \
- ../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp \
+ ../Core/Inc/Telecommunication/Packet/AccelerometerPacket.hpp \
+ ../Core/Inc/Telecommunication/Packet/AltimeterPacket.hpp \
+ ../Core/Inc/Telecommunication/Packet/GyroscopePacket.hpp \
+ ../Core/Inc/Telecommunication/Packet/GPSPacket.hpp \
  ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp \
  ../Core/Inc/Telecommunication/GCSCommand.hpp \
  ../Core/Inc/HardwareDriver/ICM20948/ICM20948.hpp \
@@ -62,7 +64,7 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/HardwareDriver/BMP388/BMP388Defines.hpp \
  ../Core/Inc/HardwareDriver/BN220/BN220.hpp \
  ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp \
- ../Core/Inc/Rocket/FlightStage.hpp
+ ../Core/Inc/Rocket/FlightStage.hpp ../Core/Inc/Rocket/RocketDefines.hpp
 ../Core/Inc/Rocket/Rocket.hpp:
 ../Core/Inc/Sensors/Accelerometer/Accelerometer.hpp:
 ../Core/Inc/Sensors/Accelerometer/AccelerometerValues.hpp:
@@ -116,8 +118,10 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/Devices/SmokeBomb/SmokeBomb.hpp:
 ../Core/Inc/Devices/Thermocouple/Thermocouple.hpp:
 ../Core/Inc/Telecommunication/Telecommunication.hpp:
-../Core/Inc/Rocket/AvionicsValues.hpp:
-../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp:
+../Core/Inc/Telecommunication/Packet/AccelerometerPacket.hpp:
+../Core/Inc/Telecommunication/Packet/AltimeterPacket.hpp:
+../Core/Inc/Telecommunication/Packet/GyroscopePacket.hpp:
+../Core/Inc/Telecommunication/Packet/GPSPacket.hpp:
 ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp:
 ../Core/Inc/Telecommunication/GCSCommand.hpp:
 ../Core/Inc/HardwareDriver/ICM20948/ICM20948.hpp:
@@ -128,3 +132,4 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/HardwareDriver/BN220/BN220.hpp:
 ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp:
 ../Core/Inc/Rocket/FlightStage.hpp:
+../Core/Inc/Rocket/RocketDefines.hpp:

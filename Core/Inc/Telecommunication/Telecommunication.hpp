@@ -1,6 +1,11 @@
 #pragma once
 
-#include <Rocket/AvionicsValues.hpp>
+// Packet Formats
+#include <Telecommunication/Packet/AccelerometerPacket.hpp>
+#include <Telecommunication/Packet/AltimeterPacket.hpp>
+#include <Telecommunication/Packet/GyroscopePacket.hpp>
+#include <Telecommunication/Packet/GPSPacket.hpp>
+
 #include <Telecommunication/ITelecommunicationDriver.hpp>
 #include <Telecommunication/GCSCommand.hpp>
 
