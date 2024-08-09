@@ -78,10 +78,10 @@ void Rocket::executeAscending()
 
 	uint8_t test = 0;
 	// Fragment data sending to reduce error rate
-	/*telecommunication->sendData(accelerometerPacket.data, sizeof(AccelerometerPacket));
+	telecommunication->sendData(accelerometerPacket.data, sizeof(AccelerometerPacket));
 	telecommunication->sendData(altimeterPacket.data, sizeof(AltimeterPacket));
 	telecommunication->sendData(gyroscopePacket.data, sizeof(GyroscopePacket));
-	telecommunication->sendData(gpsPacket.data, sizeof(GPSPacket));*/
+	telecommunication->sendData(gpsPacket.data, sizeof(GPSPacket));
 
 	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};
