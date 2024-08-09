@@ -61,26 +61,27 @@ void Rocket::executeIntializing()
 
 void Rocket::executeAscending()
 {
-	uint32_t accelFillTime_ms = accelerometer->fillData();
-	uint32_t gyroFillTime_ms = gyroscope->fillData();
-	uint32_t gpsFillTime_ms = gps->fillData();
-	uint32_t altiFillTime_ms = altimeter->fillData();
+	uint32_t accelTimeStamp_ms = accelerometer->fillData();
+	uint32_t gyroTimeStamp_ms = gyroscope->fillData();
+	uint32_t gpsTimeStamp_ms = gps->fillData();
+	uint32_t altiTimeStamp_ms = altimeter->fillData();
 
 	AccelerometerValues accelerometerValues = accelerometer->getValues();
 	GyroscopeValues gyroscopeValues = gyroscope->getValues();
 	GPSValues gpsValues = gps->getValues();
 	AltimeterValues altimeterValues = altimeter->getValues();
 
-	AccelerometerPacket accelerometerPacket = {accelFillTime_ms, accelerometerValues};
-	AltimeterPacket altimeterPacket = {altiFillTime_ms, altimeterValues};
-	GyroscopePacket gyroscopePacket = {gyroFillTime_ms, gyroscopeValues};
-	GPSPacket gpsPacket = {gpsFillTime_ms, gpsValues};
+	AccelerometerPacket accelerometerPacket = {COM_HEADER_ID , static_cast<uint16_t>(accelTimeStamp_ms / 10), accelerometerValues};
+	AltimeterPacket altimeterPacket = {COM_HEADER_ID, static_cast<uint16_t>(altiTimeStamp_ms / 10), altimeterValues};
+	GyroscopePacket gyroscopePacket = {COM_HEADER_ID, static_cast<uint16_t>(gyroTimeStamp_ms / 10), gyroscopeValues};
+	GPSPacket gpsPacket = {COM_HEADER_ID, static_cast<uint16_t>(gpsTimeStamp_ms / 10), gpsValues};
 
+	uint8_t test = 0;
 	// Fragment data sending to reduce error rate
-	telecommunication->sendData(accelerometerPacket.data, sizeof(AccelerometerPacket));
+	/*telecommunication->sendData(accelerometerPacket.data, sizeof(AccelerometerPacket));
 	telecommunication->sendData(altimeterPacket.data, sizeof(AltimeterPacket));
 	telecommunication->sendData(gyroscopePacket.data, sizeof(GyroscopePacket));
-	telecommunication->sendData(gpsPacket.data, sizeof(GPSPacket));
+	telecommunication->sendData(gpsPacket.data, sizeof(GPSPacket));*/
 
 	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};

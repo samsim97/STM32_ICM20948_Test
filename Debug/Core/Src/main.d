@@ -63,6 +63,11 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Core/Inc/HardwareDriver/BMP388/BMP388.hpp \
  ../Core/Inc/HardwareDriver/BMP388/BMP388Defines.hpp \
  ../Core/Inc/HardwareDriver/BN220/BN220.hpp \
+ ../Core/Inc/HardwareDriver/BN220/GLLMessage.hpp \
+ ../Core/Inc/HardwareDriver/BN220/NMEAMessage.hpp \
+ ../Core/Inc/HardwareDriver/BN220/GGAMessage.hpp \
+ ../Core/Inc/HardwareDriver/BN220/GPSParser.hpp \
+ ../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp \
  ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp \
  ../Core/Inc/Rocket/FlightStage.hpp ../Core/Inc/Rocket/RocketDefines.hpp
 ../Core/Inc/main.h:
@@ -131,6 +136,11 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
 ../Core/Inc/HardwareDriver/BMP388/BMP388.hpp:
 ../Core/Inc/HardwareDriver/BMP388/BMP388Defines.hpp:
 ../Core/Inc/HardwareDriver/BN220/BN220.hpp:
+../Core/Inc/HardwareDriver/BN220/GLLMessage.hpp:
+../Core/Inc/HardwareDriver/BN220/NMEAMessage.hpp:
+../Core/Inc/HardwareDriver/BN220/GGAMessage.hpp:
+../Core/Inc/HardwareDriver/BN220/GPSParser.hpp:
+../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp:
 ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp:
 ../Core/Inc/Rocket/FlightStage.hpp:
 ../Core/Inc/Rocket/RocketDefines.hpp:

@@ -9,9 +9,8 @@
 struct CoordinateAxis
 {
 	uint16_t degrees;
-	uint16_t minutes;
-	uint16_t seconds;
-	Direction direction;
+	float minutes;
+	uint8_t direction;
 };
 
 struct GPSPosition

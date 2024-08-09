@@ -9,6 +9,8 @@
 #include <Telecommunication/ITelecommunicationDriver.hpp>
 #include <Telecommunication/GCSCommand.hpp>
 
+#define COM_HEADER_ID 0x69U
+
 class Telecommunication
 {
 public:

@@ -7,8 +7,9 @@ union AltimeterPacket
 {
 	struct
 	{
-		uint16_t timeStamp;
+		uint8_t packetHeaderId;
+		uint16_t timeStamp_cs;
 		AltimeterValues gyroscopeValues;
 	};
-	uint8_t data[sizeof(timeStamp) + sizeof(AltimeterValues)];
+	uint8_t data[sizeof(packetHeaderId) + sizeof(timeStamp_cs) + sizeof(AltimeterValues)];
 };

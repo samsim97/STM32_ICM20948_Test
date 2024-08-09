@@ -7,8 +7,9 @@ union GPSPacket
 {
 	struct
 	{
-		uint16_t timeStamp;
+		uint8_t packetHeaderId;
+		uint16_t timeStamp_cs;
 		GPSValues gyroscopeValues;
 	};
-	uint8_t data[sizeof(timeStamp) + sizeof(GPSValues)];
+	uint8_t data[sizeof(packetHeaderId) + sizeof(timeStamp_cs) + sizeof(GPSValues)];
 };

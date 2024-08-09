@@ -5,6 +5,11 @@ Core/Src/HardwareDriver/BN220/BN220.o: \
  ../Core/Inc/Sensors/GPS/Direction.hpp \
  ../Core/Inc/Sensors/GPS/IGPSDriver.hpp \
  ../Core/Inc/Sensors/SensorState.hpp \
+ ../Core/Inc/HardwareDriver/BN220/GLLMessage.hpp \
+ ../Core/Inc/HardwareDriver/BN220/NMEAMessage.hpp \
+ ../Core/Inc/HardwareDriver/BN220/GGAMessage.hpp \
+ ../Core/Inc/HardwareDriver/BN220/GPSParser.hpp \
+ ../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -41,6 +46,11 @@ Core/Src/HardwareDriver/BN220/BN220.o: \
 ../Core/Inc/Sensors/GPS/Direction.hpp:
 ../Core/Inc/Sensors/GPS/IGPSDriver.hpp:
 ../Core/Inc/Sensors/SensorState.hpp:
+../Core/Inc/HardwareDriver/BN220/GLLMessage.hpp:
+../Core/Inc/HardwareDriver/BN220/NMEAMessage.hpp:
+../Core/Inc/HardwareDriver/BN220/GGAMessage.hpp:
+../Core/Inc/HardwareDriver/BN220/GPSParser.hpp:
+../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h:

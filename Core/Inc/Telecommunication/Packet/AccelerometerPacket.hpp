@@ -7,8 +7,9 @@ union AccelerometerPacket
 {
 	struct
 	{
-		uint16_t timeStamp;
+		uint8_t packetHeaderId;
+		uint16_t timeStamp_cs;
 		AccelerometerValues accelerometerValues;
 	};
-	uint8_t data[sizeof(timeStamp) + sizeof(AccelerometerValues)];
+	uint8_t data[sizeof(packetHeaderId) + sizeof(timeStamp_cs) + sizeof(AccelerometerValues)];
 };
