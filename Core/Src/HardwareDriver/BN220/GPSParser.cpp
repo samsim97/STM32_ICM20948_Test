@@ -11,7 +11,7 @@ void GPSParser::parse(const std::string& data) {
   const char firstChar = '$';
 	std::uint16_t messageCount = 0;
   //const char* messageCodes[] = { "GLL", "GGA" };
-  for (int i = 0; i < data.size(); i++) {
+  for (int i = 0; i < data.size() - GLLMessage::emptySize; i++) {
     if (data[i] == firstChar) {
 			std::string messageCode = data.substr(i + 3, 3);
 			NMEAMessage* message = NMEAMessageFactory::createMessage(messageCode);
@@ -29,6 +29,7 @@ void GPSParser::parse(const std::string& data) {
 			messages[messageCount++] = message;
 		}
   }
+  uint8_t test2 = 0;
 }
 
 NMEAMessage** GPSParser::getMessages() const {

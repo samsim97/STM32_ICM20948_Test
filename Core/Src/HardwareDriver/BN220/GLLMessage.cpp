@@ -7,6 +7,12 @@ void GLLMessage::parse(const std::string& message) {
 	size_t previousIndex = 0;
 	size_t currentIndex = 0;
 
+	const char* message2 = message.c_str();
+	if (message.size() == GLLMessage::emptySize)
+	{
+		return;
+	}
+
 	std::string tempMessage = message;
 	while ((currentIndex = tempMessage.find(delimiter)) != std::string::npos) {
 		token = tempMessage.substr(0, currentIndex);

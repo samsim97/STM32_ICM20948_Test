@@ -1,5 +1,5 @@
 ../Core/Inc/Sensors/GPS/IGPSDriver.hpp:6:7:constexpr IGPSDriver::IGPSDriver()	16	static
 ../Core/Src/HardwareDriver/BN220/BN220.cpp:3:1:BN220::BN220(UART_HandleTypeDef*)	24	static
-../Core/Src/HardwareDriver/BN220/BN220.cpp:9:6:virtual void BN220::readGPS()	16	static
-../Core/Src/HardwareDriver/BN220/BN220.cpp:19:11:virtual GPSValues BN220::getGPSValues()	24	static
-../Core/Src/HardwareDriver/BN220/BN220.cpp:24:6:void BN220::updateGPSDataFromBuffer()	80	static
+../Core/Src/HardwareDriver/BN220/BN220.cpp:9:6:virtual void BN220::readGPS()	24	static
+../Core/Src/HardwareDriver/BN220/BN220.cpp:21:11:virtual GPSValues BN220::getGPSValues()	24	static
+../Core/Src/HardwareDriver/BN220/BN220.cpp:26:6:void BN220::updateGPSDataFromBuffer()	80	static

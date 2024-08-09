@@ -50,6 +50,7 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/Sensors/Thermometer/ThermometerValues.hpp \
  ../Core/Inc/Devices/SmokeBomb/SmokeBomb.hpp \
  ../Core/Inc/Devices/Thermocouple/Thermocouple.hpp \
+ ../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp \
  ../Core/Inc/Telecommunication/Telecommunication.hpp \
  ../Core/Inc/Telecommunication/Packet/AccelerometerPacket.hpp \
  ../Core/Inc/Telecommunication/Packet/AltimeterPacket.hpp \
@@ -122,6 +123,7 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/Sensors/Thermometer/ThermometerValues.hpp:
 ../Core/Inc/Devices/SmokeBomb/SmokeBomb.hpp:
 ../Core/Inc/Devices/Thermocouple/Thermocouple.hpp:
+../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp:
 ../Core/Inc/Telecommunication/Telecommunication.hpp:
 ../Core/Inc/Telecommunication/Packet/AccelerometerPacket.hpp:
 ../Core/Inc/Telecommunication/Packet/AltimeterPacket.hpp:

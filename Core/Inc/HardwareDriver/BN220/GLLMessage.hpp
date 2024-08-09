@@ -20,5 +20,7 @@ public:
 	virtual ~GLLMessage() = default;
 	virtual void parse(const std::string& message) override;
 	virtual size_t getMessageSize() override;
+
+	static const size_t emptySize = sizeof("$GNGLL,,,,,,V,N*7A") - 1; // - 1 to remove \0 at end of const char*
 };
 

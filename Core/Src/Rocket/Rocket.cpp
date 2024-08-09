@@ -77,11 +77,12 @@ void Rocket::executeAscending()
 	GPSPacket gpsPacket = {COM_HEADER_ID, static_cast<uint16_t>(gpsTimeStamp_ms / 10), gpsValues};
 
 	uint8_t test = 0;
+
 	// Fragment data sending to reduce error rate
-	telecommunication->sendData(accelerometerPacket.data, sizeof(AccelerometerPacket));
+	/*telecommunication->sendData(accelerometerPacket.data, sizeof(AccelerometerPacket));
 	telecommunication->sendData(altimeterPacket.data, sizeof(AltimeterPacket));
 	telecommunication->sendData(gyroscopePacket.data, sizeof(GyroscopePacket));
-	telecommunication->sendData(gpsPacket.data, sizeof(GPSPacket));
+	telecommunication->sendData(gpsPacket.data, sizeof(GPSPacket));*/
 
 	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};
@@ -97,7 +98,11 @@ void Rocket::executeAscending()
 	//altimeter->fillData();
 	//altimeter->getValues();
 	//ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
-	//thermocoupleValues[3].temperature_C = thermocouple[3]->getTemperature();
+
+
+	//float temp = thermocouple[3]->getTemperature();
+
+
 	/*for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
 	{
 		thermocoupleValues[i] = thermocouple[i]->getTemperature();

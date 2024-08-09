@@ -10,6 +10,7 @@
 
 #include <Devices/SmokeBomb/SmokeBomb.hpp>
 #include <Devices/Thermocouple/Thermocouple.hpp>
+#include <Devices/Thermocouple/ThermocoupleValues.hpp>
 
 #include <Telecommunication/Telecommunication.hpp>
 
