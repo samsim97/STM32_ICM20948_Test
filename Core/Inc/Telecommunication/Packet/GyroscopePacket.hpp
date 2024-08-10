@@ -7,7 +7,7 @@ union GyroscopePacket
 {
 	struct
 	{
-		uint8_t packetHeaderId;
+		uint16_t packetHeaderId;
 		uint16_t timeStamp;
 		GyroscopeValues gyroscopeValues;
 	};

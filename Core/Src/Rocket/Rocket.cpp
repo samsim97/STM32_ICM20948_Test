@@ -76,13 +76,21 @@ void Rocket::executeAscending()
 	GyroscopePacket gyroscopePacket = {COM_HEADER_ID, static_cast<uint16_t>(gyroTimeStamp_ms / 10), gyroscopeValues};
 	GPSPacket gpsPacket = {COM_HEADER_ID, static_cast<uint16_t>(gpsTimeStamp_ms / 10), gpsValues};
 
-	uint8_t test = 0;
 
+	/*uint8_t accelData[15] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+	for (int i = 0; i < sizeof(accelerometerPacket.data); i++)
+	{
+		accelData[i] = accelerometerPacket.data[i];
+	}
+	//uint8_t accelData[15] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
 	// Fragment data sending to reduce error rate
-	/*telecommunication->sendData(accelerometerPacket.data, sizeof(AccelerometerPacket));
-	telecommunication->sendData(altimeterPacket.data, sizeof(AltimeterPacket));
-	telecommunication->sendData(gyroscopePacket.data, sizeof(GyroscopePacket));
-	telecommunication->sendData(gpsPacket.data, sizeof(GPSPacket));*/
+	telecommunication->sendData(accelData, sizeof(accelerometerPacket.data));*/
+	//telecommunication->sendData(accelerometerPacket.data, sizeof(accelerometerPacket.data));
+	telecommunication->sendData(altimeterPacket.data, sizeof(altimeterPacket.data));
+	//telecommunication->sendData(gyroscopePacket.data, sizeof(gyroscopePacket.data));
+	//telecommunication->sendData(gpsPacket.data, sizeof(gpsPacket.data));
+
+	uint8_t test = 0;
 
 	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};
@@ -99,9 +107,10 @@ void Rocket::executeAscending()
 	//altimeter->getValues();
 	//ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
 
-
-	//float temp = thermocouple[3]->getTemperature();
-
+	//float temp0 = thermocouple[0]->getTemperature();
+	//float temp1 = thermocouple[1]->getTemperature();
+	//float temp2 = thermocouple[2]->getTemperature();
+	//float temp3 = thermocouple[3]->getTemperature();
 
 	/*for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
 	{

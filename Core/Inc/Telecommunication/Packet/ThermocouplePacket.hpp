@@ -8,7 +8,7 @@ union ThermocouplePacket
 {
 	struct
 	{
-		uint8_t packetHeaderId;
+		uint16_t packetHeaderId;
 		uint16_t timeStamp_cs;
 		ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT];
 	};
