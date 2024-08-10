@@ -3,14 +3,14 @@
 #include <stdint.h>
 #include <Sensors/GPS/Direction.hpp>
 
-#define GPS_VALUES_LENGTH sizeof(GPSPosition)
+#define GPS_VALUES_LENGTH 16
 
 // SEE FORMAT NORD-SUD
 struct CoordinateAxis
 {
+	uint16_t direction;
 	uint16_t degrees;
 	float minutes;
-	uint8_t direction;
 };
 
 struct GPSPosition
@@ -22,5 +22,5 @@ struct GPSPosition
 union GPSValues
 {
 	GPSPosition gpsPosition;
-	uint16_t values[GPS_VALUES_LENGTH];
+	uint8_t values[GPS_VALUES_LENGTH];
 };
