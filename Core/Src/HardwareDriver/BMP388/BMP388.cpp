@@ -56,7 +56,7 @@ void BMP388::readAltimeter()
 	    double altitude = 0.0;
 	    float atmospheric = data.pressure / 100.0F;
 		altitude = 44330.0 * (1.0 - std::pow(atmospheric / sealevelpressure_hpa, 0.1903));
-		altimeterValues.height_m = altitude;
+		altimeterValues.height_cm = static_cast<uint16_t>(altitude * 100);
 	    //bmp3_check_rslt("bmp3_get_sensor_data", rslt);
 
 	    /* NOTE : Read status register again to clear data ready interrupt status */

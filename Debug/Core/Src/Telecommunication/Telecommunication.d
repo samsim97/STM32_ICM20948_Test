@@ -10,6 +10,9 @@ Core/Src/Telecommunication/Telecommunication.o: \
  ../Core/Inc/Telecommunication/Packet/GPSPacket.hpp \
  ../Core/Inc/Sensors/GPS/GPSValues.hpp \
  ../Core/Inc/Sensors/GPS/Direction.hpp \
+ ../Core/Inc/Telecommunication/Packet/ThermocouplePacket.hpp \
+ ../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp \
+ ../Core/Inc/Rocket/RocketDefines.hpp \
  ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp \
  ../Core/Inc/Telecommunication/GCSCommand.hpp
 ../Core/Inc/Telecommunication/Telecommunication.hpp:
@@ -22,5 +25,8 @@ Core/Src/Telecommunication/Telecommunication.o: \
 ../Core/Inc/Telecommunication/Packet/GPSPacket.hpp:
 ../Core/Inc/Sensors/GPS/GPSValues.hpp:
 ../Core/Inc/Sensors/GPS/Direction.hpp:
+../Core/Inc/Telecommunication/Packet/ThermocouplePacket.hpp:
+../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp:
+../Core/Inc/Rocket/RocketDefines.hpp:
 ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp:
 ../Core/Inc/Telecommunication/GCSCommand.hpp:

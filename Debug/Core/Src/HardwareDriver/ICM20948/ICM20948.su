@@ -6,9 +6,9 @@
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:102:6:void ICM20948::selectUserBank(uint8_t)	16	static
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:107:6:void ICM20948::setClock(uint8_t)	16	static
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:116:6:virtual void ICM20948::readAccelerometer()	32	static
-../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:132:21:virtual AccelerometerValues ICM20948::getAccelerometerValues()	48	static
+../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:132:21:virtual AccelerometerValues ICM20948::getAccelerometerValues()	16	static
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:141:6:virtual void ICM20948::readGyroscope()	32	static
-../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:157:17:virtual GyroscopeValues ICM20948::getGyroscopeValues()	48	static
+../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:157:17:virtual GyroscopeValues ICM20948::getGyroscopeValues()	16	static
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:166:6:void ICM20948::readMagnetometer()	16	static
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:171:20:MagnetometerValues ICM20948::getMagnetometerValues()	16	static
 ../Core/Src/HardwareDriver/ICM20948/ICM20948.cpp:180:6:void ICM20948::readThermometer()	16	static

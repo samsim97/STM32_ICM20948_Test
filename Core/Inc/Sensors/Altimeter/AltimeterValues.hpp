@@ -1,11 +1,12 @@
 #pragma once
 
-// May be revised
+#include <stdint.h>
+
 union AltimeterValues
 {
 	struct
 	{
-		float height_m;
+		uint16_t height_cm;
 	};
-	float values[1];
+	uint16_t values[1];
 };

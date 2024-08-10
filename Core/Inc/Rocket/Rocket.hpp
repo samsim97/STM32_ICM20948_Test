@@ -36,6 +36,14 @@ public:
 private:
 	// Rocket variables
 	uint32_t timeSinceLaunch_ms = 0;
+
+	uint32_t accelTimeStamp_ms = 0;
+	uint32_t gyroTimeStamp_ms = 0;
+	uint32_t gpsTimeStamp_ms = 0;
+	uint32_t altiTimeStamp_ms = 0;
+
+	uint32_t thermocoupleTimeStamp_ms[THERMOCOUPLE_AMOUNT] = {0};
+
 	// Sensors
 	Accelerometer* accelerometer;
 	Altimeter* altimeter;

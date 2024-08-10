@@ -1,4 +1,4 @@
 ../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:5:1:Gyroscope::Gyroscope(IGyroscopeDriver*)	16	static
-../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:11:17:GyroscopeValues Gyroscope::getValues()	48	static
+../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:11:17:GyroscopeValues Gyroscope::getValues()	16	static
 ../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:16:10:uint32_t Gyroscope::fillData()	16	static
 ../Core/Src/Sensors/Gyroscope/Gyroscope.cpp:22:13:SensorState Gyroscope::getState()	16	static

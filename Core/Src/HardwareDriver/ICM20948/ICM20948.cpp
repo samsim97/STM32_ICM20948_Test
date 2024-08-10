@@ -124,9 +124,9 @@ void ICM20948::readAccelerometer()
 
 	readRegisters(0x2D, raw_data, BUFFER_SIZE);
 
-	accelerometerValues.x_g = static_cast<int16_t>((raw_data[0] << 8) | raw_data[1]) / accelerometerScaleDivider;
-	accelerometerValues.y_g = static_cast<int16_t>((raw_data[2] << 8) | raw_data[3]) / accelerometerScaleDivider;
-	accelerometerValues.z_g = static_cast<int16_t>((raw_data[4] << 8) | raw_data[5]) / accelerometerScaleDivider;
+	accelerometerValues.x_mg = static_cast<int16_t>((static_cast<int16_t>((raw_data[0] << 8) | raw_data[1]) / accelerometerScaleDivider) * 1000);
+	accelerometerValues.y_mg = static_cast<int16_t>((static_cast<int16_t>((raw_data[2] << 8) | raw_data[3]) / accelerometerScaleDivider) * 1000);
+	accelerometerValues.z_mg = static_cast<int16_t>((static_cast<int16_t>((raw_data[4] << 8) | raw_data[5]) / accelerometerScaleDivider) * 1000);
 }
 
 AccelerometerValues ICM20948::getAccelerometerValues()
@@ -149,9 +149,9 @@ void ICM20948::readGyroscope()
 
 	readRegisters(0x33, raw_data, BUFFER_SIZE);
 
-	gyroscopeValues.x_degPerSec = static_cast<int16_t>((raw_data[0] << 8) | raw_data[1]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
-	gyroscopeValues.y_degPerSec = static_cast<int16_t>((raw_data[2] << 8) | raw_data[3]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
-	gyroscopeValues.z_degPerSec = static_cast<int16_t>((raw_data[4] << 8) | raw_data[5]) / GYROSCOPE_250DPS_SCALE_DIVIDER;
+	gyroscopeValues.x_mdegPerSec = static_cast<int16_t>((static_cast<int16_t>((raw_data[0] << 8) | raw_data[1]) / GYROSCOPE_250DPS_SCALE_DIVIDER) * 1000);
+	gyroscopeValues.y_mdegPerSec = static_cast<int16_t>((static_cast<int16_t>((raw_data[2] << 8) | raw_data[3]) / GYROSCOPE_250DPS_SCALE_DIVIDER) * 1000);
+	gyroscopeValues.z_mdegPerSec = static_cast<int16_t>((static_cast<int16_t>((raw_data[4] << 8) | raw_data[5]) / GYROSCOPE_250DPS_SCALE_DIVIDER) * 1000);
 }
 
 GyroscopeValues ICM20948::getGyroscopeValues()

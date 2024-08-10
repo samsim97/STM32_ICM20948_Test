@@ -6,9 +6,9 @@ union AccelerometerValues
 {
 	struct
 	{
-		float x_g;
-		float y_g;
-		float z_g;
+		int16_t x_mg;
+		int16_t y_mg;
+		int16_t z_mg;
 	};
-	float values_g[3];
+	int16_t values_mg[3];
 };

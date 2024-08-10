@@ -4,7 +4,7 @@ union ThermocoupleValues
 {
 	struct
 	{
-		float temperature_C[];
+		uint16_t temperature_cC;
 	};
-	float values[1];
+	uint16_t values[1];
 };

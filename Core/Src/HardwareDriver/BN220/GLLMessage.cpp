@@ -16,26 +16,42 @@ void GLLMessage::parse(const std::string& message) {
 	std::string tempMessage = message;
 	while ((currentIndex = tempMessage.find(delimiter)) != std::string::npos) {
 		token = tempMessage.substr(0, currentIndex);
+		int tokenLength = token.length();
 		tempMessage = tempMessage.substr(currentIndex + 1);
 		switch (currentField)
 		{
 		case 0:
-			talkerId = token.substr(0, 2);
-			messageId = token.substr(2, 3);
+			if (tokenLength >= 3)
+			{
+				talkerId = token.substr(0, 2);
+				messageId = token.substr(2, 3);
+			}
 			break;
 		case 1:
-			position.latitude.degrees = std::stoul(token.substr(0, 2));
-			position.latitude.minutes = std::stof(token.substr(2, currentIndex));
+			if (tokenLength >= 2)
+			{
+				position.latitude.degrees = std::stoul(token.substr(0, 2));
+				position.latitude.mminutes = static_cast<uint16_t>(std::stof(token.substr(2, currentIndex)) * 1000);
+			}
 			break;
 		case 2:
-			position.latitude.direction = token[0];
+			if (tokenLength >= 1)
+			{
+				position.latitude.direction = token[0];
+			}
 			break;
 		case 3:
-			position.longitude.degrees = std::stoul(token.substr(0, 3));
-			position.longitude.minutes = std::stof(token.substr(3, currentIndex));
+			if (tokenLength >= 3)
+			{
+				position.longitude.degrees = std::stoul(token.substr(0, 3));
+				position.longitude.mminutes = static_cast<uint16_t>(std::stof(token.substr(3, currentIndex)) * 1000);
+			}
 			break;
 		case 4:
-			position.longitude.direction = token[0];
+			if (tokenLength >= 1)
+			{
+				position.longitude.direction = token[0];
+			}
 		case 5:
 			return;
 		default:

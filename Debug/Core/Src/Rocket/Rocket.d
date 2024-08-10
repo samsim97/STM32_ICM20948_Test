@@ -56,6 +56,8 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/Telecommunication/Packet/AltimeterPacket.hpp \
  ../Core/Inc/Telecommunication/Packet/GyroscopePacket.hpp \
  ../Core/Inc/Telecommunication/Packet/GPSPacket.hpp \
+ ../Core/Inc/Telecommunication/Packet/ThermocouplePacket.hpp \
+ ../Core/Inc/Rocket/RocketDefines.hpp \
  ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp \
  ../Core/Inc/Telecommunication/GCSCommand.hpp \
  ../Core/Inc/HardwareDriver/ICM20948/ICM20948.hpp \
@@ -70,7 +72,7 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/HardwareDriver/BN220/GPSParser.hpp \
  ../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp \
  ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp \
- ../Core/Inc/Rocket/FlightStage.hpp ../Core/Inc/Rocket/RocketDefines.hpp
+ ../Core/Inc/Rocket/FlightStage.hpp
 ../Core/Inc/Rocket/Rocket.hpp:
 ../Core/Inc/Sensors/Accelerometer/Accelerometer.hpp:
 ../Core/Inc/Sensors/Accelerometer/AccelerometerValues.hpp:
@@ -129,6 +131,8 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/Telecommunication/Packet/AltimeterPacket.hpp:
 ../Core/Inc/Telecommunication/Packet/GyroscopePacket.hpp:
 ../Core/Inc/Telecommunication/Packet/GPSPacket.hpp:
+../Core/Inc/Telecommunication/Packet/ThermocouplePacket.hpp:
+../Core/Inc/Rocket/RocketDefines.hpp:
 ../Core/Inc/Telecommunication/ITelecommunicationDriver.hpp:
 ../Core/Inc/Telecommunication/GCSCommand.hpp:
 ../Core/Inc/HardwareDriver/ICM20948/ICM20948.hpp:
@@ -144,4 +148,3 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp:
 ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp:
 ../Core/Inc/Rocket/FlightStage.hpp:
-../Core/Inc/Rocket/RocketDefines.hpp:

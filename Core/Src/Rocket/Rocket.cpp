@@ -61,34 +61,41 @@ void Rocket::executeIntializing()
 
 void Rocket::executeAscending()
 {
-	uint32_t accelTimeStamp_ms = accelerometer->fillData();
-	uint32_t gyroTimeStamp_ms = gyroscope->fillData();
-	uint32_t gpsTimeStamp_ms = gps->fillData();
-	uint32_t altiTimeStamp_ms = altimeter->fillData();
+	accelTimeStamp_ms = accelerometer->fillData();
+	gyroTimeStamp_ms = gyroscope->fillData();
+	gpsTimeStamp_ms = gps->fillData();
+	altiTimeStamp_ms = altimeter->fillData();
+
+	for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
+	{
+		thermocoupleTimeStamp_ms[i] = thermocouple[i]->fillData();
+	}
 
 	AccelerometerValues accelerometerValues = accelerometer->getValues();
 	GyroscopeValues gyroscopeValues = gyroscope->getValues();
 	GPSValues gpsValues = gps->getValues();
 	AltimeterValues altimeterValues = altimeter->getValues();
 
-	AccelerometerPacket accelerometerPacket = {COM_HEADER_ID , static_cast<uint16_t>(accelTimeStamp_ms / 10), accelerometerValues};
-	AltimeterPacket altimeterPacket = {COM_HEADER_ID, static_cast<uint16_t>(altiTimeStamp_ms / 10), altimeterValues};
-	GyroscopePacket gyroscopePacket = {COM_HEADER_ID, static_cast<uint16_t>(gyroTimeStamp_ms / 10), gyroscopeValues};
-	GPSPacket gpsPacket = {COM_HEADER_ID, static_cast<uint16_t>(gpsTimeStamp_ms / 10), gpsValues};
+	ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
 
-
-	/*uint8_t accelData[15] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
-	for (int i = 0; i < sizeof(accelerometerPacket.data); i++)
+	for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
 	{
-		accelData[i] = accelerometerPacket.data[i];
+		thermocoupleValues[i] = thermocouple[i]->getValues();
 	}
-	//uint8_t accelData[15] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+
+	AccelerometerPacket accelerometerPacket = {COM_HEADER_ID , ACCELEROMETER_HEADER_ID, static_cast<uint16_t>(accelTimeStamp_ms / 10), accelerometerValues};
+	AltimeterPacket altimeterPacket = {COM_HEADER_ID, ALTIMETER_HEADER_ID, static_cast<uint16_t>(altiTimeStamp_ms / 10), altimeterValues};
+	GyroscopePacket gyroscopePacket = {COM_HEADER_ID, GYROSCOPE_HEADER_ID, static_cast<uint16_t>(gyroTimeStamp_ms / 10), gyroscopeValues};
+	GPSPacket gpsPacket = {COM_HEADER_ID, GPS_HEADER_ID, static_cast<uint16_t>(gpsTimeStamp_ms / 10), gpsValues};
+
+	ThermocouplePacket thermocouplePacket = {COM_HEADER_ID, THERMOCOUPLE_HEADER_ID, static_cast<uint16_t>(gpsTimeStamp_ms / 10), {thermocoupleValues[0], thermocoupleValues[1], thermocoupleValues[2], thermocoupleValues[3]}};
 	// Fragment data sending to reduce error rate
-	telecommunication->sendData(accelData, sizeof(accelerometerPacket.data));*/
-	//telecommunication->sendData(accelerometerPacket.data, sizeof(accelerometerPacket.data));
+	telecommunication->sendData(accelerometerPacket.data, sizeof(accelerometerPacket.data));
 	telecommunication->sendData(altimeterPacket.data, sizeof(altimeterPacket.data));
-	//telecommunication->sendData(gyroscopePacket.data, sizeof(gyroscopePacket.data));
-	//telecommunication->sendData(gpsPacket.data, sizeof(gpsPacket.data));
+	telecommunication->sendData(gyroscopePacket.data, sizeof(gyroscopePacket.data));
+	telecommunication->sendData(gpsPacket.data, sizeof(gpsPacket.data));
+
+	telecommunication->sendData(thermocouplePacket.data, sizeof(thermocouplePacket.data));
 
 	uint8_t test = 0;
 

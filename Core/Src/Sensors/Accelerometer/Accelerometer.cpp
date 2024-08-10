@@ -5,7 +5,8 @@
 Accelerometer::Accelerometer(IAccelerometerDriver* driver)
 {
 	this->driver = driver;
-	calibrationOffsets = {0.0f, 0.0f, 0.0f};
+	calibrationOffsets = {0, 0, 0};
+	//calibrate(20);
 }
 
 
@@ -22,18 +23,18 @@ uint32_t Accelerometer::fillData()
 
 void Accelerometer::calibrate(int16_t sampleSize)
 {
-	AccelerometerValues sampledValues = {0.0f, 0.0f, 0.0f};
+	AccelerometerValues sampledValues = {0, 0, 0};
 	for (uint16_t i = 0; i < sampleSize;i++)
 	{
 		fillData();
-		sampledValues.x_g = sampledValues.x_g + getValues().x_g;
-		sampledValues.y_g = sampledValues.y_g + getValues().y_g;
-		sampledValues.z_g = sampledValues.z_g + getValues().z_g;
+		sampledValues.x_mg = sampledValues.x_mg + getValues().x_mg;
+		sampledValues.y_mg = sampledValues.y_mg + getValues().y_mg;
+		sampledValues.z_mg = sampledValues.z_mg + getValues().z_mg;
 	}
 
-	calibrationOffsets.x_g = sampledValues.x_g / (float)sampleSize;
-	calibrationOffsets.y_g = sampledValues.y_g / (float)sampleSize;
-	calibrationOffsets.z_g = sampledValues.z_g / (float)sampleSize;
+	calibrationOffsets.x_mg = sampledValues.x_mg / sampleSize;
+	calibrationOffsets.y_mg = sampledValues.y_mg / sampleSize;
+	calibrationOffsets.z_mg = sampledValues.z_mg / sampleSize;
 }
 
 SensorState Accelerometer::getState()

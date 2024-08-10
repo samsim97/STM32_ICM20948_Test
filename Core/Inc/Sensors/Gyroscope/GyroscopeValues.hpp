@@ -1,12 +1,14 @@
 #pragma once
 
+#include <stdint.h>
+
 union GyroscopeValues
 {
 	struct
 	{
-		float x_degPerSec;
-		float y_degPerSec;
-		float z_degPerSec;
+		int16_t x_mdegPerSec;
+		int16_t y_mdegPerSec;
+		int16_t z_mdegPerSec;
 	};
-	float values_degPerSec[3];
+	int16_t values_degPerSec[3];
 };

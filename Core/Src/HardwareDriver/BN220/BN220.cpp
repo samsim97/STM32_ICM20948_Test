@@ -11,7 +11,7 @@ void BN220::readGPS()
 	int returnCode = HAL_UART_Receive(uartHandle, buffer, sizeof(buffer) - 1, 2000);
 
 	//buffer = "$GPGGA,123456.00,4807.038,N,01131.000,E,1,12,1.0,545.4,M,46.9,M,,*47";
-	memcpy(buffer, "$GPGGA,123456.00,4807.038,N,01131.000,E,1,12,1.0,545.4,M,46.9,M,,*47\r\n", strlen("$GPGGA,123456.00,4807.038,N,01131.000,E,1,12,1.0,545.4,M,46.9,M,,*47\r\n") + 1);
+	//memcpy(buffer, "$GPGGA,123456.00,4807.038,N,01131.000,E,1,12,1.0,545.4,M,46.9,M,,*47\r\n", strlen("$GPGGA,123456.00,4807.038,N,01131.000,E,1,12,1.0,545.4,M,46.9,M,,*47\r\n") + 1);
 
 	//memcpy(buffer, "$GPGGA,123456.00,4807.038,N,01131.000,E,1,12,1.0,545.4,M,46.9,M,,*47", strlen("$GPGGA,123456.00,4807.038,N,01131.000,E,1,12,1.0,545.4,M,46.9,M,,*47") + 1);
 
@@ -38,7 +38,7 @@ void BN220::updateGPSDataFromBuffer()
 	}
 	else
 	{
-		memset(gpsValues.values, 0, sizeof(gpsValues.values) / 2);
+		memset(gpsValues.values, 0, sizeof(gpsValues.values));
 		//gpsValues.values = {0};
 	}
 	//gpsValues.gpsPosition = gpsMessageParser->getMessages()[0]->getPosition(); // HOW MANY MESSAGES DO WE REALLY WANNA GET IN ONE GO ? 1 SEEMS OK

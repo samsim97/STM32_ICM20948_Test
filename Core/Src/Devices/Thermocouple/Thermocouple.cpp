@@ -6,10 +6,8 @@ Thermocouple::Thermocouple(ADC_HandleTypeDef* adcHandle, uint8_t channel)
 	this->adcHandle = adcHandle;
 }
 
-float Thermocouple::getTemperature()
+uint32_t Thermocouple::fillData()
 {
-	float temperature = 0.0f;
-
 	configChannel();
 
 	HAL_ADC_Start(adcHandle);
@@ -23,8 +21,14 @@ float Thermocouple::getTemperature()
 
 	float thermistanceValue = ((adcValue_volt / referenceVoltage) * referenceResistance) / ((adcValue_volt / referenceVoltage) + 1);
 
-	temperature = (1000.0f / thermistanceValue) * 24.0f; // MAY NEED TO CHANGE
-	return temperature;
+	thermocoupleValues.temperature_cC = static_cast<uint16_t>((10000.0f / thermistanceValue) * 24.0f * 100.0f); // MAY NEED TO CHANGE
+
+	return HAL_GetTick();
+}
+
+ThermocoupleValues Thermocouple::getValues()
+{
+	return thermocoupleValues;
 }
 
 void Thermocouple::configChannel()
@@ -36,6 +40,3 @@ void Thermocouple::configChannel()
 	sConfig.SamplingTime = ADC_SAMPLETIME_3CYCLES;
 	HAL_ADC_ConfigChannel(adcHandle, &sConfig);
 }
-
-
-
