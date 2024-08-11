@@ -72,7 +72,8 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
  ../Core/Inc/HardwareDriver/BN220/GPSParser.hpp \
  ../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp \
  ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp \
- ../Core/Inc/Rocket/FlightStage.hpp
+ ../Core/Inc/Rocket/FlightStage.hpp ../Core/Inc/Rocket/RegisterMap.hpp \
+ ../Core/Inc/Rocket/AvionicsValues.hpp
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -149,3 +150,5 @@ Core/Src/main.o: ../Core/Src/main.cpp ../Core/Inc/main.h \
 ../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp:
 ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp:
 ../Core/Inc/Rocket/FlightStage.hpp:
+../Core/Inc/Rocket/RegisterMap.hpp:
+../Core/Inc/Rocket/AvionicsValues.hpp:

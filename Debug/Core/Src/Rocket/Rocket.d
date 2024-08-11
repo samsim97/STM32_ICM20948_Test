@@ -72,7 +72,8 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/HardwareDriver/BN220/GPSParser.hpp \
  ../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp \
  ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp \
- ../Core/Inc/Rocket/FlightStage.hpp
+ ../Core/Inc/Rocket/FlightStage.hpp ../Core/Inc/Rocket/RegisterMap.hpp \
+ ../Core/Inc/Rocket/AvionicsValues.hpp
 ../Core/Inc/Rocket/Rocket.hpp:
 ../Core/Inc/Sensors/Accelerometer/Accelerometer.hpp:
 ../Core/Inc/Sensors/Accelerometer/AccelerometerValues.hpp:
@@ -148,3 +149,5 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/HardwareDriver/BN220/NMEAMessageFactory.hpp:
 ../Core/Inc/HardwareDriver/XBEE/XBEE.hpp:
 ../Core/Inc/Rocket/FlightStage.hpp:
+../Core/Inc/Rocket/RegisterMap.hpp:
+../Core/Inc/Rocket/AvionicsValues.hpp:

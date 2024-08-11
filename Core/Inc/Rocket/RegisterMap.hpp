@@ -5,6 +5,8 @@
 #include <Rocket/AvionicsValues.hpp>
 #include <Sensors/Gyroscope/GyroscopeValues.hpp>
 
+#define SMOKE_IGNITE_REGISTER 0x10
+
 struct Registers
 {
 	uint8_t versionRegister; // 0x0, R

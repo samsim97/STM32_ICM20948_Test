@@ -96,13 +96,32 @@ void Rocket::executeAscending()
 	telecommunication->sendData(gpsPacket.data, sizeof(gpsPacket.data));
 
 	telecommunication->sendData(thermocouplePacket.data, sizeof(thermocouplePacket.data));
+	telecommunication->fetchData(currentCommand.values, sizeof(currentCommand));
+
+	if (currentCommand.registerAddress == SMOKE_IGNITE_REGISTER && currentCommand.operation == 0x01 && currentCommand.value == 0x01)
+	{
+		smokeBomb->ignite();
+	}
+
+	/*for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
+		{
+			thermocoupleTimeStamp_ms[i] = thermocouple[i]->fillData();
+		}
+
+	ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
+
+		for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
+		{
+			thermocoupleValues[i] = thermocouple[i]->getValues();
+		}*/
 
 	uint8_t test = 0;
+
 
 	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};
 	telecommunication->sendData(testBuffer, sizeof(testBuffer));
-	telecommunication->fetchData(receivedCommand, sizeof(receivedCommand));
+
 	//currentCommand = telecommunication->getCommand();
 	if (receivedCommand[0] == 'c')
 	{

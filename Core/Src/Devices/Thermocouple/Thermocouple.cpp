@@ -21,8 +21,9 @@ uint32_t Thermocouple::fillData()
 
 	float thermistanceValue = ((adcValue_volt / referenceVoltage) * referenceResistance) / ((adcValue_volt / referenceVoltage) + 1);
 
-	thermocoupleValues.temperature_cC = static_cast<uint16_t>((10000.0f / thermistanceValue) * 24.0f * 100.0f); // MAY NEED TO CHANGE
+	//thermocoupleValues.temperature_cC = static_cast<uint16_t>((10000.0f / thermistanceValue) * 24.0f * 100.0f); // MAY NEED TO CHANGE
 
+	thermocoupleValues.temperature_cC = static_cast<uint16_t>(adcValue);
 	return HAL_GetTick();
 }
 

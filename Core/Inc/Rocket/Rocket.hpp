@@ -21,6 +21,7 @@
 
 #include <Rocket/FlightStage.hpp>
 #include <Rocket/RocketDefines.hpp>
+#include <Rocket/RegisterMap.hpp>
 
 class Rocket
 {
