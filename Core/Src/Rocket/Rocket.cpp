@@ -59,6 +59,11 @@ void Rocket::executeIntializing()
 
 }
 
+void Rocket::executeLaunching()
+{
+
+}
+
 void Rocket::executeAscending()
 {
 	accelTimeStamp_ms = accelerometer->fillData();
@@ -103,20 +108,7 @@ void Rocket::executeAscending()
 		smokeBomb->ignite();
 	}
 
-	/*for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
-		{
-			thermocoupleTimeStamp_ms[i] = thermocouple[i]->fillData();
-		}
-
-	ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
-
-		for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
-		{
-			thermocoupleValues[i] = thermocouple[i]->getValues();
-		}*/
-
 	uint8_t test = 0;
-
 
 	/*uint8_t testBuffer[] = "Test";
 	uint8_t receivedCommand[4] = {0};
@@ -128,20 +120,6 @@ void Rocket::executeAscending()
 		smokeBomb->ignite();
 	}
 	HAL_Delay(50);*/
-
-	//altimeter->fillData();
-	//altimeter->getValues();
-	//ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
-
-	//float temp0 = thermocouple[0]->getTemperature();
-	//float temp1 = thermocouple[1]->getTemperature();
-	//float temp2 = thermocouple[2]->getTemperature();
-	//float temp3 = thermocouple[3]->getTemperature();
-
-	/*for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
-	{
-		thermocoupleValues[i] = thermocouple[i]->getTemperature();
-	}*/
 }
 
 FlightStage Rocket::getCurrentFlightStage()

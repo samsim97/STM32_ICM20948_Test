@@ -8,10 +8,6 @@ Telecommunication::Telecommunication(ITelecommunicationDriver* driver)
 
 void Telecommunication::sendData(uint8_t* data, uint8_t size)
 {
-	uint8_t test = data[0];
-	uint8_t test1 = data[1];
-	uint8_t test2 = data[size - 1];
-	uint8_t test3 = 0;
 	driver->sendData(data, size);
 }
 

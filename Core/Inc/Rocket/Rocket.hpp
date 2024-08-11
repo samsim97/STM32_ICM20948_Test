@@ -71,6 +71,7 @@ private:
 	FlightStage currentFlightStage;
 	GCSCommand currentCommand;
 	void executeIntializing();
+	void executeLaunching();
 	void executeAscending();
 
 	void initDrivers();
