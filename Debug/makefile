@@ -18,10 +18,12 @@ RM := rm -rf
 -include Core/Src/Sensors/Accelerometer/subdir.mk
 -include Core/Src/Rocket/subdir.mk
 -include Core/Src/HardwareDriver/XBEE/subdir.mk
+-include Core/Src/HardwareDriver/STMFLASH/subdir.mk
 -include Core/Src/HardwareDriver/ICM20948/subdir.mk
 -include Core/Src/HardwareDriver/BN220/subdir.mk
 -include Core/Src/HardwareDriver/BMP388/subdir.mk
 -include Core/Src/Devices/Thermocouple/subdir.mk
+-include Core/Src/Devices/Storage/subdir.mk
 -include Core/Src/Devices/SmokeBomb/subdir.mk
 -include Core/Src/subdir.mk
 -include objects.mk

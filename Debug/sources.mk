@@ -39,10 +39,12 @@ CPP_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Core/Src/Devices/SmokeBomb \
+Core/Src/Devices/Storage \
 Core/Src/Devices/Thermocouple \
 Core/Src/HardwareDriver/BMP388 \
 Core/Src/HardwareDriver/BN220 \
 Core/Src/HardwareDriver/ICM20948 \
+Core/Src/HardwareDriver/STMFLASH \
 Core/Src/HardwareDriver/XBEE \
 Core/Src/Rocket \
 Core/Src/Sensors/Accelerometer \
