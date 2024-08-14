@@ -19,5 +19,5 @@ struct StoredDataValues
 union StoredData
 {
 	StoredDataValues values;
-	uint8_t data[STORED_DATA_SIZE_BYTES];
+	uint8_t data[sizeof(values)];
 };
