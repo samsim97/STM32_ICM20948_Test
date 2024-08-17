@@ -6,9 +6,9 @@ union GCSCommand
 {
 	struct
 	{
-		uint8_t registerAddress;
-		uint8_t operation;
-		uint8_t value;
+		uint16_t registerAddress;
+		uint16_t operation;
+		uint16_t value;
 	};
-	uint8_t values[3];
+	uint8_t values[6];
 };

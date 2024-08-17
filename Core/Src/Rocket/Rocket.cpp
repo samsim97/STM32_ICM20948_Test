@@ -34,6 +34,7 @@ Rocket::Rocket(I2C_HandleTypeDef* i2cHandle, UART_HandleTypeDef* uartHandleXBEE,
 	currentFlightStage = FlightStage::ASCENDING;
 
 	isSaveActivated = true;
+	dataGatheringActivated = true;
 }
 
 void Rocket::initDrivers()
@@ -75,79 +76,91 @@ void Rocket::executeAscending()
 {
 	StoredData storedData;
 
-	accelTimeStamp_ms = accelerometer->fillData();
-	gyroTimeStamp_ms = gyroscope->fillData();
-	gpsTimeStamp_ms = gps->fillData();
-	altiTimeStamp_ms = altimeter->fillData();
-
-	for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
+	if (dataGatheringActivated)
 	{
-		thermocoupleTimeStamp_ms[i] = thermocouple[i]->fillData();
+		accelTimeStamp_ms = accelerometer->fillData();
+		gyroTimeStamp_ms = gyroscope->fillData();
+		gpsTimeStamp_ms = gps->fillData();
+		altiTimeStamp_ms = altimeter->fillData();
+
+		for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
+		{
+			thermocoupleTimeStamp_ms[i] = thermocouple[i]->fillData();
+		}
+
+		AccelerometerValues accelerometerValues = accelerometer->getValues();
+		GyroscopeValues gyroscopeValues = gyroscope->getValues();
+		GPSValues gpsValues = gps->getValues();
+		AltimeterValues altimeterValues = altimeter->getValues();
+
+		ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
+
+		for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
+		{
+			thermocoupleValues[i] = thermocouple[i]->getValues();
+		}
+
+		AccelerometerPacket accelerometerPacket = {COM_HEADER_ID , ACCELEROMETER_HEADER_ID, static_cast<uint16_t>(accelTimeStamp_ms / 100), accelerometerValues};
+		AltimeterPacket altimeterPacket = {COM_HEADER_ID, ALTIMETER_HEADER_ID, static_cast<uint16_t>(altiTimeStamp_ms / 100), altimeterValues};
+		GyroscopePacket gyroscopePacket = {COM_HEADER_ID, GYROSCOPE_HEADER_ID, static_cast<uint16_t>(gyroTimeStamp_ms / 100), gyroscopeValues};
+		GPSPacket gpsPacket = {COM_HEADER_ID, GPS_HEADER_ID, static_cast<uint16_t>(gpsTimeStamp_ms / 100), gpsValues};
+
+		ThermocouplePacket thermocouplePacket = {COM_HEADER_ID, THERMOCOUPLE_HEADER_ID, static_cast<uint16_t>(thermocoupleTimeStamp_ms[0] / 100), {thermocoupleValues[0], thermocoupleValues[1], thermocoupleValues[2], thermocoupleValues[3]}};
+
+		telecommunication->sendData(accelerometerPacket.data, sizeof(accelerometerPacket.data));
+		telecommunication->sendData(altimeterPacket.data, sizeof(altimeterPacket.data));
+		telecommunication->sendData(gyroscopePacket.data, sizeof(gyroscopePacket.data));
+		telecommunication->sendData(gpsPacket.data, sizeof(gpsPacket.data));
+
+		telecommunication->sendData(thermocouplePacket.data, sizeof(thermocouplePacket.data));
+
+		if (isSaveActivated)
+		{
+			storedData.values.accelerometerTimeStamp_cs = static_cast<uint16_t>(accelTimeStamp_ms / 100);
+			storedData.values.accelerometerValues = accelerometerValues;
+			storedData.values.altimeterTimeStamp_cs = static_cast<uint16_t>(altiTimeStamp_ms / 100);
+			storedData.values.altimeterValues = altimeterValues;
+			storedData.values.gyroscopeTimeStamp_cs = static_cast<uint16_t>(gyroTimeStamp_ms / 100);
+			storedData.values.gyroscopeValues = gyroscopeValues;
+			storedData.values.gpsTimeStamp_cs = static_cast<uint16_t>(gpsTimeStamp_ms / 100);
+			storedData.values.gpsValues = gpsValues;
+			storedData.values.thermocoupleTimeStamp_cs = static_cast<uint16_t>(thermocoupleTimeStamp_ms[3] / 100);
+			storedData.values.thermocoupleValues[0] = thermocoupleValues[0];
+			storedData.values.thermocoupleValues[1] = thermocoupleValues[1];
+			storedData.values.thermocoupleValues[2] = thermocoupleValues[2];
+			storedData.values.thermocoupleValues[3] = thermocoupleValues[3];
+
+			storage->saveData(storedData.data, sizeof(storedData));
+		}
 	}
 
-	AccelerometerValues accelerometerValues = accelerometer->getValues();
-	GyroscopeValues gyroscopeValues = gyroscope->getValues();
-	GPSValues gpsValues = gps->getValues();
-	AltimeterValues altimeterValues = altimeter->getValues();
-
-	ThermocoupleValues thermocoupleValues[THERMOCOUPLE_AMOUNT] = {0};
-
-	for (uint8_t i = 0; i < THERMOCOUPLE_AMOUNT; i++)
-	{
-		thermocoupleValues[i] = thermocouple[i]->getValues();
-	}
-
-	AccelerometerPacket accelerometerPacket = {COM_HEADER_ID , ACCELEROMETER_HEADER_ID, static_cast<uint16_t>(accelTimeStamp_ms / 100), accelerometerValues};
-	AltimeterPacket altimeterPacket = {COM_HEADER_ID, ALTIMETER_HEADER_ID, static_cast<uint16_t>(altiTimeStamp_ms / 100), altimeterValues};
-	GyroscopePacket gyroscopePacket = {COM_HEADER_ID, GYROSCOPE_HEADER_ID, static_cast<uint16_t>(gyroTimeStamp_ms / 100), gyroscopeValues};
-	GPSPacket gpsPacket = {COM_HEADER_ID, GPS_HEADER_ID, static_cast<uint16_t>(gpsTimeStamp_ms / 100), gpsValues};
-
-	ThermocouplePacket thermocouplePacket = {COM_HEADER_ID, THERMOCOUPLE_HEADER_ID, static_cast<uint16_t>(thermocoupleTimeStamp_ms[0] / 100), {thermocoupleValues[0], thermocoupleValues[1], thermocoupleValues[2], thermocoupleValues[3]}};
-	// Fragment data sending to reduce error rate
-	telecommunication->sendData(accelerometerPacket.data, sizeof(accelerometerPacket.data));
-	telecommunication->sendData(altimeterPacket.data, sizeof(altimeterPacket.data));
-	telecommunication->sendData(gyroscopePacket.data, sizeof(gyroscopePacket.data));
-	telecommunication->sendData(gpsPacket.data, sizeof(gpsPacket.data));
-
-	telecommunication->sendData(thermocouplePacket.data, sizeof(thermocouplePacket.data));
 	telecommunication->fetchData(currentCommand.values, sizeof(currentCommand));
-
-	if (isSaveActivated)
-	{
-		storedData.values.accelerometerTimeStamp_cs = static_cast<uint16_t>(accelTimeStamp_ms / 100);
-		storedData.values.accelerometerValues = accelerometerValues;
-		storedData.values.altimeterTimeStamp_cs = static_cast<uint16_t>(altiTimeStamp_ms / 100);
-		storedData.values.altimeterValues = altimeterValues;
-		storedData.values.gyroscopeTimeStamp_cs = static_cast<uint16_t>(gyroTimeStamp_ms / 100);
-		storedData.values.gyroscopeValues = gyroscopeValues;
-		storedData.values.gpsTimeStamp_cs = static_cast<uint16_t>(gpsTimeStamp_ms / 100);
-		storedData.values.gpsValues = gpsValues;
-		storedData.values.thermocoupleTimeStamp_cs = static_cast<uint16_t>(thermocoupleTimeStamp_ms[3] / 100);
-		storedData.values.thermocoupleValues[0] = thermocoupleValues[0];
-		storedData.values.thermocoupleValues[1] = thermocoupleValues[1];
-		storedData.values.thermocoupleValues[2] = thermocoupleValues[2];
-		storedData.values.thermocoupleValues[3] = thermocoupleValues[3];
-
-		storage->saveData(storedData.data, sizeof(storedData));
-	}
 
 	if (currentCommand.registerAddress == SMOKE_IGNITE_REGISTER && currentCommand.operation == 0x01 && currentCommand.value == 0x01)
 	{
+		uint8_t messageSuccess[] = {0xA5, 0x5A, 0xA5, 0x10, 0x01};
 		smokeBomb->ignite();
+		telecommunication->sendData(messageSuccess, sizeof(messageSuccess));
 	}
 
 	if (currentCommand.registerAddress == DATA_CLEAR_REGISTER && currentCommand.operation == 0x01 && currentCommand.value == 0x01)
 	{
+		uint8_t messageSuccess[] = {0xA5, 0x5A, 0xA5, 0x81, 0x01};
 		stmFlashDriver->clearMemory();
+		telecommunication->sendData(messageSuccess, sizeof(messageSuccess));
 	}
 
 	// COMMENT
-	currentCommand.registerAddress = DATA_FETCHING_REGISTER;
-	currentCommand.operation = 0x00;
-	currentCommand.value = 0x00;
+	//currentCommand.registerAddress = DATA_FETCHING_REGISTER;
+	//currentCommand.operation = 0x00;
+	//currentCommand.value = 0x00;
 
 	if (currentCommand.registerAddress == DATA_FETCHING_REGISTER && currentCommand.operation == 0x00 && currentCommand.value == 0x00)
 	{
+		uint8_t messageBegin[] = {0xA5, 0x5A, 0xA5, 0x81, 0x02};
+		uint8_t messageSuccess[] = {0xA5, 0x5A, 0xA5, 0x81, 0x02};
+
+		telecommunication->sendData(messageBegin, sizeof(messageBegin));
 		stmFlashDriver->resetReadAddress();
 		StoredData dataStored;
 
@@ -167,6 +180,7 @@ void Rocket::executeAscending()
 
 			telecommunication->sendData(thermocouplePacket.data, sizeof(thermocouplePacket.data));
 		}
+		telecommunication->sendData(messageSuccess, sizeof(messageSuccess));
 	}
 
 	uint8_t test = 0;

@@ -5,9 +5,9 @@
 #include <Rocket/AvionicsValues.hpp>
 #include <Sensors/Gyroscope/GyroscopeValues.hpp>
 
-#define SMOKE_IGNITE_REGISTER 0x10
-#define DATA_FETCHING_REGISTER 0x80
-#define DATA_CLEAR_REGISTER 0x81
+#define SMOKE_IGNITE_REGISTER 0xA510
+#define DATA_FETCHING_REGISTER 0xA580
+#define DATA_CLEAR_REGISTER 0xA581
 
 struct Registers
 {

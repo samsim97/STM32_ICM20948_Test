@@ -77,6 +77,7 @@ private:
 	GCSCommand currentCommand;
 
 	bool isSaveActivated;
+	bool dataGatheringActivated;
 
 	void executeIntializing();
 	void executeLaunching();

@@ -17,5 +17,6 @@ public:
 private:
 	NMEAMessage** messages;
 
+	void clearMessages();
 };
 
