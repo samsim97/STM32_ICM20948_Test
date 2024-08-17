@@ -112,11 +112,6 @@ void Rocket::executeAscending()
 	telecommunication->sendData(thermocouplePacket.data, sizeof(thermocouplePacket.data));
 	telecommunication->fetchData(currentCommand.values, sizeof(currentCommand));
 
-	if (currentCommand.registerAddress == SMOKE_IGNITE_REGISTER && currentCommand.operation == 0x01 && currentCommand.value == 0x01)
-	{
-		smokeBomb->ignite();
-	}
-
 	if (isSaveActivated)
 	{
 		storedData.values.accelerometerTimeStamp_cs = static_cast<uint16_t>(accelTimeStamp_ms / 100);
@@ -136,13 +131,24 @@ void Rocket::executeAscending()
 		storage->saveData(storedData.data, sizeof(storedData));
 	}
 
+	if (currentCommand.registerAddress == SMOKE_IGNITE_REGISTER && currentCommand.operation == 0x01 && currentCommand.value == 0x01)
+	{
+		smokeBomb->ignite();
+	}
+
+	if (currentCommand.registerAddress == DATA_CLEAR_REGISTER && currentCommand.operation == 0x01 && currentCommand.value == 0x01)
+	{
+		stmFlashDriver->clearMemory();
+	}
+
 	// COMMENT
 	currentCommand.registerAddress = DATA_FETCHING_REGISTER;
 	currentCommand.operation = 0x00;
-	currentCommand.value = 0;
+	currentCommand.value = 0x00;
 
 	if (currentCommand.registerAddress == DATA_FETCHING_REGISTER && currentCommand.operation == 0x00 && currentCommand.value == 0x00)
 	{
+		stmFlashDriver->resetReadAddress();
 		StoredData dataStored;
 
 		while (storage->readData(dataStored.data, sizeof(dataStored)))

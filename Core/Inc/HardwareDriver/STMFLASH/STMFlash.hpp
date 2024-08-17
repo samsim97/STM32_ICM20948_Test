@@ -13,6 +13,9 @@ public:
 	void write(uint8_t* data, uint32_t size);
 	bool read(uint8_t* buffer, uint32_t size);
 
+	void clearMemory();
+	void resetReadAddress();
+
 private:
 	//static const uint32_t BUFFER_STACK_SIZE = 0x10000;
 
@@ -31,8 +34,6 @@ private:
 	uint32_t currentWriteAddress;
 	uint32_t currentReadAddress;
 
-	void resetReadAddress();
-
 	void programByte(uint8_t data);
 	void programHalfWord(uint16_t data);
 	void programWord(uint32_t data);
@@ -45,5 +46,4 @@ private:
 	bool readFlash(uint8_t* buffer, uint32_t size);
 
 	void findCurrentAddress();
-	void clearMemory();
 };

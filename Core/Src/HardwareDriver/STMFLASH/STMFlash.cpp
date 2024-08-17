@@ -5,6 +5,7 @@ STMFlash::STMFlash()
 	currentWriteAddress = START_ADDRESS;
 	currentReadAddress = START_ADDRESS;
 
+	findCurrentAddress();
 	//clearMemory();
 }
 
@@ -41,7 +42,7 @@ bool STMFlash::readFlash(uint8_t* buffer, uint32_t size)
 	uint8_t tempValue = 0x00;
 	for (uint32_t i = 0; i < size + 1; i++)
 	{
-		if (checkAddress(currentReadAddress))
+		if (checkAddress(currentReadAddress) || currentReadAddress == currentWriteAddress)
 		{
 			tempValue = readByte(currentReadAddress);
 			if ((START_ADDRESS - currentReadAddress) % (sizeof(StoredData) + 1) != 0)
@@ -88,7 +89,7 @@ void STMFlash::findCurrentAddress()
 
 	for (uint32_t address = START_ADDRESS; address < END_ADDRESS; address += STORED_DATA_SIZE_BIT)
 	{
-		value = *(volatile uint8_t*)address;
+		value = readByte(address);
 		if (value != START_BYTE)
 		{
 			currentWriteAddress = value;
