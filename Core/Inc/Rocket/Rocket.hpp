@@ -11,6 +11,7 @@
 #include <Devices/SmokeBomb/SmokeBomb.hpp>
 #include <Devices/Thermocouple/Thermocouple.hpp>
 #include <Devices/Thermocouple/ThermocoupleValues.hpp>
+#include <Devices/Storage/Storage.hpp>
 
 #include <Telecommunication/Telecommunication.hpp>
 
@@ -18,6 +19,7 @@
 #include <HardwareDriver/BMP388/BMP388.hpp>
 #include <HardwareDriver/BN220/BN220.hpp>
 #include <HardwareDriver/XBEE/XBEE.hpp>
+#include <HardwareDriver/STMFlash/STMFlash.hpp>
 
 #include <Rocket/FlightStage.hpp>
 #include <Rocket/RocketDefines.hpp>
@@ -56,6 +58,7 @@ private:
 	// Devices
 	SmokeBomb* smokeBomb;
 	Thermocouple* thermocouple[THERMOCOUPLE_AMOUNT];
+	Storage* storage;
 
 	// Telecommunication
 	Telecommunication* telecommunication;
@@ -66,10 +69,15 @@ private:
 	BN220* bn220Driver;
 	XBEE* xbeeDriver;
 
+	// Drivers -- STM
+	STMFlash* stmFlashDriver;
 
 	// State Machine
 	FlightStage currentFlightStage;
 	GCSCommand currentCommand;
+
+	bool isSaveActivated;
+
 	void executeIntializing();
 	void executeLaunching();
 	void executeAscending();

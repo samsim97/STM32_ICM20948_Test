@@ -51,6 +51,10 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
  ../Core/Inc/Devices/SmokeBomb/SmokeBomb.hpp \
  ../Core/Inc/Devices/Thermocouple/Thermocouple.hpp \
  ../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp \
+ ../Core/Inc/Devices/Storage/Storage.hpp \
+ ../Core/Inc/HardwareDriver/STMFlash/STMFlash.hpp \
+ ../Core/Inc/Devices/Storage/IStorageDriver.hpp \
+ ../Core/Inc/Devices/Storage/StoredData.hpp \
  ../Core/Inc/Telecommunication/Telecommunication.hpp \
  ../Core/Inc/Telecommunication/Packet/AccelerometerPacket.hpp \
  ../Core/Inc/Telecommunication/Packet/AltimeterPacket.hpp \
@@ -127,6 +131,10 @@ Core/Src/Rocket/Rocket.o: ../Core/Src/Rocket/Rocket.cpp \
 ../Core/Inc/Devices/SmokeBomb/SmokeBomb.hpp:
 ../Core/Inc/Devices/Thermocouple/Thermocouple.hpp:
 ../Core/Inc/Devices/Thermocouple/ThermocoupleValues.hpp:
+../Core/Inc/Devices/Storage/Storage.hpp:
+../Core/Inc/HardwareDriver/STMFlash/STMFlash.hpp:
+../Core/Inc/Devices/Storage/IStorageDriver.hpp:
+../Core/Inc/Devices/Storage/StoredData.hpp:
 ../Core/Inc/Telecommunication/Telecommunication.hpp:
 ../Core/Inc/Telecommunication/Packet/AccelerometerPacket.hpp:
 ../Core/Inc/Telecommunication/Packet/AltimeterPacket.hpp:

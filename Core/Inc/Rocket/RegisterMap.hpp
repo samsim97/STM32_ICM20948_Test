@@ -6,6 +6,7 @@
 #include <Sensors/Gyroscope/GyroscopeValues.hpp>
 
 #define SMOKE_IGNITE_REGISTER 0x10
+#define DATA_FETCHING_REGISTER 0x80
 
 struct Registers
 {
